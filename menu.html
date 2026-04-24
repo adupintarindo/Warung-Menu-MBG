@@ -432,15 +432,24 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
   </div>
 </header>
 
+<!-- Pull to refresh indicator -->
+<div class="ptr-indicator" id="ptrIndicator">
+  <div class="ptr-spinner"></div>
+  <span style="font-size:12px;letter-spacing:.12em;text-transform:uppercase">Memperbarui menu...</span>
+</div>
+
 <!-- ══════════════ FILTERS ══════════════ -->
 <div class="filters">
   <div class="container filters__inner">
-    <div class="search">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="searchInput" type="text" placeholder="Cari rendang, gado-gado, soto..." data-id-placeholder="Cari rendang, gado-gado, soto..." data-en-placeholder="Search rendang, gado-gado, soto..." />
-      <span class="search__count" id="searchCount">80</span>
+    <div class="search-bar">
+      <span class="search-bar__icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </span>
+      <input id="searchInput" class="search-bar__input" type="search" placeholder="Cari rendang, gado-gado, soto..." data-id-placeholder="Cari rendang, gado-gado, soto..." data-en-placeholder="Search rendang, gado-gado, soto..." aria-label="Cari menu" />
+      <button class="search-bar__clear" id="searchClear" aria-label="Hapus pencarian">×</button>
+      <span style="padding:0 14px;color:var(--gold);font-family:var(--font-serif);font-style:italic;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap" id="searchCount">80</span>
     </div>
-    <div class="chips" id="tagChips"></div>
+    <div class="filter-chips" id="tagChips" role="group" aria-label="Filter protein"></div>
     <select class="prov-select" id="provSelect"></select>
   </div>
 </div>
@@ -474,12 +483,56 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
   </div>
 </div>
 
+<!-- ── Bottom Sheet (mobile modal) ── -->
+<div class="bottom-sheet-backdrop" id="bsBackdrop"></div>
+<div class="bottom-sheet" id="bottomSheet" role="dialog" aria-modal="true">
+  <div class="bottom-sheet__handle"></div>
+  <div class="bottom-sheet__header">
+    <div class="bottom-sheet__title" id="bsTitle">Menu</div>
+    <button class="bottom-sheet__close" id="bsClose" aria-label="Tutup">×</button>
+  </div>
+  <div class="bottom-sheet__body" id="bsBody"></div>
+</div>
+
 <div id="footer-slot"></div>
 
 <script src="assets/shared.js"></script>
 <script src="assets/data.js"></script>
 <script>
 window.mountLayout();
+if (window.renderNavMega) window.renderNavMega();
+if (window.MBG && window.MBG.initCountUp) window.MBG.initCountUp();
+
+// Search clear button
+const searchClear = document.getElementById('searchClear');
+if (searchClear) {
+  searchInput.addEventListener('input', () => {
+    searchClear.classList.toggle('is-visible', searchInput.value.length > 0);
+  });
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchClear.classList.remove('is-visible');
+    render();
+    searchInput.focus();
+  });
+}
+
+// Hover zoom on card photos (desktop only)
+const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+if (!isTouch) {
+  document.addEventListener('mouseover', e => {
+    const photo = e.target.closest('.card2 .menu-photo');
+    if (photo) photo.querySelector('.menu-photo__ornament').style.transform = 'scale(1.08)';
+  });
+  document.addEventListener('mouseout', e => {
+    const photo = e.target.closest('.card2 .menu-photo');
+    if (photo) photo.querySelector('.menu-photo__ornament').style.transform = '';
+  });
+}
+
+// Pull-to-refresh on mobile
+const ptrEl = document.getElementById('ptrIndicator');
+if (ptrEl) window.MBG.initPullToRefresh(() => { render(); });
 
 const grid = document.getElementById('mgrid');
 const searchInput = document.getElementById('searchInput');
@@ -495,6 +548,8 @@ const modalInner = document.getElementById('modalInner');
 // ── Tag chips ──
 const tags = [
   { id: 'all',        id_label: 'Semua',     en_label: 'All' },
+  { id: 'fav',        id_label: '♥ Favorit', en_label: '♥ Favorites' },
+  { id: 'weekly',     id_label: 'Minggu Ini',en_label: 'This Week' },
   { id: 'ayam',       id_label: 'Ayam',      en_label: 'Chicken' },
   { id: 'daging',     id_label: 'Daging',    en_label: 'Beef' },
   { id: 'ikan',       id_label: 'Ikan',      en_label: 'Fish' },
@@ -503,13 +558,13 @@ const tags = [
 ];
 tags.forEach(t => {
   const b = document.createElement('button');
-  b.className = 'chip-btn' + (t.id === 'all' ? ' is-active' : '');
+  b.className = 'filter-chip' + (t.id === 'all' ? ' is-active' : '');
   b.dataset.tag = t.id;
   b.dataset.id = t.id_label;
   b.dataset.en = t.en_label;
   b.textContent = t.id_label;
   b.addEventListener('click', () => {
-    tagChips.querySelectorAll('.chip-btn').forEach(x => x.classList.remove('is-active'));
+    tagChips.querySelectorAll('.filter-chip').forEach(x => x.classList.remove('is-active'));
     b.classList.add('is-active');
     render();
   });
@@ -529,13 +584,40 @@ provSelect.addEventListener('change', render);
 searchInput.addEventListener('input', render);
 
 // ── Render ──
+// ── Regional badge helper ──
+function getRegionBadge(province) {
+  const map = {
+    'Aceh': 'sumatera', 'Sumatera Utara': 'sumatera', 'Sumatera Barat': 'sumatera',
+    'Riau': 'sumatera', 'Jambi': 'sumatera', 'Sumatera Selatan': 'sumatera',
+    'Bengkulu': 'sumatera', 'Lampung': 'sumatera', 'Kepulauan Bangka Belitung': 'sumatera',
+    'Kepulauan Riau': 'sumatera',
+    'DKI Jakarta': 'jawa', 'Jawa Barat': 'jawa', 'Jawa Tengah': 'jawa',
+    'DI Yogyakarta': 'jawa', 'Jawa Timur': 'jawa', 'Banten': 'jawa',
+    'Bali': 'nusra', 'Nusa Tenggara Barat': 'nusra', 'Nusa Tenggara Timur': 'nusra',
+    'Kalimantan Barat': 'kalimantan', 'Kalimantan Tengah': 'kalimantan',
+    'Kalimantan Selatan': 'kalimantan', 'Kalimantan Timur': 'kalimantan',
+    'Kalimantan Utara': 'kalimantan',
+    'Sulawesi Utara': 'sulawesi', 'Sulawesi Tengah': 'sulawesi',
+    'Sulawesi Selatan': 'sulawesi', 'Sulawesi Tenggara': 'sulawesi',
+    'Gorontalo': 'sulawesi', 'Sulawesi Barat': 'sulawesi',
+    'Maluku': 'maluku', 'Maluku Utara': 'maluku',
+    'Papua': 'papua', 'Papua Barat': 'papua', 'Papua Selatan': 'papua',
+    'Papua Tengah': 'papua', 'Papua Pegunungan': 'papua', 'Papua Barat Daya': 'papua',
+  };
+  const cls = map[province] || 'jawa';
+  const labels = { jawa:'Jawa', sumatera:'Sumatera', sulawesi:'Sulawesi', kalimantan:'Kalimantan', papua:'Papua', nusra:'Nusa Tenggara', maluku:'Maluku' };
+  return `<span class="badge--region badge--${cls}" style="position:absolute;bottom:10px;left:10px">${labels[cls]||province}</span>`;
+}
+
 function render() {
   const q = searchInput.value.trim().toLowerCase();
-  const activeTag = tagChips.querySelector('.chip-btn.is-active').dataset.tag;
+  const activeTag = (tagChips.querySelector('.filter-chip.is-active') || tagChips.querySelector('.filter-chip')).dataset.tag;
   const prov = provSelect.value;
 
   const filtered = window.MBG_MENUS.filter(m => {
-    if (activeTag !== 'all' && m.tag !== activeTag) return false;
+    if (activeTag === 'fav') { if (!window.MBG.favs.isFav(m.no)) return false; }
+    else if (activeTag === 'weekly') { if (!m.weekly) return false; }
+    else if (activeTag !== 'all' && m.tag !== activeTag) return false;
     if (prov !== 'all' && m.province !== prov) return false;
     if (q) {
       const hay = [m.name_id, m.name_en, m.province, m.region, m.sppg, m.protein, m.karbo, m.sayur, m.pelengkap, m.sambal].join(' ').toLowerCase();
@@ -551,11 +633,13 @@ function render() {
     c.id = 'menu-' + m.no;
     c.dataset.no = m.no;
     c.innerHTML = `
-      <div class="menu-photo" style="position:relative">
-        <div class="menu-photo__ornament"></div>
+      <div class="menu-photo" style="position:relative;overflow:hidden">
+        <div class="menu-photo__ornament" style="transition:transform .4s cubic-bezier(.2,.8,.2,1)"></div>
         <div class="menu-photo__num">${m.no}</div>
         <div class="menu-photo__name">${m.name_id}</div>
         ${m.weekly ? '<span class="badge--week" data-id="Minggu ini" data-en="This week">Minggu ini</span>' : ''}
+        ${getRegionBadge(m.province)}
+        <button class="fav-btn ${window.MBG.favs.isFav(m.no) ? 'is-fav' : ''}" data-no="${m.no}" aria-label="Simpan favorit" title="Tambah favorit">&#9825;</button>
       </div>
       <div class="card2__body">
         <div class="card2__prov">${(m.province||'').toUpperCase()}</div>
@@ -566,7 +650,25 @@ function render() {
           <span class="card2__kcal">${m.energi} <small style="color:var(--ink-mute)">kkal</small></span>
         </div>
       </div>`;
-    c.addEventListener('click', () => openModal(m));
+    c.addEventListener('click', (e) => {
+      // Don't open modal if clicking fav button
+      if (e.target.closest('.fav-btn')) return;
+      if (isMobile()) { openBottomSheet(m); } else { openModal(m); }
+    });
+    // Fav button
+    const favBtn = c.querySelector('.fav-btn');
+    if (favBtn) {
+      favBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isFav = window.MBG.favs.toggle(m.no);
+        favBtn.classList.toggle('is-fav', isFav);
+        favBtn.innerHTML = isFav ? '&#9829;' : '&#9825;';
+        window.MBG.toast(
+          isFav ? `${m.name_id} disimpan ke favorit` : `${m.name_id} dihapus dari favorit`,
+          { type: isFav ? 'success' : 'default', duration: 2500 }
+        );
+      });
+    }
     grid.appendChild(c);
   });
 
@@ -653,6 +755,48 @@ function closeModal() {
   modal.classList.remove('is-open');
   document.body.style.overflow = '';
 }
+
+// Bottom sheet for mobile
+const bsBackdrop = document.getElementById('bsBackdrop');
+const bottomSheet = document.getElementById('bottomSheet');
+const bsTitle = document.getElementById('bsTitle');
+const bsBody = document.getElementById('bsBody');
+const bsClose = document.getElementById('bsClose');
+const isMobile = () => window.innerWidth < 768;
+
+function openBottomSheet(m) {
+  bsTitle.textContent = m.name_id;
+  bsBody.innerHTML = `
+    <div style="display:grid;gap:14px">
+      <div style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)">${m.sppg} · ${m.province}</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:var(--bg-alt);padding:14px;border-top:2px solid var(--gold)">
+        <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.energi}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">kkal</div></div>
+        <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.p_protein}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">Protein g</div></div>
+        <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.lemak}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">Lemak g</div></div>
+        <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.p_karbo}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">Karbo g</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+        <div style="padding:10px;border:1px solid var(--rule)"><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Protein</div>${m.protein}</div>
+        <div style="padding:10px;border:1px solid var(--rule)"><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Karbohidrat</div>${m.karbo}</div>
+        <div style="padding:10px;border:1px solid var(--rule)"><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Sayur</div>${m.sayur}</div>
+        <div style="padding:10px;border:1px solid var(--rule)"><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Sambal</div>${m.sambal}</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <a href="catering.html" class="btn btn--gold btn--small" style="flex:1;text-align:center">Pesan Catering</a>
+        <a href="https://wa.me/6281234567890" class="btn btn--wa btn--small" target="_blank" rel="noopener">Chat WA</a>
+      </div>
+    </div>`;
+  bsBackdrop.classList.add('is-open');
+  bottomSheet.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBottomSheet() {
+  bsBackdrop.classList.remove('is-open');
+  bottomSheet.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+if (bsClose) bsClose.addEventListener('click', closeBottomSheet);
+if (bsBackdrop) bsBackdrop.addEventListener('click', closeBottomSheet);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
@@ -701,6 +845,15 @@ if (window.MBG_WA && stickyWaBtn) stickyWaBtn.href = window.waLink(window.MBG_WA
 window.addEventListener('scroll', () => {
   if (stickyCta) stickyCta.classList.toggle('is-visible', window.scrollY > 300);
 }, { passive: true });
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js")
+        .then(reg => console.log("[MBG] SW registered:", reg.scope))
+        .catch(err => console.warn("[MBG] SW registration failed:", err));
+    });
+  }
 </script>
 </body>
 </html>

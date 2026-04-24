@@ -799,3 +799,540 @@ button, a.btn, input[type="checkbox"], input[type="radio"] {
 .snap-x { scroll-snap-type: x mandatory; overflow-x: auto; display: flex; gap: 16px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 .snap-x::-webkit-scrollbar { display: none; }
 .snap-x > * { scroll-snap-align: start; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   UI/UX UPGRADE PACK — 20 Recommendations
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─── 01. Glassmorphism navbar on scroll ─── */
+.nav {
+  background: rgba(26, 36, 86, 0.65);
+  backdrop-filter: blur(8px) saturate(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(1.1);
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+}
+.nav--scrolled {
+  background: rgba(16, 21, 53, 0.94);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.28);
+}
+[data-theme="dark"] .nav--scrolled {
+  background: rgba(7, 11, 28, 0.96);
+}
+
+/* ─── 16. Toast notification system ─── */
+.mbg-toast-container {
+  position: fixed;
+  top: 96px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.mbg-toast {
+  pointer-events: auto;
+  background: var(--navy);
+  color: var(--cream);
+  border: 1px solid var(--gold-hair);
+  border-left: 3px solid var(--gold);
+  padding: 14px 18px 14px 16px;
+  font-size: 14px;
+  min-width: 220px;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.35s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+}
+.mbg-toast.is-visible { transform: translateX(0); opacity: 1; }
+.mbg-toast--success { border-left-color: #25D366; }
+.mbg-toast--error   { border-left-color: var(--red); }
+.mbg-toast__icon { font-size: 16px; flex-shrink: 0; }
+.mbg-toast__msg { flex: 1; line-height: 1.4; }
+.mbg-toast__close {
+  background: none; border: none; color: var(--cream-mute);
+  cursor: pointer; padding: 0; font-size: 18px; line-height: 1;
+  flex-shrink: 0; min-height: unset;
+}
+.mbg-toast__close:hover { color: var(--gold); }
+
+/* ─── 13. Floating WhatsApp button ─── */
+.mbg-wa-fab {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 89;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  border: none;
+  cursor: pointer;
+}
+.mbg-wa-fab.is-visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.mbg-wa-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
+}
+.mbg-wa-fab__pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.4);
+  animation: wa-pulse 2s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1); opacity: 0.8; }
+  70%  { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* ─── 17. Focus ring ─── */
+:focus-visible {
+  outline: 2px solid var(--gold) !important;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+a:focus-visible, button:focus-visible { outline-offset: 4px; }
+
+/* ─── 18. Lazy-load blur-up ─── */
+img.lazy {
+  filter: blur(8px);
+  transition: filter 0.6s ease;
+}
+img.lazy.loaded { filter: blur(0); }
+
+/* ─── 04. Regional badge color-coding ─── */
+.badge--region {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.badge--jawa      { background: rgba(26,36,86,0.12); color: #1A2456; }
+.badge--sumatera  { background: rgba(201,168,76,0.18); color: #7a5c00; }
+.badge--sulawesi  { background: rgba(0,80,60,0.12); color: #004030; }
+.badge--kalimantan{ background: rgba(0,90,40,0.12); color: #005028; }
+.badge--papua     { background: rgba(120,20,20,0.12); color: #781414; }
+.badge--nusra     { background: rgba(0,80,140,0.12); color: #00508c; }
+.badge--maluku    { background: rgba(120,60,0,0.12); color: #783c00; }
+
+[data-theme="dark"] .badge--jawa      { background: rgba(201,168,76,0.15); color: var(--gold-light); }
+[data-theme="dark"] .badge--sumatera  { background: rgba(201,168,76,0.2); color: var(--gold-light); }
+[data-theme="dark"] .badge--sulawesi  { background: rgba(0,200,140,0.15); color: #00c88c; }
+[data-theme="dark"] .badge--kalimantan{ background: rgba(0,200,100,0.15); color: #00c864; }
+[data-theme="dark"] .badge--papua     { background: rgba(240,96,64,0.15); color: #f06040; }
+[data-theme="dark"] .badge--nusra     { background: rgba(64,160,240,0.15); color: #40a0f0; }
+[data-theme="dark"] .badge--maluku    { background: rgba(240,160,64,0.15); color: #f0a040; }
+
+/* ─── 05. Mega-menu dropdown ─── */
+.nav__mega-trigger { position: relative; }
+.nav__mega {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  width: 560px;
+  background: var(--navy-deep);
+  border: 1px solid var(--gold-hair);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.nav__mega-trigger:hover .nav__mega,
+.nav__mega-trigger:focus-within .nav__mega {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav__mega::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px; height: 10px;
+  background: var(--navy-deep);
+  border-left: 1px solid var(--gold-hair);
+  border-top: 1px solid var(--gold-hair);
+  transform: translateX(-50%) rotate(45deg);
+}
+.nav__mega__col { padding: 24px; }
+.nav__mega__col + .nav__mega__col { border-left: 1px solid var(--gold-hair); }
+.nav__mega__label {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.nav__mega__list { list-style: none; padding: 0; margin: 0; }
+.nav__mega__list li { margin-bottom: 4px; }
+.nav__mega__list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  font-size: 13px;
+  color: var(--cream-soft);
+  border-radius: 2px;
+  transition: background 0.15s, color 0.15s;
+}
+.nav__mega__list a:hover { background: rgba(201,168,76,0.1); color: var(--gold-light); }
+.nav__mega__preview {
+  background: rgba(201,168,76,0.06);
+  border-radius: 2px;
+  padding: 12px;
+}
+.nav__mega__preview-label {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* ─── 07. Filter chip horizontal scroll ─── */
+.filter-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.filter-chips::-webkit-scrollbar { display: none; }
+.filter-chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  min-height: 36px;
+}
+.filter-chip:hover { border-color: var(--gold); color: var(--gold); }
+.filter-chip.is-active {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+[data-theme="dark"] .filter-chip { background: var(--surface); color: var(--cream-soft); }
+[data-theme="dark"] .filter-chip.is-active { color: var(--navy); }
+
+/* ─── 08. Sticky search bar ─── */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-bar:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-hair);
+}
+.search-bar__icon {
+  padding: 0 14px;
+  color: var(--ink-mute);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.search-bar__input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 13px 0;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  min-height: 48px;
+}
+.search-bar__input::placeholder { color: var(--ink-mute); }
+.search-bar__clear {
+  padding: 0 14px;
+  color: var(--ink-mute);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+  display: none;
+  min-height: unset;
+  align-items: center;
+}
+.search-bar__clear.is-visible { display: flex; }
+.search-bar__clear:hover { color: var(--gold); }
+
+/* ─── 09. Bottom sheet (mobile) ─── */
+.bottom-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8,14,32,0.65);
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.bottom-sheet-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.bottom-sheet {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--surface);
+  z-index: 301;
+  border-top: 1px solid var(--gold-hair);
+  border-radius: 16px 16px 0 0;
+  padding: 0 0 env(safe-area-inset-bottom);
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.38s cubic-bezier(.2,.8,.2,1);
+}
+.bottom-sheet.is-open { transform: translateY(0); }
+.bottom-sheet__handle {
+  width: 40px; height: 4px;
+  background: var(--rule);
+  border-radius: 2px;
+  margin: 12px auto 0;
+}
+.bottom-sheet__header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.bottom-sheet__title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.2;
+  flex: 1;
+}
+.bottom-sheet__close {
+  width: 32px; height: 32px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  color: var(--ink-mute);
+  cursor: pointer;
+  flex-shrink: 0;
+  background: none;
+  min-height: unset;
+  transition: all 0.2s;
+}
+.bottom-sheet__close:hover { border-color: var(--gold); color: var(--gold); }
+.bottom-sheet__body { padding: 20px 24px 32px; }
+
+/* Only show bottom-sheet on mobile, use modal on desktop */
+@media (min-width: 768px) {
+  .bottom-sheet { display: none; }
+  .bottom-sheet-backdrop { display: none; }
+}
+
+/* ─── 11. Sticky CTA dismiss button ─── */
+.sticky-cta__dismiss {
+  width: 28px; height: 28px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  color: var(--cream-mute);
+  cursor: pointer;
+  background: none;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  font-size: 14px;
+  min-height: unset;
+  transition: all 0.2s;
+}
+.sticky-cta__dismiss:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ─── 12. Pull-to-refresh indicator ─── */
+.ptr-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: height 0.2s ease, opacity 0.2s ease;
+}
+.ptr-indicator.is-visible { height: 56px; opacity: 1; }
+.ptr-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid var(--gold-hair);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── 15. Favorites / bookmark button ─── */
+.fav-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 34px; height: 34px;
+  background: rgba(16,21,53,0.7);
+  border: 1px solid var(--gold-hair);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  cursor: pointer;
+  z-index: 2;
+  color: var(--cream);
+  transition: all 0.2s;
+  min-height: unset;
+  backdrop-filter: blur(4px);
+  font-size: 14px;
+}
+.fav-btn:hover { border-color: var(--gold); color: var(--gold); }
+.fav-btn.is-fav { color: var(--gold); border-color: var(--gold); background: rgba(201,168,76,0.15); }
+
+/* ─── 14. Count-up stat animation ─── */
+.count-up { display: inline-block; }
+
+/* ─── 19. Dark mode toggle sun/moon icons ─── */
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun  { display: none; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+
+/* ─── Multi-step form progress bar (catering) ─── */
+.step-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 40px;
+  counter-reset: step;
+}
+.step-bar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+.step-bar__item + .step-bar__item::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 50%;
+  left: -50%;
+  height: 2px;
+  background: var(--rule);
+  transition: background 0.3s;
+}
+.step-bar__item.is-done + .step-bar__item::before { background: var(--gold); }
+.step-bar__dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--rule);
+  display: grid; place-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-mute);
+  background: var(--surface);
+  z-index: 1;
+  transition: all 0.3s;
+  position: relative;
+}
+.step-bar__item.is-active .step-bar__dot {
+  border-color: var(--gold);
+  color: var(--navy);
+  background: var(--gold);
+}
+.step-bar__item.is-done .step-bar__dot {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--navy);
+}
+.step-bar__label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.step-bar__item.is-active .step-bar__label { color: var(--gold); font-weight: 600; }
+.step-bar__item.is-done .step-bar__label { color: var(--ink-soft); }
+.step-panel { display: none; }
+.step-panel.is-active { display: block; }
+
+/* ─── Print styles (gizi page) ─── */
+@media print {
+  .nav, .nav__drawer, .footer, .back-to-top, .mbg-wa-fab, .sticky-cta,
+  .mbg-toast-container, .filter-chips, .search-bar, .btn, .ptr-indicator { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .page { padding-top: 0 !important; }
+  .section { padding: 12pt 0 !important; }
+  table { width: 100% !important; border-collapse: collapse !important; }
+  th, td { border: 0.5pt solid #aaa !important; padding: 5pt 7pt !important; font-size: 9pt; }
+  th { background: #1A2456 !important; color: #fff !important; }
+  .nutri-bar { display: none !important; }
+  h1, h2, h3 { color: #1A2456 !important; }
+  .gold-divider { display: none !important; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 8pt; }
+  .container { max-width: 100% !important; padding: 0 !important; }
+}
+
+/* ─── 10. Global 48px tap target enforcement ─── */
+@media (hover: none) and (pointer: coarse) {
+  .btn, a.btn { min-height: 48px; padding-top: 14px; padding-bottom: 14px; }
+  .filter-chip { min-height: 44px; padding: 10px 16px; }
+  .nav__mega__list a { padding: 12px 10px; }
+  .lang-toggle button { padding: 12px 16px; }
+  .fav-btn { width: 40px; height: 40px; }
+  .stepper__btn { width: 48px; height: 48px; min-width: 48px; min-height: 48px; }
+}

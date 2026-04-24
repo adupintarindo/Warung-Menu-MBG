@@ -43,6 +43,10 @@
 .tier li { display: flex; gap: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
 .tier li::before { content: '◆'; color: var(--gold); font-size: 8px; line-height: 1.8; flex-shrink: 0; }
 .form-sec { background: var(--bg-alt); padding: var(--section-py) 0; }
+/* Step nav for multi-step */
+.step-nav { display: flex; gap: 12px; margin-bottom: 28px; }
+.step-nav__btn { display: none; }
+@media (max-width: 600px) { .cform { padding: 24px 20px; } }
 .form-sec__grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; }
 @media (max-width: 900px) { .form-sec__grid { grid-template-columns: 1fr; } }
 .form-sec__intro h2 { font-family: var(--font-serif); font-style: italic; font-size: clamp(36px, 4.5vw, 60px); font-weight: 500; line-height: 1.05; margin: 14px 0 20px; color: var(--ink); }
@@ -201,7 +205,25 @@
     </div>
 
     <form class="cform" id="cform">
-      <div class="cform__grid" id="formFields">
+      <!-- Step progress bar -->
+      <div class="step-bar" id="stepBar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+        <div class="step-bar__item is-active" id="stepItem1">
+          <div class="step-bar__dot">1</div>
+          <div class="step-bar__label" data-id="Detail" data-en="Details">Detail</div>
+        </div>
+        <div class="step-bar__item" id="stepItem2">
+          <div class="step-bar__dot">2</div>
+          <div class="step-bar__label" data-id="Kontak" data-en="Contact">Kontak</div>
+        </div>
+        <div class="step-bar__item" id="stepItem3">
+          <div class="step-bar__dot">3</div>
+          <div class="step-bar__label" data-id="Konfirmasi" data-en="Confirm">Konfirmasi</div>
+        </div>
+      </div>
+
+      <!-- Step 1: Detail pesanan -->
+      <div class="step-panel is-active" id="step1">
+      <div class="cform__grid">
         <div class="field">
           <label data-id="Paket yang diinginkan" data-en="Package">Paket yang diinginkan</label>
           <div class="cform__radios">
@@ -253,6 +275,15 @@
           <input id="address" type="text" placeholder="Menara BCA lt. 14, Jl. MH Thamrin No.1, Jakarta" />
           <div class="field__err" id="err-address" data-id="Masukkan alamat pengiriman" data-en="Please enter delivery address">Masukkan alamat pengiriman</div>
         </div>
+      </div><!-- end cform__grid step1 -->
+      <div class="step-nav" style="display:flex;justify-content:flex-end;margin-top:20px">
+        <button type="button" class="btn btn--gold" id="toStep2" data-id="Lanjut →" data-en="Next →">Lanjut →</button>
+      </div>
+      </div><!-- end step1 -->
+
+      <!-- Step 2: Kontak & pengiriman -->
+      <div class="step-panel" id="step2">
+      <div class="cform__grid">
         <div class="field field--row">
           <div class="field">
             <label data-id="Nama Anda" data-en="Your name">Nama Anda</label>
@@ -277,15 +308,30 @@
           <label data-id="Catatan tambahan" data-en="Notes">Catatan tambahan</label>
           <textarea placeholder="5 vegetarian, 2 alergi kacang, antar ke resepsionis lantai 14"></textarea>
         </div>
+      </div><!-- end cform__grid step2 -->
+      <div style="display:flex;justify-content:space-between;margin-top:20px">
+        <button type="button" class="btn btn--ghost" id="toStep1Back" data-id="← Kembali" data-en="← Back">← Kembali</button>
+        <button type="button" class="btn btn--gold" id="toStep3" data-id="Lanjut →" data-en="Next →">Lanjut →</button>
+      </div>
+      </div><!-- end step2 -->
+
+      <!-- Step 3: Konfirmasi -->
+      <div class="step-panel" id="step3">
+      <div class="cform__grid">
         <div class="cform__summary">
           <div><span data-id="Paket" data-en="Package">Paket</span><span id="sPkg">Tanding</span></div>
           <div><span data-id="Jumlah porsi" data-en="Portions">Jumlah porsi</span><span id="sPort">50</span></div>
           <div><span data-id="Per porsi" data-en="Per portion">Per porsi</span><span id="sPerP">Rp 39.000</span></div>
           <div class="total"><span data-id="Estimasi total / hari" data-en="Est. total / day">Estimasi total / hari</span><span id="sTotal">Rp 1.950.000</span></div>
         </div>
-        <button type="submit" class="btn btn--gold" style="width:100%;padding:18px" data-id="Kirim Permintaan" data-en="Submit Request">Kirim Permintaan</button>
+      </div><!-- end cform__grid step3 -->
+      <div style="display:flex;justify-content:space-between;margin-top:8px">
+        <button type="button" class="btn btn--ghost" id="toStep2Back" data-id="← Kembali" data-en="← Back">← Kembali</button>
+        <button type="submit" class="btn btn--gold" style="padding:16px 32px" data-id="Kirim Permintaan" data-en="Submit Request">Kirim Permintaan</button>
+      </div>
         <div class="field__hint" style="text-align:center" data-id="Tim kami kontak dalam 2 jam kerja. Tidak ada biaya hingga disetujui." data-en="We reach out within 2 hours. No fees until approved.">Tim kami kontak dalam 2 jam kerja. Tidak ada biaya hingga disetujui.</div>
       </div>
+      </div><!-- end step3 -->
       <div class="csuccess" id="success">
         <div class="csuccess__icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l7 7 13-14"/></svg></div>
         <h3 data-id="Terima kasih." data-en="Thank you.">Terima kasih.</h3>
@@ -323,6 +369,8 @@
 <script src="assets/shared.js"></script>
 <script>
 window.mountLayout();
+if (window.renderNavMega) window.renderNavMega();
+if (window.MBG && window.MBG.initCountUp) window.MBG.initCountUp();
 
 // Dynamic WA link
 if (window.MBG_WA) {
@@ -418,6 +466,78 @@ document.getElementById('cform').addEventListener('submit', (e) => {
   document.getElementById('success').classList.add('is-on');
   window.scrollTo({ top: document.getElementById('order').offsetTop - 80, behavior: 'smooth' });
 });
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js")
+        .then(reg => console.log("[MBG] SW registered:", reg.scope))
+        .catch(err => console.warn("[MBG] SW registration failed:", err));
+    });
+  }
+
+
+// ── Multi-step form navigation ──
+const stepItems = [
+  document.getElementById('stepItem1'),
+  document.getElementById('stepItem2'),
+  document.getElementById('stepItem3'),
+];
+const stepPanels = [
+  document.getElementById('step1'),
+  document.getElementById('step2'),
+  document.getElementById('step3'),
+];
+let currentStep = 0;
+
+function goToStep(n) {
+  stepPanels.forEach((p, i) => p.classList.toggle('is-active', i === n));
+  stepItems.forEach((item, i) => {
+    item.classList.toggle('is-active', i === n);
+    item.classList.toggle('is-done', i < n);
+  });
+  document.getElementById('stepBar').setAttribute('aria-valuenow', n + 1);
+  currentStep = n;
+  // Scroll form into view
+  document.querySelector('.cform').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const toStep2Btn = document.getElementById('toStep2');
+const toStep3Btn = document.getElementById('toStep3');
+const toStep1BackBtn = document.getElementById('toStep1Back');
+const toStep2BackBtn = document.getElementById('toStep2Back');
+
+if (toStep2Btn) toStep2Btn.addEventListener('click', () => {
+  // Validate step 1 fields
+  const p1 = validateField('portions', 'err-portions', v => portVal >= 20);
+  const p2 = validateField('startDate', 'err-date', v => v.length > 0);
+  const p3 = validateField('address', 'err-address', v => v.trim().length >= 8);
+  if (p1 && p2 && p3) goToStep(1);
+  else { document.querySelector('.field.has-err input, .field.has-err select')?.focus(); }
+});
+if (toStep3Btn) toStep3Btn.addEventListener('click', () => {
+  const p4 = validateField('contactName', 'err-name', v => v.length >= 2);
+  const p5 = validateField('contactWa', 'err-wa', v => /^[\d\s+\-]{8,}$/.test(v));
+  const p6 = validateField('contactEmail', 'err-email', v => v === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+  if (p4 && p5 && p6) {
+    // Populate confirmation summary extras
+    updateSummary();
+    goToStep(2);
+  }
+});
+if (toStep1BackBtn) toStep1BackBtn.addEventListener('click', () => goToStep(0));
+if (toStep2BackBtn) toStep2BackBtn.addEventListener('click', () => goToStep(1));
+
+// Show toast on successful form submit
+const origCform = document.getElementById('cform');
+if (origCform) {
+  origCform.addEventListener('submit', () => {
+    setTimeout(() => {
+      window.MBG && window.MBG.toast('Permintaan berhasil dikirim! Tim kami menghubungi dalam 2 jam.', { type: 'success', duration: 5000 });
+    }, 200);
+  }, { once: true });
+}
+
 </script>
 </body>
 </html>

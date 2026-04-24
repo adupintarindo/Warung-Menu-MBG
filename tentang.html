@@ -289,6 +289,17 @@
 <div id="footer-slot"></div>
 
 <script src="assets/shared.js"></script>
-<script>window.mountLayout();</script>
+<script>window.mountLayout();
+if (window.renderNavMega) window.renderNavMega();
+if (window.MBG && window.MBG.initCountUp) window.MBG.initCountUp();</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js")
+        .then(reg => console.log("[MBG] SW registered:", reg.scope))
+        .catch(err => console.warn("[MBG] SW registration failed:", err));
+    });
+  }
+</script>
 </body>
 </html>

@@ -430,6 +430,8 @@
 <script src="assets/shared.js"></script>
 <script>
 window.mountLayout();
+if (window.renderNavMega) window.renderNavMega();
+if (window.MBG && window.MBG.initCountUp) window.MBG.initCountUp();
 
 // ─── Video availability: use menu.video_file from data.js (single source of truth) ───
 const VIDEO_DIR = 'assets/videos/';
@@ -623,6 +625,15 @@ modalBg.addEventListener('click', closeModal);
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
 });
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js")
+        .then(reg => console.log("[MBG] SW registered:", reg.scope))
+        .catch(err => console.warn("[MBG] SW registration failed:", err));
+    });
+  }
 </script>
 </body>
 </html>

@@ -935,6 +935,21 @@
 
   // Re-apply language after all dynamic content is added
   window.setLang(localStorage.getItem('mbg-lang') || 'id');
+
+// Count-up animation for hero stats
+window.MBG.initCountUp();
+
+// Mega-menu enhancement
+if (window.renderNavMega) window.renderNavMega();
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js")
+        .then(reg => console.log("[MBG] SW registered:", reg.scope))
+        .catch(err => console.warn("[MBG] SW registration failed:", err));
+    });
+  }
 </script>
 </body>
 </html>

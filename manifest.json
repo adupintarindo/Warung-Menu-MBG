@@ -1,0 +1,104 @@
+{
+  "name": "Warung Menu MBG",
+  "short_name": "Warung MBG",
+  "description": "80 menu Nusantara otentik dari Buku Rasa Bhayangkara Nusantara. Dimasak fresh di central kitchen, disajikan dalam omprengan baja.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1A2456",
+  "background_color": "#FBF8F0",
+  "lang": "id-ID",
+  "categories": ["food", "lifestyle"],
+  "icons": [
+    {
+      "src": "assets/icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Beranda Warung Menu MBG"
+    },
+    {
+      "src": "assets/screenshots/menu.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "80 Menu Nusantara"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Lihat Menu",
+      "short_name": "Menu",
+      "description": "Jelajahi 80 menu Nusantara",
+      "url": "/menu.html",
+      "icons": [{ "src": "assets/icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Pesan Catering",
+      "short_name": "Catering",
+      "description": "Pesan catering mulai 20 porsi",
+      "url": "/catering.html",
+      "icons": [{ "src": "assets/icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Lokasi Outlet",
+      "short_name": "Outlet",
+      "description": "Temukan outlet terdekat",
+      "url": "/outlet.html",
+      "icons": [{ "src": "assets/icons/icon-96.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

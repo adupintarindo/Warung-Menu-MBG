@@ -142,6 +142,8 @@
 <script src="assets/shared.js"></script>
 <script>
 window.mountLayout();
+if (window.renderNavMega) window.renderNavMega();
+if (window.MBG && window.MBG.initCountUp) window.MBG.initCountUp();
 
 const grid = document.getElementById('outlet-grid');
 
@@ -202,6 +204,15 @@ const grid = document.getElementById('outlet-grid');
     </div>`;
   grid.appendChild(card);
 });
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js")
+        .then(reg => console.log("[MBG] SW registered:", reg.scope))
+        .catch(err => console.warn("[MBG] SW registration failed:", err));
+    });
+  }
 </script>
 </body>
 </html>

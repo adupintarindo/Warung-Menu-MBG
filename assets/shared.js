@@ -256,3 +256,273 @@
     mountBackToTop();
   };
 })();
+
+/* ═══════════════════════════════════════════════════════════════════════
+   UI/UX UPGRADE PACK — shared systems
+   ═══════════════════════════════════════════════════════════════════════ */
+
+// ─── 01. Glassmorphism navbar scroll handler ───
+(() => {
+  const applyNavScroll = () => {
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+    const onScroll = () => nav.classList.toggle('nav--scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyNavScroll);
+  } else {
+    applyNavScroll();
+  }
+})();
+
+// ─── 05. Mega-menu (desktop): wrap "Menu" nav link ───
+window.renderNavMega = () => {
+  // Called after renderNav() injects the nav — upgrades the Menu link
+  const menuLink = document.querySelector('.nav__links a[href="menu.html"]');
+  if (!menuLink) return;
+  const li = menuLink.closest('li');
+  if (!li) return;
+  li.classList.add('nav__mega-trigger');
+  li.innerHTML = `
+    <a href="menu.html" data-id="Menu" data-en="Menu">Menu ▾</a>
+    <div class="nav__mega" role="menu">
+      <div class="nav__mega__col">
+        <div class="nav__mega__label">Halaman</div>
+        <ul class="nav__mega__list">
+          <li><a href="menu.html" role="menuitem">Semua Menu (80)</a></li>
+          <li><a href="menu.html?filter=weekly" role="menuitem">Menu Minggu Ini</a></li>
+          <li><a href="gizi.html" role="menuitem">Nilai Gizi</a></li>
+          <li><a href="video.html" role="menuitem">Video Resep</a></li>
+          <li><a href="catering.html" role="menuitem">Pesan Catering</a></li>
+          <li><a href="pesan.html" role="menuitem">Cara Pesan</a></li>
+        </ul>
+      </div>
+      <div class="nav__mega__col">
+        <div class="nav__mega__preview-label">Menu Minggu Ini</div>
+        <div class="nav__mega__preview" id="mega-preview">
+          <div style="color:var(--cream-mute);font-size:13px;line-height:1.6">Memuat...</div>
+        </div>
+      </div>
+    </div>`;
+  // Populate preview with weekly menus from data
+  const preview = document.getElementById('mega-preview');
+  if (preview && window.MBG_MENUS) {
+    const weekly = window.MBG_MENUS.filter(m => m.weekly || m.featured).slice(0, 4);
+    preview.innerHTML = weekly.map(m => `
+      <a href="menu.html#menu-${m.no}" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gold-hair);color:var(--cream-soft);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--cream-soft)'">
+        <span style="font-family:var(--font-serif);font-style:italic;color:var(--gold);font-size:15px;min-width:22px">${m.no}.</span>
+        <span>${m.name_id}</span>
+      </a>`).join('');
+  }
+};
+
+// ─── 16. Toast notification system ───
+window.MBG = window.MBG || {};
+window.MBG.toast = (() => {
+  let container = null;
+  const getContainer = () => {
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'mbg-toast-container';
+      document.body.appendChild(container);
+    }
+    return container;
+  };
+  return (msg, { type = 'default', duration = 3200, icon } = {}) => {
+    const icons = { success: '✓', error: '✕', default: 'ℹ' };
+    const toast = document.createElement('div');
+    toast.className = `mbg-toast${type !== 'default' ? ` mbg-toast--${type}` : ''}`;
+    toast.innerHTML = `
+      <span class="mbg-toast__icon">${icon || icons[type] || icons.default}</span>
+      <span class="mbg-toast__msg">${msg}</span>
+      <button class="mbg-toast__close" aria-label="Tutup">×</button>`;
+    const dismiss = () => {
+      toast.classList.remove('is-visible');
+      setTimeout(() => toast.remove(), 400);
+    };
+    toast.querySelector('.mbg-toast__close').addEventListener('click', dismiss);
+    getContainer().appendChild(toast);
+    requestAnimationFrame(() => requestAnimationFrame(() => toast.classList.add('is-visible')));
+    if (duration > 0) setTimeout(dismiss, duration);
+    return toast;
+  };
+})();
+
+// ─── 13. Floating WhatsApp button ───
+window.MBG.mountWaFab = (waUrl) => {
+  const fab = document.createElement('a');
+  fab.className = 'mbg-wa-fab';
+  fab.href = waUrl || 'https://wa.me/6281234567890?text=' + encodeURIComponent('Halo Warung Menu MBG!');
+  fab.target = '_blank';
+  fab.rel = 'noopener noreferrer';
+  fab.setAttribute('aria-label', 'Chat WhatsApp');
+  fab.innerHTML = `
+    <span class="mbg-wa-fab__pulse"></span>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.529 5.853L.057 23.55a.75.75 0 00.916.916l5.697-1.472A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.73 9.73 0 01-4.95-1.35l-.354-.213-3.667.948.969-3.567-.231-.367A9.75 9.75 0 1112 21.75z"/>
+    </svg>`;
+  document.body.appendChild(fab);
+  // Show after 2s or on first scroll
+  setTimeout(() => fab.classList.add('is-visible'), 2000);
+  // Update with real WA data if available
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.MBG_WA && window.waLink) {
+      fab.href = window.waLink(window.MBG_WA.defaultMsg || 'Halo Warung Menu MBG!');
+    }
+  });
+};
+
+// ─── 18. Lazy-load with blur-up ───
+window.MBG.initLazyLoad = () => {
+  if (!('IntersectionObserver' in window)) {
+    // Fallback: load all immediately
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      img.src = img.dataset.src;
+      img.classList.add('loaded');
+    });
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const img = entry.target;
+      img.src = img.dataset.src;
+      img.onload = () => img.classList.add('loaded');
+      io.unobserve(img);
+    });
+  }, { rootMargin: '200px 0px' });
+  document.querySelectorAll('img[data-src].lazy').forEach(img => io.observe(img));
+};
+
+// ─── 14. Count-up animation ───
+window.MBG.countUp = (el, target, duration = 1600, suffix = '') => {
+  const start = Date.now();
+  const startVal = 0;
+  const step = () => {
+    const elapsed = Date.now() - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3); // cubic ease-out
+    const current = Math.round(startVal + (target - startVal) * ease);
+    el.textContent = current.toLocaleString('id-ID') + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+};
+window.MBG.initCountUp = () => {
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.count || '0', 10);
+      const suffix = el.dataset.suffix || '';
+      window.MBG.countUp(el, target, 1800, suffix);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => io.observe(el));
+};
+
+// ─── 15. Favorites system ───
+window.MBG.favs = (() => {
+  const KEY = 'mbg-favs';
+  const get = () => JSON.parse(localStorage.getItem(KEY) || '[]');
+  const save = (arr) => localStorage.setItem(KEY, JSON.stringify(arr));
+  return {
+    isFav: (id) => get().includes(String(id)),
+    toggle: (id) => {
+      const arr = get();
+      const sid = String(id);
+      const idx = arr.indexOf(sid);
+      if (idx === -1) { arr.push(sid); save(arr); return true; }
+      arr.splice(idx, 1); save(arr); return false;
+    },
+    getAll: () => get(),
+    count: () => get().length,
+  };
+})();
+
+// ─── 12. Pull-to-refresh (PWA) ───
+window.MBG.initPullToRefresh = (onRefresh) => {
+  let startY = 0;
+  let isPulling = false;
+  const indicator = document.querySelector('.ptr-indicator');
+  if (!indicator) return;
+  document.addEventListener('touchstart', (e) => {
+    if (window.scrollY === 0) startY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchmove', (e) => {
+    if (startY === 0) return;
+    const delta = e.touches[0].clientY - startY;
+    if (delta > 60 && window.scrollY === 0) {
+      indicator.classList.add('is-visible');
+      isPulling = true;
+    }
+  }, { passive: true });
+  document.addEventListener('touchend', () => {
+    if (isPulling) {
+      isPulling = false;
+      startY = 0;
+      if (onRefresh) onRefresh();
+      else { setTimeout(() => { location.reload(); }, 400); }
+      setTimeout(() => indicator.classList.remove('is-visible'), 800);
+    }
+    startY = 0;
+  }, { passive: true });
+};
+
+// ─── 11. Sticky CTA dismiss ───
+window.MBG.initStickyCta = () => {
+  const cta = document.querySelector('.sticky-cta');
+  if (!cta) return;
+  // Add dismiss button if not present
+  if (!cta.querySelector('.sticky-cta__dismiss')) {
+    const btn = document.createElement('button');
+    btn.className = 'sticky-cta__dismiss';
+    btn.setAttribute('aria-label', 'Tutup');
+    btn.innerHTML = '×';
+    btn.addEventListener('click', () => {
+      cta.classList.remove('is-visible');
+      cta.style.display = 'none';
+      sessionStorage.setItem('mbg-cta-dismissed', '1');
+    });
+    cta.appendChild(btn);
+  }
+  // Don't show if dismissed this session
+  if (sessionStorage.getItem('mbg-cta-dismissed')) {
+    cta.style.display = 'none';
+  }
+};
+
+// ─── 19. Dark mode toggle with icon ───
+window.MBG.renderThemeToggle = () => `
+  <button class="theme-toggle" aria-label="Toggle theme" title="Toggle dark mode">
+    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  </button>`;
+
+// ─── Auto-mount WA FAB on all pages ───
+(() => {
+  const mount = () => {
+    window.MBG.mountWaFab();
+    window.MBG.initStickyCta();
+    window.MBG.initCountUp();
+    window.MBG.initLazyLoad();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount);
+  } else {
+    mount();
+  }
+})();

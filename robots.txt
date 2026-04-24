@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Disallow admin / draft paths if they ever exist
+Disallow: /admin/
+Disallow: /draft/
+Disallow: /*.json$
+
+# Allow important assets for rendering
+Allow: /assets/
+Allow: /manifest.json
+
+# Sitemap
+Sitemap: https://warungmenumbg.id/sitemap.xml
+
+# Crawl-delay (optional, in seconds — polite default)
+Crawl-delay: 5

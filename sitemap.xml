@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Beranda / Homepage -->
+  <url>
+    <loc>https://warungmenumbg.id/</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/?lang=en"/>
+  </url>
+
+  <!-- Menu — 80 menu Nusantara -->
+  <url>
+    <loc>https://warungmenumbg.id/menu.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/menu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/menu.html?lang=en"/>
+  </url>
+
+  <!-- Nilai Gizi -->
+  <url>
+    <loc>https://warungmenumbg.id/gizi.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/gizi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/gizi.html?lang=en"/>
+  </url>
+
+  <!-- Video Card Resep -->
+  <url>
+    <loc>https://warungmenumbg.id/video.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/video.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/video.html?lang=en"/>
+  </url>
+
+  <!-- Catering -->
+  <url>
+    <loc>https://warungmenumbg.id/catering.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/catering.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/catering.html?lang=en"/>
+  </url>
+
+  <!-- Cara Pesan -->
+  <url>
+    <loc>https://warungmenumbg.id/pesan.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/pesan.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/pesan.html?lang=en"/>
+  </url>
+
+  <!-- Outlet -->
+  <url>
+    <loc>https://warungmenumbg.id/outlet.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/outlet.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/outlet.html?lang=en"/>
+  </url>
+
+  <!-- Merchandise -->
+  <url>
+    <loc>https://warungmenumbg.id/merch.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/merch.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/merch.html?lang=en"/>
+  </url>
+
+  <!-- Tentang Kami -->
+  <url>
+    <loc>https://warungmenumbg.id/tentang.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://warungmenumbg.id/tentang.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://warungmenumbg.id/tentang.html?lang=en"/>
+  </url>
+
+</urlset>
