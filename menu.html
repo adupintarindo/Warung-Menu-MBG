@@ -186,7 +186,7 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
   border-color: var(--gold);
   box-shadow: 0 20px 40px -20px rgba(27, 39, 83, 0.3);
 }
-.card2 .menu-photo { aspect-ratio: 1/1; }
+.card2 .menu-photo { aspect-ratio: 4/3; }
 .card2__body { padding: 20px 20px 22px; display: grid; gap: 8px; flex: 1; }
 .card2__prov { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); padding-left: 0.32em; }
 .card2__name {
@@ -230,46 +230,36 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
   .modal { grid-template-columns: 1fr; max-height: 92vh; overflow-y: auto; }
 }
 .modal__photo {
-  background:
-    radial-gradient(ellipse 80% 70% at 50% 40%, var(--navy-mid) 0%, var(--navy) 55%, var(--navy-deep) 100%);
+  background: var(--navy-deep);
   position: relative;
-  display: grid; place-items: center;
   min-height: 380px;
   overflow: hidden;
 }
-.modal__photo::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23C8A227' stroke-width='0.5' opacity='0.3'><path d='M70 20 L120 70 L70 120 L20 70 Z'/><path d='M70 40 L100 70 L70 100 L40 70 Z'/><circle cx='70' cy='70' r='2'/></g></svg>");
-  background-size: 140px;
-  opacity: 0.6;
+.modal__photo__img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.modal__photo__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 35%,
+    rgba(10, 15, 45, 0.7) 100%
+  );
+  pointer-events: none;
 }
 .modal__photo__num {
   position: absolute;
-  top: 24px; left: 28px;
+  bottom: 24px; left: 28px;
   font-family: var(--font-serif); font-style: italic;
-  font-size: 48px; color: var(--gold-light);
-  font-weight: 500; line-height: 1;
-}
-.modal__photo__plate {
-  width: 70%; aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(ellipse 60% 50% at 50% 50%, #f4ecd8 0%, #eae3cd 60%, #c9ba94 100%);
-  position: relative;
-  box-shadow: 0 20px 60px -10px rgba(0,0,0,0.5);
-  border: 3px solid rgba(200, 162, 39, 0.6);
-}
-.modal__photo__plate::before {
-  content: '';
-  position: absolute; inset: 14%;
-  border-radius: 50%;
-  border: 1px solid rgba(200, 162, 39, 0.4);
-}
-.modal__photo__plate::after {
-  content: '';
-  position: absolute; inset: 30%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, #8b4a1d 0%, #5a2f12 100%);
+  font-size: 52px; color: var(--gold-light);
+  font-weight: 600; line-height: 1;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
 
 .modal__body {
@@ -517,18 +507,7 @@ if (searchClear) {
   });
 }
 
-// Hover zoom on card photos (desktop only)
-const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-if (!isTouch) {
-  document.addEventListener('mouseover', e => {
-    const photo = e.target.closest('.card2 .menu-photo');
-    if (photo) photo.querySelector('.menu-photo__ornament').style.transform = 'scale(1.08)';
-  });
-  document.addEventListener('mouseout', e => {
-    const photo = e.target.closest('.card2 .menu-photo');
-    if (photo) photo.querySelector('.menu-photo__ornament').style.transform = '';
-  });
-}
+// Hover zoom on card photos handled by CSS (.card2:hover .menu-photo__img { transform: scale(1.06) })
 
 // Pull-to-refresh on mobile
 const ptrEl = document.getElementById('ptrIndicator');
@@ -633,10 +612,15 @@ function render() {
     c.id = 'menu-' + m.no;
     c.dataset.no = m.no;
     c.innerHTML = `
-      <div class="menu-photo" style="position:relative;overflow:hidden">
-        <div class="menu-photo__ornament" style="transition:transform .4s cubic-bezier(.2,.8,.2,1)"></div>
+      <div class="menu-photo">
+        <img class="menu-photo__img lazy"
+             src="${m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg'}"
+             alt="${m.name_id}"
+             loading="lazy"
+             decoding="async"
+             width="400" height="300">
+        <div class="menu-photo__overlay"></div>
         <div class="menu-photo__num">${m.no}</div>
-        <div class="menu-photo__name">${m.name_id}</div>
         ${m.weekly ? '<span class="badge--week" data-id="Minggu ini" data-en="This week">Minggu ini</span>' : ''}
         ${getRegionBadge(m.province)}
         <button class="fav-btn ${window.MBG.favs.isFav(m.no) ? 'is-fav' : ''}" data-no="${m.no}" aria-label="Simpan favorit" title="Tambah favorit">&#9825;</button>
@@ -686,8 +670,13 @@ function openModal(m) {
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l10 10M13 3L3 13"/></svg>
     </button>
     <div class="modal__photo">
+      <img class="modal__photo__img lazy"
+           src="${m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg'}"
+           alt="${m.name_id}"
+           loading="lazy"
+           decoding="async">
+      <div class="modal__photo__overlay"></div>
       <div class="modal__photo__num">${m.no}</div>
-      <div class="modal__photo__plate"></div>
     </div>
     <div class="modal__body">
       <div>
@@ -766,8 +755,12 @@ const isMobile = () => window.innerWidth < 768;
 
 function openBottomSheet(m) {
   bsTitle.textContent = m.name_id;
+  const imgSrc = m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg';
   bsBody.innerHTML = `
     <div style="display:grid;gap:14px">
+      <img src="${imgSrc}" alt="${m.name_id}"
+           style="width:100%;height:200px;object-fit:cover;border-bottom:2px solid var(--gold)"
+           loading="lazy" decoding="async">
       <div style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)">${m.sppg} · ${m.province}</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:var(--bg-alt);padding:14px;border-top:2px solid var(--gold)">
         <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.energi}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">kkal</div></div>

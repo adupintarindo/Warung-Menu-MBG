@@ -35,26 +35,6 @@
   background-size: 140px 140px;
   mix-blend-mode: screen;
 }
-.hero__tray {
-  position: absolute;
-  right: -10%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 62%;
-  max-width: 820px;
-  aspect-ratio: 1/1;
-  opacity: 0.9;
-  transition: transform 0.3s ease-out;
-}
-.hero__tray::before {
-  content: '';
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(200, 162, 39, 0.25) 0%, transparent 60%);
-}
-.hero__tray svg { width: 100%; height: 100%; overflow: visible; }
-
 .hero__inner {
   position: relative; z-index: 2;
   display: grid; gap: 32px;
@@ -201,7 +181,11 @@
   display: flex; gap: 56px;
   animation: marqueeScroll 45s linear infinite;
   width: max-content;
+  animation-play-state: running;
 }
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 .marquee__track span {
   font-family: var(--font-serif); font-style: italic;
   font-size: 28px;
@@ -211,6 +195,15 @@
 .marquee__track span::after {
   content: '·'; margin-left: 56px; color: var(--gold);
 }
+.marquee__item {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 28px; color: var(--gold);
+  white-space: nowrap;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.marquee__item:hover,
+.marquee__item:focus-visible { opacity: 0.7; color: var(--gold-light); outline: none; }
+.marquee__sep { color: var(--gold); font-size: 28px; font-family: var(--font-serif); opacity: 0.6; }
 @keyframes marqueeScroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -470,60 +463,14 @@
 </head>
 <body data-screen-label="Home">
 
+<a href="#main" class="skip-link" data-id="Lompat ke konten utama" data-en="Skip to main content">Lompat ke konten utama</a>
+
 <div id="nav-slot"></div>
 
+<main id="main" tabindex="-1">
 <!-- ══════════════ HERO ══════════════ -->
 <section class="hero" data-screen-label="Hero">
   <div class="hero__bg"></div>
-  <div class="hero__tray" id="heroTray">
-    <svg viewBox="0 0 600 600" aria-hidden="true">
-      <!-- Outer tray rim -->
-      <defs>
-        <radialGradient id="trayG" cx="50%" cy="45%" r="55%">
-          <stop offset="0%" stop-color="#1a2960" />
-          <stop offset="70%" stop-color="#0d1b3d" />
-          <stop offset="100%" stop-color="#081430" />
-        </radialGradient>
-        <radialGradient id="rimG">
-          <stop offset="0%" stop-color="#e0bf55" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#C8A227" stop-opacity="0.4"/>
-        </radialGradient>
-      </defs>
-      <circle cx="300" cy="300" r="280" fill="url(#trayG)" stroke="url(#rimG)" stroke-width="3"/>
-      <circle cx="300" cy="300" r="260" fill="none" stroke="#C8A227" stroke-width="0.5" opacity="0.4"/>
-      <circle cx="300" cy="300" r="245" fill="none" stroke="#C8A227" stroke-width="0.3" opacity="0.3" stroke-dasharray="2 4"/>
-      <!-- Compartments of omprengan -->
-      <g stroke="#C8A227" stroke-width="1" fill="none" opacity="0.55">
-        <circle cx="300" cy="180" r="72"/>
-        <circle cx="200" cy="340" r="68"/>
-        <circle cx="400" cy="340" r="68"/>
-        <circle cx="300" cy="440" r="56"/>
-      </g>
-      <!-- Food hints -->
-      <g opacity="0.85">
-        <!-- rice mound -->
-        <circle cx="300" cy="180" r="60" fill="#f4ecd8" opacity="0.92"/>
-        <circle cx="300" cy="180" r="52" fill="#eae3cd" opacity="0.6"/>
-        <!-- chicken rendang -->
-        <ellipse cx="200" cy="340" rx="58" ry="40" fill="#8b4a1d" opacity="0.92"/>
-        <ellipse cx="200" cy="335" rx="42" ry="26" fill="#a85a24" opacity="0.75"/>
-        <!-- sayur -->
-        <circle cx="400" cy="340" r="58" fill="#3d5b2b" opacity="0.9"/>
-        <circle cx="395" cy="335" r="10" fill="#6b8e4a"/>
-        <circle cx="410" cy="348" r="8" fill="#6b8e4a"/>
-        <circle cx="388" cy="352" r="7" fill="#f4ecd8" opacity="0.6"/>
-        <!-- fruit -->
-        <circle cx="300" cy="440" r="48" fill="#d89a4a" opacity="0.92"/>
-        <ellipse cx="295" cy="438" rx="32" ry="20" fill="#e8b068" opacity="0.7"/>
-      </g>
-      <!-- Diamond center mark -->
-      <g transform="translate(300 300)" opacity="0.45">
-        <path d="M 0 -18 L 18 0 L 0 18 L -18 0 Z" fill="none" stroke="#C8A227" stroke-width="1.2"/>
-        <circle r="2" fill="#C8A227"/>
-      </g>
-    </svg>
-  </div>
-
   <div class="container hero__inner">
     <div class="hero__num reveal">Est. 2025 · Jakarta</div>
     <h1 class="hero__h1 reveal" data-id-h1="true">
@@ -538,18 +485,6 @@
     </div>
   </div>
 
-  <div class="hero__scroll" data-id="Gulir" data-en="Scroll">Gulir</div>
-</section>
-
-<!-- ══════════════ NUMBER STRIP ══════════════ -->
-<section class="numstrip" data-screen-label="Numbers">
-  <div class="container">
-    <div class="numstrip__grid">
-      <div class="numstrip__cell"><div class="numstrip__n">80</div><div class="numstrip__l" data-id="Menu Nusantara" data-en="Nusantara Menus">Menu Nusantara</div></div>
-      <div class="numstrip__cell"><div class="numstrip__n">2</div><div class="numstrip__l" data-id="Outlet di Jakarta" data-en="Jakarta Outlets">Outlet di Jakarta</div></div>
-      <div class="numstrip__cell"><div class="numstrip__n">200+</div><div class="numstrip__l" data-id="Porsi per Hari" data-en="Portions Per Day">Porsi per Hari</div></div>
-    </div>
-  </div>
 </section>
 
 <!-- ══════════════ FEATURED MENU ══════════════ -->
@@ -576,55 +511,6 @@
 <div class="marquee" aria-hidden="true">
   <div class="marquee__track" id="marqueeTrack"></div>
 </div>
-
-<!-- ══════════════ MAP ══════════════ -->
-<section class="section mapsec" data-screen-label="Map">
-  <div class="container">
-    <div class="mapsec__grid">
-      <div class="mapsec__map reveal">
-        <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
-          <!-- Stylized Indonesia archipelago (schematic) -->
-          <defs>
-            <pattern id="dots" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="0.6" fill="#1B2753" opacity="0.25"/>
-            </pattern>
-          </defs>
-          <!-- Sumatera -->
-          <path d="M40 90 Q 90 70 140 90 L 180 150 Q 170 190 140 210 Q 100 240 70 220 Q 40 190 45 140 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
-          <!-- Java -->
-          <path d="M200 220 Q 260 205 340 215 L 380 220 Q 370 245 340 250 Q 280 255 220 245 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
-          <!-- Bali-NTT -->
-          <ellipse cx="410" cy="240" rx="10" ry="5" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
-          <ellipse cx="440" cy="245" rx="16" ry="6" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
-          <ellipse cx="480" cy="250" rx="24" ry="7" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
-          <!-- Kalimantan -->
-          <path d="M290 100 Q 360 90 400 110 Q 420 150 400 190 Q 360 210 310 200 Q 270 170 280 130 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
-          <!-- Sulawesi -->
-          <path d="M460 120 Q 500 110 510 140 L 500 170 Q 520 180 530 210 Q 525 230 510 225 Q 490 210 485 185 Q 470 175 465 150 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
-          <!-- Maluku -->
-          <circle cx="590" cy="170" r="10" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
-          <circle cx="610" cy="200" r="8" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
-          <!-- Papua -->
-          <path d="M640 140 Q 720 130 760 160 Q 770 200 740 230 Q 690 240 650 220 Q 630 190 640 160 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
-
-          <!-- Pins for region origins -->
-          <g class="mapsec__dots" id="mapDots"></g>
-
-          <!-- Legend -->
-          <text x="40" y="340" font-family="Raleway" font-size="10" fill="#6a7190" letter-spacing="4">80 MENU · 22 PROVINSI</text>
-        </svg>
-      </div>
-      <div class="reveal">
-        <div class="eyebrow" data-id="II · Sebaran Asal" data-en="II · Origin Spread">II · Sebaran Asal</div>
-        <h2 class="h-xl" style="margin: 16px 0 22px" data-id="Dari Aceh sampai Papua." data-en="From Aceh to Papua.">Dari Aceh sampai Papua.</h2>
-        <p class="lede" style="margin-bottom: 32px" data-id="Delapan puluh resep dari dua puluh dua provinsi — dikurasi dari Buku Rasa Bhayangkara Nusantara, dimasak ulang dengan standar gizi warung modern." data-en="Eighty recipes from twenty-two provinces — curated from Buku Rasa Bhayangkara Nusantara, recooked to modern nutritional standards.">
-          Delapan puluh resep dari dua puluh dua provinsi — dikurasi dari Buku Rasa Bhayangkara Nusantara, dimasak ulang dengan standar gizi warung modern.
-        </p>
-        <div class="mapsec__list" id="mapList"></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ══════════════ PROCESS ══════════════ -->
 <section class="section process" data-screen-label="Process">
@@ -746,6 +632,8 @@
   </div>
 </section>
 
+</main>
+
 <div id="footer-slot"></div>
 
 <script src="assets/shared.js"></script>
@@ -763,9 +651,13 @@
     el.className = 'mcard reveal';
     el.innerHTML = `
       <div class="menu-photo">
-        <div class="menu-photo__ornament"></div>
+        <img class="menu-photo__img lazy"
+             src="${m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg'}"
+             alt="${m.name_id}"
+             loading="lazy" decoding="async"
+             width="400" height="300">
+        <div class="menu-photo__overlay"></div>
         <div class="menu-photo__num">${m.no}</div>
-        <div class="menu-photo__name">${m.name_id}</div>
       </div>
       <div class="mcard__body">
         <div class="mcard__origin">${(m.province||'').toUpperCase()}</div>
@@ -790,50 +682,17 @@
   seq.forEach(r => {
     const a = document.createElement('a');
     a.href = 'menu.html?region=' + encodeURIComponent(r);
-    a.style.cssText = 'font-family:var(--font-serif);font-style:italic;font-size:28px;color:var(--gold);white-space:nowrap;text-decoration:none;transition:opacity .2s';
+    a.className = 'marquee__item';
     a.textContent = r;
-    a.addEventListener('mouseenter', () => a.style.opacity = '0.6');
-    a.addEventListener('mouseleave', () => a.style.opacity = '1');
     mt.appendChild(a);
     const sep = document.createElement('span');
+    sep.className = 'marquee__sep';
     sep.textContent = '·';
-    sep.style.cssText = 'color:var(--gold);font-size:28px;font-family:var(--font-serif)';
+    sep.setAttribute('aria-hidden', 'true');
     mt.appendChild(sep);
   });
 
-  // ── Map dots + list ──
-  const pins = [
-    { x: 110, y: 130, label: 'Sumatera', count: 12 },
-    { x: 270, y: 235, label: 'Jawa', count: 28 },
-    { x: 410, y: 240, label: 'Bali', count: 5 },
-    { x: 360, y: 150, label: 'Kalimantan', count: 8 },
-    { x: 490, y: 170, label: 'Sulawesi', count: 11 },
-    { x: 600, y: 180, label: 'Maluku', count: 6 },
-    { x: 720, y: 185, label: 'Papua', count: 6 },
-    { x: 480, y: 260, label: 'NTT', count: 4 }
-  ];
-  const mapDots = document.getElementById('mapDots');
-  pins.forEach(p => {
-    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('class', 'mapsec__pin');
-    g.setAttribute('transform', `translate(${p.x} ${p.y})`);
-    g.innerHTML = `
-      <circle class="outer" r="10" fill="#C8A227" opacity="0.18"/>
-      <circle r="4" fill="#C8A227"/>
-      <circle r="2" fill="#1B2753"/>
-      <text x="8" y="-6" font-family="Raleway" font-size="11" fill="#1B2753" font-weight="600">${p.label}</text>
-      <text x="8" y="6" font-family="Cormorant Garamond" font-style="italic" font-size="12" fill="#C8A227">${p.count} menu</text>`;
-    mapDots.appendChild(g);
-  });
-  const mapList = document.getElementById('mapList');
-  pins.slice(0, 4).forEach(p => {
-    const row = document.createElement('div');
-    row.className = 'mapsec__row';
-    row.innerHTML = `<div><strong>${p.label}</strong><br/><small>${p.count} menu tercatat</small></div><div class="count">${String(p.count).padStart(2, '0')}</div>`;
-    mapList.appendChild(row);
-  });
-
-  // ── Outlets ──
+// ── Outlets ──
   const og = document.getElementById('outletsGrid');
   window.MBG_OUTLETS.filter(o => o.status === 'active').forEach(o => {
     const c = document.createElement('div');
@@ -893,39 +752,18 @@
   ];
   const faqWrap = document.getElementById('faqWrap');
   faqs.forEach((f, i) => {
-    const item = document.createElement('div');
-    item.className = 'faq__item';
+    const item = document.createElement('details');
+    item.className = 'faq-item';
+    if (i === 0) item.open = true;
     item.innerHTML = `
-      <button class="faq__q">
+      <summary>
         <span data-id="${f.q_id}" data-en="${f.q_en}">${f.q_id}</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v12M2 8h12"/></svg>
-      </button>
-      <div class="faq__a"><span data-id="${f.a_id}" data-en="${f.a_en}">${f.a_id}</span></div>`;
-    item.querySelector('.faq__q').addEventListener('click', () => item.classList.toggle('is-open'));
+      </summary>
+      <div class="faq-body"><span data-id="${f.a_id}" data-en="${f.a_en}">${f.a_id}</span></div>`;
     faqWrap.appendChild(item);
   });
+  if (window.MBG && window.MBG.enhanceDetails) window.MBG.enhanceDetails(faqWrap);
 
-  // ── Hero parallax — disabled on touch devices ──
-  const tray = document.getElementById('heroTray');
-  const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  if (!isTouchDevice) {
-    document.querySelector('.hero').addEventListener('mousemove', (e) => {
-      const r = e.currentTarget.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width/2) / r.width;
-      const y = (e.clientY - r.top - r.height/2) / r.height;
-      tray.style.transform = `translateY(calc(-50% + ${y * 18}px)) translateX(${x * 18}px) rotate(${x * 2}deg)`;
-    });
-  }
-  // Ken burns subtle scale
-  let t0 = performance.now();
-  const ken = () => {
-    const dt = (performance.now() - t0) / 1000;
-    tray.style.transition = 'none';
-    const s = 1 + Math.sin(dt * 0.3) * 0.015;
-    tray.style.scale = s;
-    requestAnimationFrame(ken);
-  };
-  requestAnimationFrame(ken);
 
   // Dynamic WA link
   if (window.MBG_WA) {

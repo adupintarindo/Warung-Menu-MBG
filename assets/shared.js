@@ -1,12 +1,23 @@
 /* Warung Menu MBG — shared runtime: theme, language, nav, reveal */
 
 (() => {
+  // ───── Motion preference ─────
+  window.MBG_REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change', (e) => {
+    window.MBG_REDUCED_MOTION = e.matches;
+    document.documentElement.classList.toggle('reduce-motion', e.matches);
+  });
+  if (window.MBG_REDUCED_MOTION) document.documentElement.classList.add('reduce-motion');
+
   // ───── Theme (light/dark navy) ─────
   const applyTheme = (t) => {
     document.documentElement.setAttribute('data-theme', t);
     localStorage.setItem('mbg-theme', t);
     const btns = document.querySelectorAll('.theme-toggle');
-    btns.forEach(b => b.setAttribute('aria-label', t === 'dark' ? 'Switch to light' : 'Switch to dark'));
+    btns.forEach(b => {
+      b.setAttribute('aria-label', t === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+      b.setAttribute('aria-pressed', String(t === 'dark'));
+    });
   };
   const savedTheme = localStorage.getItem('mbg-theme') || 'light';
   applyTheme(savedTheme);
@@ -53,15 +64,18 @@
     const burger = document.querySelector('.nav__burger');
     const drawer = document.querySelector('.nav__drawer');
     if (burger && drawer) {
-      burger.addEventListener('click', () => {
-        drawer.classList.toggle('is-open');
-        document.body.style.overflow = drawer.classList.contains('is-open') ? 'hidden' : '';
-      });
-      drawer.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          drawer.classList.remove('is-open');
-          document.body.style.overflow = '';
-        });
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-controls', 'nav-drawer');
+      drawer.id = drawer.id || 'nav-drawer';
+      const setDrawer = (open) => {
+        drawer.classList.toggle('is-open', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        burger.setAttribute('aria-expanded', String(open));
+      };
+      burger.addEventListener('click', () => setDrawer(!drawer.classList.contains('is-open')));
+      drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setDrawer(false)));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer.classList.contains('is-open')) setDrawer(false);
       });
     }
 
@@ -75,8 +89,13 @@
 
   // ───── Scroll reveal ─────
   const setupReveal = () => {
+    if (window.MBG_REDUCED_MOTION) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
     if (!('IntersectionObserver' in window)) return;
     document.documentElement.classList.add('js-reveal');
+    if (window.__mbgRevealIO) { try { window.__mbgRevealIO.disconnect(); } catch(_) {} }
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -85,7 +104,10 @@
         }
       });
     }, { threshold: 0, rootMargin: '0px 0px -2% 0px' });
+    window.__mbgRevealIO = io;
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    window.MBG = window.MBG || {};
+    window.MBG.observeReveal = (el) => { if (el && el.classList?.contains('reveal')) io.observe(el); };
     setTimeout(() => {
       document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
         const r = el.getBoundingClientRect();
@@ -178,7 +200,7 @@
     const outletLinks = outlets.map(o => `
       <li>
         <a href="outlet.html">
-          ${o.name}${o.status === 'soon' ? ' <span style="font-size:10px;color:var(--gold);letter-spacing:0.15em">· SEGERA</span>' : ''}
+          ${o.name}${o.status === 'soon' ? ' <span class="footer__soon" data-id="· SEGERA" data-en="· COMING">· SEGERA</span>' : ''}
         </a>
       </li>`).join('');
 
@@ -286,8 +308,8 @@ window.renderNavMega = () => {
   if (!li) return;
   li.classList.add('nav__mega-trigger');
   li.innerHTML = `
-    <a href="menu.html" data-id="Menu" data-en="Menu">Menu ▾</a>
-    <div class="nav__mega" role="menu">
+    <a href="menu.html" data-id="Menu" data-en="Menu" aria-haspopup="true" aria-expanded="false">Menu <span aria-hidden="true">▾</span></a>
+    <div class="nav__mega" role="menu" aria-label="Submenu Menu">
       <div class="nav__mega__col">
         <div class="nav__mega__label">Halaman</div>
         <ul class="nav__mega__list">
@@ -302,18 +324,32 @@ window.renderNavMega = () => {
       <div class="nav__mega__col">
         <div class="nav__mega__preview-label">Menu Minggu Ini</div>
         <div class="nav__mega__preview" id="mega-preview">
-          <div style="color:var(--cream-mute);font-size:13px;line-height:1.6">Memuat...</div>
+          <div class="mega-preview__loading">Memuat pilihan minggu ini…</div>
         </div>
       </div>
     </div>`;
+  // Keyboard + hover parity
+  const trigger = li.querySelector('a');
+  const mega = li.querySelector('.nav__mega');
+  const setOpen = (open) => {
+    li.classList.toggle('is-open', open);
+    trigger.setAttribute('aria-expanded', String(open));
+  };
+  li.addEventListener('mouseenter', () => setOpen(true));
+  li.addEventListener('mouseleave', () => setOpen(false));
+  trigger.addEventListener('focus', () => setOpen(true));
+  li.addEventListener('focusout', (e) => { if (!li.contains(e.relatedTarget)) setOpen(false); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && li.classList.contains('is-open')) { setOpen(false); trigger.focus(); }
+  });
   // Populate preview with weekly menus from data
   const preview = document.getElementById('mega-preview');
   if (preview && window.MBG_MENUS) {
     const weekly = window.MBG_MENUS.filter(m => m.weekly || m.featured).slice(0, 4);
     preview.innerHTML = weekly.map(m => `
-      <a href="menu.html#menu-${m.no}" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gold-hair);color:var(--cream-soft);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--cream-soft)'">
-        <span style="font-family:var(--font-serif);font-style:italic;color:var(--gold);font-size:15px;min-width:22px">${m.no}.</span>
-        <span>${m.name_id}</span>
+      <a href="menu.html#menu-${m.no}" class="mega-preview__item" role="menuitem">
+        <span class="mega-preview__num">${m.no}.</span>
+        <span class="mega-preview__name">${m.name_id}</span>
       </a>`).join('');
   }
 };
@@ -322,22 +358,35 @@ window.renderNavMega = () => {
 window.MBG = window.MBG || {};
 window.MBG.toast = (() => {
   let container = null;
+  const ICONS = {
+    success: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+    error:   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    default: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+  };
+  const sanitize = (s) => String(s).replace(/[&<>"']/g, (c) => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
   const getContainer = () => {
-    if (!container) {
+    if (!container || !document.body.contains(container)) {
       container = document.createElement('div');
       container.className = 'mbg-toast-container';
+      container.setAttribute('role', 'status');
+      container.setAttribute('aria-live', 'polite');
+      container.setAttribute('aria-atomic', 'true');
       document.body.appendChild(container);
     }
     return container;
   };
   return (msg, { type = 'default', duration = 3200, icon } = {}) => {
-    const icons = { success: '✓', error: '✕', default: 'ℹ' };
     const toast = document.createElement('div');
     toast.className = `mbg-toast${type !== 'default' ? ` mbg-toast--${type}` : ''}`;
+    toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
     toast.innerHTML = `
-      <span class="mbg-toast__icon">${icon || icons[type] || icons.default}</span>
-      <span class="mbg-toast__msg">${msg}</span>
-      <button class="mbg-toast__close" aria-label="Tutup">×</button>`;
+      <span class="mbg-toast__icon" aria-hidden="true">${icon || ICONS[type] || ICONS.default}</span>
+      <span class="mbg-toast__msg">${sanitize(msg)}</span>
+      <button class="mbg-toast__close" type="button" aria-label="Tutup notifikasi">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>`;
     const dismiss = () => {
       toast.classList.remove('is-visible');
       setTimeout(() => toast.remove(), 400);
@@ -352,27 +401,36 @@ window.MBG.toast = (() => {
 
 // ─── 13. Floating WhatsApp button ───
 window.MBG.mountWaFab = (waUrl) => {
+  const buildHref = (url) => {
+    if (url) return url;
+    if (window.MBG_WA && typeof window.waLink === 'function') {
+      return window.waLink(window.MBG_WA.defaultMsg || 'Halo Warung Menu MBG!');
+    }
+    return 'https://wa.me/6281234567890?text=' + encodeURIComponent('Halo Warung Menu MBG!');
+  };
   const fab = document.createElement('a');
   fab.className = 'mbg-wa-fab';
-  fab.href = waUrl || 'https://wa.me/6281234567890?text=' + encodeURIComponent('Halo Warung Menu MBG!');
+  fab.href = buildHref(waUrl);
   fab.target = '_blank';
   fab.rel = 'noopener noreferrer';
-  fab.setAttribute('aria-label', 'Chat WhatsApp');
+  fab.setAttribute('aria-label', 'Chat WhatsApp admin');
   fab.innerHTML = `
-    <span class="mbg-wa-fab__pulse"></span>
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <span class="mbg-wa-fab__pulse" aria-hidden="true"></span>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.529 5.853L.057 23.55a.75.75 0 00.916.916l5.697-1.472A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.73 9.73 0 01-4.95-1.35l-.354-.213-3.667.948.969-3.567-.231-.367A9.75 9.75 0 1112 21.75z"/>
     </svg>`;
   document.body.appendChild(fab);
-  // Show after 2s or on first scroll
-  setTimeout(() => fab.classList.add('is-visible'), 2000);
-  // Update with real WA data if available
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.MBG_WA && window.waLink) {
-      fab.href = window.waLink(window.MBG_WA.defaultMsg || 'Halo Warung Menu MBG!');
-    }
-  });
+  // Refresh href once data loads — click always uses fresh value
+  const refresh = () => { fab.href = buildHref(waUrl); };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', refresh);
+  } else {
+    refresh();
+  }
+  fab.addEventListener('pointerdown', refresh);
+  // Reveal after first meaningful paint
+  setTimeout(() => fab.classList.add('is-visible'), 1400);
 };
 
 // ─── 18. Lazy-load with blur-up ───
@@ -399,6 +457,11 @@ window.MBG.initLazyLoad = () => {
 
 // ─── 14. Count-up animation ───
 window.MBG.countUp = (el, target, duration = 1600, suffix = '') => {
+  if (window.MBG_REDUCED_MOTION) {
+    const locale = (document.documentElement.lang === 'en' ? 'en-US' : 'id-ID');
+    el.textContent = Number(target).toLocaleString(locale) + suffix;
+    return;
+  }
   const start = Date.now();
   const startVal = 0;
   const step = () => {
@@ -406,7 +469,8 @@ window.MBG.countUp = (el, target, duration = 1600, suffix = '') => {
     const progress = Math.min(elapsed / duration, 1);
     const ease = 1 - Math.pow(1 - progress, 3); // cubic ease-out
     const current = Math.round(startVal + (target - startVal) * ease);
-    el.textContent = current.toLocaleString('id-ID') + suffix;
+    const locale = (document.documentElement.lang === 'en' ? 'en-US' : 'id-ID');
+    el.textContent = current.toLocaleString(locale) + suffix;
     if (progress < 1) requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
@@ -526,3 +590,62 @@ window.MBG.renderThemeToggle = () => `
     mount();
   }
 })();
+
+// ─── 20. Shared utilities ───
+window.MBG.escapeHTML = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+
+window.MBG.t = (id, en) => (document.documentElement.lang === 'en' ? en : id);
+
+// Generic modal focus trap + Escape + backdrop dismiss
+window.MBG.bindModal = (modal, { onClose, initialFocus, closeOnBackdrop = true } = {}) => {
+  if (!modal) return { close: () => {} };
+  const focusable = 'a[href],button:not([disabled]),textarea,input,select,[tabindex]:not([tabindex="-1"])';
+  let previouslyFocused = null;
+  const open = () => {
+    previouslyFocused = document.activeElement;
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    const target = initialFocus ? modal.querySelector(initialFocus) : modal.querySelector(focusable);
+    (target || modal).focus({ preventScroll: true });
+  };
+  const close = () => {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+      previouslyFocused.focus({ preventScroll: true });
+    }
+    if (typeof onClose === 'function') onClose();
+  };
+  modal.setAttribute('role', modal.getAttribute('role') || 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.tabIndex = modal.tabIndex || -1;
+  modal.addEventListener('click', (e) => {
+    if (closeOnBackdrop && e.target === modal) close();
+  });
+  modal.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { e.stopPropagation(); close(); return; }
+    if (e.key !== 'Tab') return;
+    const nodes = [...modal.querySelectorAll(focusable)].filter(n => n.offsetParent !== null);
+    if (!nodes.length) return;
+    const first = nodes[0];
+    const last = nodes[nodes.length - 1];
+    if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); }
+    else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
+  });
+  modal.querySelectorAll('[data-modal-close]').forEach(btn => btn.addEventListener('click', close));
+  return { open, close };
+};
+
+// Details/summary ARIA helper — add aria-expanded sync + live reg for panel open
+window.MBG.enhanceDetails = (root = document) => {
+  root.querySelectorAll('details').forEach(det => {
+    const summary = det.querySelector('summary');
+    if (!summary) return;
+    summary.setAttribute('aria-expanded', String(det.open));
+    det.addEventListener('toggle', () => summary.setAttribute('aria-expanded', String(det.open)));
+  });
+};
+
+document.addEventListener('DOMContentLoaded', () => window.MBG.enhanceDetails());
