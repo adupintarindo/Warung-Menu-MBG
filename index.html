@@ -129,6 +129,24 @@
 .section-heading { margin: 16px 0 14px; }
 .section-head--center { text-align: center; margin-bottom: 48px; }
 .section-head--center .lede { margin: 22px auto 0; }
+.section-center { text-align: center; }
+.feat__intro { margin: 22px auto 0; }
+.feat__cta-row { text-align: center; margin-top: 56px; }
+.outlets__head { text-align: center; margin-bottom: 56px; }
+.outlets__head h2 { color: var(--cream); margin: 16px 0 14px; }
+.outlets__divider { color: var(--gold); }
+.ig__lede { margin: 0 auto; }
+.ctabig__eyebrow { color: var(--navy); }
+.ctabig__sub { opacity: 0.78; }
+.ctabig__wa { border: 1px solid var(--navy); }
+.mcard__kcal-unit { color: var(--ink-mute); letter-spacing: 0.1em; }
+.outletcard__eyebrow { color: var(--gold-light); }
+.outletcard__units {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--gold);
+}
 
 /* ── Featured menu ───────────────────────────────────────────────── */
 .feat__head { text-align: center; margin-bottom: 56px; }
@@ -499,14 +517,14 @@
       <div class="eyebrow" data-id="I · Menu Pilihan" data-en="I · Featured Menu">I · Menu Pilihan</div>
       <h2 class="h-xl section-heading" data-id="Menu Minggu Ini" data-en="This Week's Menu">Menu Minggu Ini</h2>
       <div class="gold-divider gold-divider--center"><span class="dot"></span></div>
-      <p class="lede" style="margin: 22px auto 0" data-id="Enam dari delapan puluh resep dirotasi tiap minggu — disiapkan di dapur pusat, dikirim segar ke outlet pagi hari." data-en="Six of eighty recipes rotate weekly — prepared in our central kitchen, delivered fresh to outlets each morning.">
+      <p class="lede feat__intro" data-id="Enam dari delapan puluh resep dirotasi tiap minggu — disiapkan di dapur pusat, dikirim segar ke outlet pagi hari." data-en="Six of eighty recipes rotate weekly — prepared in our central kitchen, delivered fresh to outlets each morning.">
         Enam dari delapan puluh resep dirotasi tiap minggu — disiapkan di dapur pusat, dikirim segar ke outlet pagi hari.
       </p>
     </div>
 
     <div class="feat__grid" id="featGrid"></div>
 
-    <div style="text-align:center; margin-top: 56px" class="reveal">
+    <div class="feat__cta-row reveal">
       <a href="menu.html" class="btn btn--ghost" data-id="Lihat 80 Menu Lengkap →" data-en="Browse All 80 Menus →">Lihat 80 Menu Lengkap →</a>
     </div>
   </div>
@@ -520,7 +538,7 @@
 <!-- ══════════════ PROCESS ══════════════ -->
 <section class="section process" data-screen-label="Process">
   <div class="container">
-    <div style="text-align:center;" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="III · Dari Dapur ke Meja" data-en="III · From Kitchen to Table">III · Dari Dapur ke Meja</div>
       <h2 class="h-xl section-heading" data-id="Satu dapur. Lima outlet." data-en="One kitchen. Five outlets.">Satu dapur. Lima outlet.</h2>
       <div class="gold-divider gold-divider--center"><span class="dot"></span></div>
@@ -554,10 +572,10 @@
 <!-- ══════════════ OUTLETS ══════════════ -->
 <section class="section outlets" data-screen-label="Outlets">
   <div class="container">
-    <div style="text-align:center;margin-bottom:56px" class="reveal">
+    <div class="outlets__head reveal">
       <div class="eyebrow" data-id="IV · Lokasi" data-en="IV · Locations">IV · Lokasi</div>
-      <h2 class="h-xl" style="color:var(--cream);margin: 16px 0 14px" data-id="Kami buka di dua tempat." data-en="Two places to find us.">Kami buka di dua tempat.</h2>
-      <div class="gold-divider gold-divider--center" style="color:var(--gold)"><span class="dot"></span></div>
+      <h2 class="h-xl" data-id="Kami buka di dua tempat." data-en="Two places to find us.">Kami buka di dua tempat.</h2>
+      <div class="gold-divider gold-divider--center outlets__divider"><span class="dot"></span></div>
     </div>
     <div class="outlets__grid" id="outletsGrid"></div>
   </div>
@@ -566,7 +584,7 @@
 <!-- ══════════════ TESTIMONY ══════════════ -->
 <section class="section testi" data-screen-label="Testimony">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="V · Kata Pelanggan" data-en="V · Customer Words">V · Kata Pelanggan</div>
       <h2 class="h-xl section-heading" data-id="Makan siang yang tidak bikin ngantuk." data-en="Lunch that won't make you sleepy.">Makan siang yang tidak bikin ngantuk.</h2>
     </div>
@@ -602,10 +620,10 @@
 <!-- ══════════════ INSTAGRAM ══════════════ -->
 <section class="section ig" data-screen-label="Instagram">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow">VI · @warungmenumbg</div>
       <h2 class="h-xl section-heading" data-id="Cerita dari dapur." data-en="Stories from the kitchen.">Cerita dari dapur.</h2>
-      <p class="lede" style="margin: 0 auto" data-id="Video card menu, behind the scene central kitchen, dan foto pelanggan — setiap hari." data-en="Menu video cards, central-kitchen behind-the-scenes, customer shots — daily.">Video card menu, behind the scene central kitchen, dan foto pelanggan — setiap hari.</p>
+      <p class="lede ig__lede" data-id="Video card menu, behind the scene central kitchen, dan foto pelanggan — setiap hari." data-en="Menu video cards, central-kitchen behind-the-scenes, customer shots — daily.">Video card menu, behind the scene central kitchen, dan foto pelanggan — setiap hari.</p>
     </div>
     <div class="ig__grid" id="igGrid"></div>
   </div>
@@ -614,7 +632,7 @@
 <!-- ══════════════ FAQ ══════════════ -->
 <section class="section faq" data-screen-label="FAQ">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="VII · Pertanyaan Umum" data-en="VII · FAQ">VII · Pertanyaan Umum</div>
       <h2 class="h-xl section-heading" data-id="Yang sering ditanyakan." data-en="Frequently Asked.">Yang sering ditanyakan.</h2>
     </div>
@@ -626,13 +644,13 @@
 <section class="ctabig" data-screen-label="CTA">
   <div class="container ctabig__inner">
     <div>
-      <div class="eyebrow" style="color:var(--navy)" data-id="Catering" data-en="Catering">Catering</div>
+      <div class="eyebrow ctabig__eyebrow" data-id="Catering" data-en="Catering">Catering</div>
       <h2 data-id="Butuh makan siang buat tim?" data-en="Team lunch incoming?">Butuh makan siang buat tim?</h2>
-      <h2 style="opacity:0.78"><em data-id="Kami antar dalam omprengan." data-en="We deliver in steel trays.">Kami antar dalam omprengan.</em></h2>
+      <h2 class="ctabig__sub"><em data-id="Kami antar dalam omprengan." data-en="We deliver in steel trays.">Kami antar dalam omprengan.</em></h2>
     </div>
     <div class="ctabig__cta">
       <a href="catering.html" class="btn btn--navy" data-id="Pesan Sekarang" data-en="Order Now">Pesan Sekarang</a>
-      <a id="cta-wa-btn" href="https://wa.me/6281234567890?text=Halo%20Warung%20Menu%20MBG!%20Saya%20ingin%20tanya%20tentang%20layanan%20catering%20harian." class="btn btn--wa" style="border:1px solid var(--navy)" target="_blank" rel="noopener" data-id="Hubungi WhatsApp" data-en="Chat on WhatsApp">Hubungi WhatsApp</a>
+      <a id="cta-wa-btn" href="https://wa.me/6281234567890?text=Halo%20Warung%20Menu%20MBG!%20Saya%20ingin%20tanya%20tentang%20layanan%20catering%20harian." class="btn btn--wa ctabig__wa" target="_blank" rel="noopener noreferrer" data-id="Hubungi WhatsApp" data-en="Chat on WhatsApp">Hubungi WhatsApp</a>
     </div>
   </div>
 </section>
@@ -669,7 +687,7 @@
         <div class="mcard__name" data-id="${m.name_id}" data-en="${m.name_en}">${m.name_id}</div>
         <div class="mcard__desc" data-id="${m.desc_id}" data-en="${m.desc_en}">${m.desc_id}</div>
         <div class="mcard__foot">
-          <div><span class="mcard__kcal">${m.energi}</span> <small style="color:var(--ink-mute);letter-spacing:0.1em">kkal</small></div>
+          <div><span class="mcard__kcal">${m.energi}</span> <small class="mcard__kcal-unit">kkal</small></div>
           <div class="mcard__arrow">→</div>
         </div>
       </div>`;
@@ -705,10 +723,10 @@
     c.innerHTML = `
       <div class="outletcard__hdr">
         <div>
-          <div class="eyebrow eyebrow--small" style="color:var(--gold-light)">${o.area}</div>
+          <div class="eyebrow eyebrow--small outletcard__eyebrow">${o.area}</div>
           <h3>${o.name}</h3>
         </div>
-        <div style="font-family:var(--font-serif);font-style:italic;font-size:28px;color:var(--gold)">${o.units.split(' ')[0]}</div>
+        <div class="outletcard__units">${o.units.split(' ')[0]}</div>
       </div>
       <div class="outletcard__addr">${o.address}</div>
       <div class="outletcard__meta">
