@@ -26,10 +26,19 @@
 .story { background: var(--bg); padding: var(--section-py) 0; }
 .story__grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
 @media (max-width: 900px) { .story__grid { grid-template-columns: 1fr; gap: 48px; } }
-.story__side { position: sticky; top: 100px; }
+.story__side { position: sticky; top: 100px; align-self: start; }
+@media (max-width: 900px) { .story__side { position: static; top: auto; } }
 .story__side h2 { font-family: var(--font-serif); font-style: italic; font-size: clamp(40px, 5vw, 68px); font-weight: 500; margin: 14px 0 0; line-height: 1.05; color: var(--ink); }
 .story__text { display: grid; gap: 28px; color: var(--ink-soft); line-height: 1.75; font-size: 16px; }
-.story__text p:first-of-type::first-letter { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 88px; line-height: 0.8; float: left; margin: 6px 14px -6px 0; color: var(--gold); }
+.story__text p:first-of-type::first-letter {
+  font-family: var(--font-serif); font-style: italic; font-weight: 500;
+  font-size: clamp(56px, 8vw, 88px);
+  line-height: 0.8; float: left;
+  margin: 6px 14px -6px 0; color: var(--gold);
+}
+@media (max-width: 480px) {
+  .story__text p:first-of-type::first-letter { float: none; margin: 0 0 4px; display: block; }
+}
 .story__pull { font-family: var(--font-serif); font-style: italic; font-size: 32px; line-height: 1.3; color: var(--ink); border-left: 2px solid var(--gold); padding: 4px 0 4px 24px; margin: 8px 0; }
 .values { background: var(--navy); color: var(--cream); padding: var(--section-py) 0; position: relative; overflow: hidden; }
 .values::before { content:''; position:absolute; inset:0; opacity:0.15; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%23C8A227' stroke-width='0.5'><path d='M60 10 L110 60 L60 110 L10 60 Z'/><path d='M60 30 L90 60 L60 90 L30 60 Z'/></g></svg>"); background-size: 120px; }
@@ -81,22 +90,35 @@
 .num__lbl { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream-soft); margin-top: 14px; padding-left: 0.3em; }
 .cta-row { background: var(--bg-alt); padding: var(--section-py) 0; text-align:center; }
 .cta-row h2 { font-family: var(--font-serif); font-style: italic; font-size: clamp(44px, 6vw, 80px); font-weight: 500; color: var(--ink); margin: 14px 0 20px; line-height: 1.05; }
+.cta-row__lede { max-width: 56ch; margin: 0 auto 32px; }
+.cta-row__buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.partner-head { margin: 14px 0 0; }
+.partner-lede { max-width: 54ch; margin: 16px auto 0; }
+.section-center { text-align: center; }
+.section-center h2 { margin: 14px 0; }
+.numbers__head .eyebrow { color: var(--gold); }
+.numbers__head h2 { color: var(--cream); }
+.values__head .eyebrow { color: var(--gold); }
+.values__head h2 { color: var(--cream); }
 </style>
 </head>
 <body data-screen-label="Tentang">
+<a href="#main" class="skip-link" data-id="Lompat ke konten utama" data-en="Skip to main content">Lompat ke konten utama</a>
 <div id="nav-slot"></div>
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <a href="index.html" data-id="Beranda" data-en="Home">Beranda</a>
   <span class="breadcrumb__sep" aria-hidden="true">›</span>
-  <span class="breadcrumb__current" data-id="Tentang" data-en="About">Tentang</span>
+  <span class="breadcrumb__current" aria-current="page" data-id="Tentang" data-en="About">Tentang</span>
 </nav>
+
+<main id="main" tabindex="-1">
 
 <header class="a-hero" data-screen-label="AboutHero">
   <div class="container a-hero__inner">
     <div class="eyebrow" data-id="Tentang kami" data-en="About us">Tentang kami</div>
     <h1><span data-id="Satu dapur," data-en="One kitchen,">Satu dapur,</span><br/><em data-id="delapan puluh rasa." data-en="eighty flavors.">delapan puluh rasa.</em></h1>
     <p class="lede" data-id="Warung Menu MBG hadir untuk membuktikan bahwa makan bergizi, enak, dan terjangkau bukanlah hal yang tidak mungkin — dengan resep asli dari 34 provinsi Nusantara, disajikan dalam omprengan baja khas MBG." data-en="Warung Menu MBG exists to prove that nutritious, delicious, and affordable food is not a contradiction — with authentic recipes from 34 provinces across the archipelago, served in our signature steel omprengan.">Warung Menu MBG hadir untuk membuktikan bahwa makan bergizi, enak, dan terjangkau bukanlah hal yang tidak mungkin — dengan resep asli dari 34 provinsi Nusantara, disajikan dalam omprengan baja khas MBG.</p>
-    <div class="gold-divider" style="margin-top:40px"><span class="dot"></span></div>
+    <div class="gold-divider gold-divider--mt-48"><span class="dot"></span></div>
   </div>
 </header>
 
@@ -117,9 +139,9 @@
 
 <section class="values">
   <div class="container">
-    <div style="text-align:center">
-      <div class="eyebrow" style="color:var(--gold)" data-id="II · Prinsip" data-en="II · Principles">II · Prinsip</div>
-      <h2 class="h-xl" style="color:var(--cream);margin:14px 0" data-id="Tiga hal yang kami jaga." data-en="Three things we guard.">Tiga hal yang kami jaga.</h2>
+    <div class="section-center values__head">
+      <div class="eyebrow" data-id="II · Prinsip" data-en="II · Principles">II · Prinsip</div>
+      <h2 class="h-xl section-heading" data-id="Tiga hal yang kami jaga." data-en="Three things we guard.">Tiga hal yang kami jaga.</h2>
     </div>
     <div class="values__grid">
       <div class="val">
@@ -143,9 +165,9 @@
 
 <section class="timeline">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="III · Perjalanan" data-en="III · Journey">III · Perjalanan</div>
-      <h2 class="h-xl" style="margin:14px 0" data-id="Dari buku ke warung." data-en="From cookbook to warung.">Dari buku ke warung.</h2>
+      <h2 class="h-xl section-heading" data-id="Dari buku ke warung." data-en="From cookbook to warung.">Dari buku ke warung.</h2>
     </div>
     <div class="tl">
       <div class="tl__item reveal">
@@ -178,9 +200,9 @@
 
 <section class="kitchen">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="IV · Dapur Pusat" data-en="IV · Central Kitchen">IV · Dapur Pusat</div>
-      <h2 class="h-xl" style="margin:14px 0" data-id="Dimasak di satu dapur. Dikirim ke semua outlet." data-en="Cooked in one kitchen. Delivered to all outlets.">Dimasak di satu dapur. Dikirim ke semua outlet.</h2>
+      <h2 class="h-xl section-heading" data-id="Dimasak di satu dapur. Dikirim ke semua outlet." data-en="Cooked in one kitchen. Delivered to all outlets.">Dimasak di satu dapur. Dikirim ke semua outlet.</h2>
       <p class="lede" data-id="Model central kitchen memastikan setiap omprengan yang sampai di tangan pelanggan — di mana pun outletnya — memiliki rasa dan gizi yang sama." data-en="The central kitchen model ensures every omprengan that reaches a customer — whichever outlet — carries the same flavor and nutritional value.">Model central kitchen memastikan setiap omprengan yang sampai di tangan pelanggan — di mana pun outletnya — memiliki rasa dan gizi yang sama.</p>
     </div>
     <div class="kitchen__grid">
@@ -210,9 +232,9 @@
 
 <section class="team">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="V · Tim inti" data-en="V · Core team">V · Tim inti</div>
-      <h2 class="h-xl" style="margin:14px 0" data-id="Orang-orang di balik omprengan." data-en="The people behind the omprengan.">Orang-orang di balik omprengan.</h2>
+      <h2 class="h-xl section-heading" data-id="Orang-orang di balik omprengan." data-en="The people behind the omprengan.">Orang-orang di balik omprengan.</h2>
     </div>
     <div class="team__grid">
       <div class="mbr reveal">
@@ -242,10 +264,10 @@
 
 <section class="partner-strip">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="VI · Diakui oleh" data-en="VI · Recognized by">VI · Diakui oleh</div>
-      <h2 class="h-xl" style="margin:14px 0 0" data-id="Resep dari SPPG Polri." data-en="Recipes from SPPG Polri.">Resep dari SPPG Polri.</h2>
-      <p class="lede" style="max-width:54ch;margin:16px auto 0" data-id="Seluruh 80 menu Warung MBG bersumber langsung dari Buku Rasa Bhayangkara Nusantara — kurikulum gizi resmi program MBG nasional." data-en="All 80 Warung MBG menus are sourced directly from the Buku Rasa Bhayangkara Nusantara — the official nutritional curriculum of the national MBG program.">Seluruh 80 menu Warung MBG bersumber langsung dari Buku Rasa Bhayangkara Nusantara — kurikulum gizi resmi program MBG nasional.</p>
+      <h2 class="h-xl partner-head" data-id="Resep dari SPPG Polri." data-en="Recipes from SPPG Polri.">Resep dari SPPG Polri.</h2>
+      <p class="lede partner-lede" data-id="Seluruh 80 menu Warung MBG bersumber langsung dari Buku Rasa Bhayangkara Nusantara — kurikulum gizi resmi program MBG nasional." data-en="All 80 Warung MBG menus are sourced directly from the Buku Rasa Bhayangkara Nusantara — the official nutritional curriculum of the national MBG program.">Seluruh 80 menu Warung MBG bersumber langsung dari Buku Rasa Bhayangkara Nusantara — kurikulum gizi resmi program MBG nasional.</p>
     </div>
     <div class="partner-strip__inner">
       <span class="partner-logo">SPPG · Polri</span>
@@ -261,9 +283,9 @@
 
 <section class="numbers">
   <div class="container">
-    <div style="text-align:center">
-      <div class="eyebrow" style="color:var(--gold)" data-id="VII · Dalam angka" data-en="VII · By numbers">VII · Dalam angka</div>
-      <h2 class="h-xl" style="color:var(--cream);margin:14px 0" data-id="Apa yang kami kerjakan, dalam angka." data-en="What we do, in numbers.">Apa yang kami kerjakan, dalam angka.</h2>
+    <div class="section-center numbers__head">
+      <div class="eyebrow" data-id="VII · Dalam angka" data-en="VII · By numbers">VII · Dalam angka</div>
+      <h2 class="h-xl section-heading" data-id="Apa yang kami kerjakan, dalam angka." data-en="What we do, in numbers.">Apa yang kami kerjakan, dalam angka.</h2>
     </div>
     <div class="numbers__grid">
       <div class="num"><div class="num__big">80</div><div class="num__lbl" data-id="Menu Nusantara" data-en="Nusantara menus">Menu Nusantara</div></div>
@@ -278,13 +300,15 @@
   <div class="container">
     <div class="eyebrow" data-id="VIII · Hubungi" data-en="VIII · Say hi">VIII · Hubungi</div>
     <h2 data-id="Mari makan bareng." data-en="Let's eat together.">Mari makan bareng.</h2>
-    <p class="lede" style="max-width:56ch;margin:0 auto 32px" data-id="Mau berkolaborasi, pesan catering, atau sekadar ingin tahu lebih? Hubungi kami via WhatsApp — kami senang mendengar dari Anda." data-en="Want to collaborate, order catering, or simply learn more? Reach us via WhatsApp — we'd love to hear from you.">Mau berkolaborasi, pesan catering, atau sekadar ingin tahu lebih? Hubungi kami via WhatsApp — kami senang mendengar dari Anda.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <p class="lede cta-row__lede" data-id="Mau berkolaborasi, pesan catering, atau sekadar ingin tahu lebih? Hubungi kami via WhatsApp — kami senang mendengar dari Anda." data-en="Want to collaborate, order catering, or simply learn more? Reach us via WhatsApp — we'd love to hear from you.">Mau berkolaborasi, pesan catering, atau sekadar ingin tahu lebih? Hubungi kami via WhatsApp — kami senang mendengar dari Anda.</p>
+    <div class="cta-row__buttons">
       <a href="catering.html" class="btn btn--gold" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
       <a href="menu.html" class="btn btn--outline" data-id="Jelajah 80 Menu" data-en="Browse 80 Menus">Jelajah 80 Menu</a>
     </div>
   </div>
 </section>
+
+</main>
 
 <div id="footer-slot"></div>
 

@@ -18,13 +18,161 @@
 <style>
 /* ── Page header ───────────────────────────────────────── */
 .menu-hero {
-  padding: 140px 0 56px;
+  padding: 100px 0 56px;
   background:
     linear-gradient(to bottom, var(--navy) 0%, var(--navy-deep) 100%);
   color: var(--cream);
   position: relative;
   overflow: hidden;
 }
+
+/* Breadcrumb dark variant */
+.breadcrumb--dark {
+  background: var(--navy);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding-top: 94px;
+  padding-bottom: 12px;
+}
+.breadcrumb--dark .breadcrumb__row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; letter-spacing: 0.1em;
+}
+.breadcrumb--dark a { color: rgba(251,248,240,0.58); transition: color 0.15s; }
+.breadcrumb--dark a:hover,
+.breadcrumb--dark a:focus-visible { color: var(--gold-light); }
+.breadcrumb--dark .breadcrumb__sep { color: rgba(201,168,76,0.5); }
+.breadcrumb--dark .breadcrumb__current { color: var(--gold); }
+
+/* Search count inline */
+.search-count {
+  padding: 0 14px;
+  color: var(--gold);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ptr-label {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Modal close button bigger tap */
+.modal__close { width: 44px; height: 44px; min-height: 44px; min-width: 44px; }
+
+/* Sticky CTA right group */
+.sticky-cta__group { display: flex; gap: 10px; flex-shrink: 0; }
+
+/* Bottom sheet inner grid using shared patterns */
+.bs-stack { display: grid; gap: 14px; }
+.bs-image {
+  width: 100%; height: 200px;
+  object-fit: cover;
+  border-bottom: 2px solid var(--gold);
+}
+.bs-sppg {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.bs-gizi {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  background: var(--bg-alt);
+  padding: 14px;
+  border-top: 2px solid var(--gold);
+}
+.bs-gizi > div { text-align: center; }
+.bs-gizi__val {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--gold);
+  font-weight: 500;
+}
+.bs-gizi__lbl {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 3px;
+}
+.bs-comp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 13px;
+}
+.bs-comp__cell { padding: 10px; border: 1px solid var(--rule); }
+.bs-comp__tag {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.bs-cta { display: flex; gap: 10px; margin-top: 8px; }
+.bs-cta .btn { flex: 1; text-align: center; }
+
+/* Ompreng sambal footer */
+.ompreng__sambal {
+  padding: 10px 14px;
+  border-top: 1px solid var(--gold-hair);
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ompreng__sambal-lbl {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.ompreng__sambal-val {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+/* Modal gizi total bar */
+.modal__gizi-total {
+  padding: 10px 22px;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--gold-hair);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.modal__gizi-total-lbl {
+  color: var(--ink-mute);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+.modal__gizi-total-val {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+/* Region badge on card */
+.card2 .badge--region {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 2;
+}
+.card2__kcal small { color: var(--ink-mute); margin-left: 2px; }
 .menu-hero::before {
   content: '';
   position: absolute; inset: 0;
@@ -393,18 +541,20 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
 </head>
 <body data-screen-label="Menu">
 
+<a href="#main" class="skip-link" data-id="Lompat ke konten utama" data-en="Skip to main content">Lompat ke konten utama</a>
+
 <div id="nav-slot"></div>
 
 <!-- Breadcrumb -->
-<div class="breadcrumb" style="background:var(--navy);border-bottom:1px solid rgba(201,168,76,.15)">
-  <div class="container">
-    <nav aria-label="Breadcrumb">
-      <a href="index.html" style="color:rgba(251,248,240,.55)" data-id="Beranda" data-en="Home">Beranda</a>
-      <span class="breadcrumb__sep" style="color:rgba(201,168,76,.5)">›</span>
-      <span class="breadcrumb__current" style="color:var(--gold)" data-id="Menu" data-en="Menu">Menu</span>
-    </nav>
+<nav class="breadcrumb breadcrumb--dark" aria-label="Breadcrumb">
+  <div class="container breadcrumb__row">
+    <a href="index.html" data-id="Beranda" data-en="Home">Beranda</a>
+    <span class="breadcrumb__sep" aria-hidden="true">›</span>
+    <span class="breadcrumb__current" aria-current="page" data-id="Menu" data-en="Menu">Menu</span>
   </div>
-</div>
+</nav>
+
+<main id="main" tabindex="-1">
 
 <!-- ══════════════ HEADER ══════════════ -->
 <header class="menu-hero" data-screen-label="MenuHeader">
@@ -423,9 +573,9 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
 </header>
 
 <!-- Pull to refresh indicator -->
-<div class="ptr-indicator" id="ptrIndicator">
-  <div class="ptr-spinner"></div>
-  <span style="font-size:12px;letter-spacing:.12em;text-transform:uppercase">Memperbarui menu...</span>
+<div class="ptr-indicator" id="ptrIndicator" role="status" aria-live="polite">
+  <div class="ptr-spinner" aria-hidden="true"></div>
+  <span class="ptr-label" data-id="Memperbarui menu..." data-en="Refreshing menu...">Memperbarui menu...</span>
 </div>
 
 <!-- ══════════════ FILTERS ══════════════ -->
@@ -436,8 +586,10 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       </span>
       <input id="searchInput" class="search-bar__input" type="search" placeholder="Cari rendang, gado-gado, soto..." data-id-placeholder="Cari rendang, gado-gado, soto..." data-en-placeholder="Search rendang, gado-gado, soto..." aria-label="Cari menu" />
-      <button class="search-bar__clear" id="searchClear" aria-label="Hapus pencarian">×</button>
-      <span style="padding:0 14px;color:var(--gold);font-family:var(--font-serif);font-style:italic;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap" id="searchCount">80</span>
+      <button class="search-bar__clear" id="searchClear" type="button" aria-label="Hapus pencarian" data-id-label="Hapus pencarian" data-en-label="Clear search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <span class="search-count" id="searchCount" aria-live="polite">80</span>
     </div>
     <div class="filter-chips" id="tagChips" role="group" aria-label="Filter protein"></div>
     <select class="prov-select" id="provSelect"></select>
@@ -462,16 +614,16 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
 </div>
 
 <!-- Sticky Catering CTA -->
-<div class="sticky-cta" id="stickyCta">
+<aside class="sticky-cta" id="stickyCta" aria-label="Promosi catering">
   <div class="sticky-cta__text">
     <strong data-id="Suka menunya?" data-en="Like what you see?">Suka menunya?</strong>
     <span data-id="Pesan catering mulai 20 porsi — diantar dalam omprengan baja." data-en="Order catering from 20 portions — delivered in steel trays.">Pesan catering mulai 20 porsi — diantar dalam omprengan baja.</span>
   </div>
-  <div style="display:flex;gap:10px;flex-shrink:0">
-    <a id="sticky-wa-btn" href="https://wa.me/6281234567890" class="btn btn--wa btn--small" target="_blank" rel="noopener" data-id="Chat WA" data-en="Chat WA">Chat WA</a>
+  <div class="sticky-cta__group">
+    <a id="sticky-wa-btn" href="https://wa.me/6281234567890" class="btn btn--wa btn--small" target="_blank" rel="noopener noreferrer" data-id="Chat WA" data-en="Chat WA">Chat WA</a>
     <a href="catering.html" class="btn btn--gold btn--small" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
   </div>
-</div>
+</aside>
 
 <!-- ── Bottom Sheet (mobile modal) ── -->
 <div class="bottom-sheet-backdrop" id="bsBackdrop"></div>
@@ -484,6 +636,8 @@ select.prov-select:focus { outline: none; border-color: var(--gold); }
   <div class="bottom-sheet__body" id="bsBody"></div>
 </div>
 
+</main>
+
 <div id="footer-slot"></div>
 
 <script src="assets/shared.js"></script>
@@ -493,9 +647,21 @@ window.mountLayout();
 if (window.renderNavMega) window.renderNavMega();
 if (window.MBG && window.MBG.initCountUp) window.MBG.initCountUp();
 
-// Search clear button
+// ── Page elements ──
+const grid = document.getElementById('mgrid');
+const searchInput = document.getElementById('searchInput');
+const searchCount = document.getElementById('searchCount');
+const resultNumber = document.getElementById('resultNumber');
+const gridTitle = document.getElementById('gridTitle');
+const noResults = document.getElementById('noResults');
+const tagChips = document.getElementById('tagChips');
+const provSelect = document.getElementById('provSelect');
+const modal = document.getElementById('modal');
+const modalInner = document.getElementById('modalInner');
+
+// Search clear button (kept safe with existing refs)
 const searchClear = document.getElementById('searchClear');
-if (searchClear) {
+if (searchClear && searchInput) {
   searchInput.addEventListener('input', () => {
     searchClear.classList.toggle('is-visible', searchInput.value.length > 0);
   });
@@ -512,17 +678,6 @@ if (searchClear) {
 // Pull-to-refresh on mobile
 const ptrEl = document.getElementById('ptrIndicator');
 if (ptrEl) window.MBG.initPullToRefresh(() => { render(); });
-
-const grid = document.getElementById('mgrid');
-const searchInput = document.getElementById('searchInput');
-const searchCount = document.getElementById('searchCount');
-const resultNumber = document.getElementById('resultNumber');
-const gridTitle = document.getElementById('gridTitle');
-const noResults = document.getElementById('noResults');
-const tagChips = document.getElementById('tagChips');
-const provSelect = document.getElementById('provSelect');
-const modal = document.getElementById('modal');
-const modalInner = document.getElementById('modalInner');
 
 // ── Tag chips ──
 const tags = [
@@ -623,7 +778,9 @@ function render() {
         <div class="menu-photo__num">${m.no}</div>
         ${m.weekly ? '<span class="badge--week" data-id="Minggu ini" data-en="This week">Minggu ini</span>' : ''}
         ${getRegionBadge(m.province)}
-        <button class="fav-btn ${window.MBG.favs.isFav(m.no) ? 'is-fav' : ''}" data-no="${m.no}" aria-label="Simpan favorit" title="Tambah favorit">&#9825;</button>
+        <button class="fav-btn ${window.MBG.favs.isFav(m.no) ? 'is-fav' : ''}" data-no="${m.no}" type="button" aria-pressed="${window.MBG.favs.isFav(m.no)}" aria-label="Simpan favorit" title="Tambah favorit">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
       </div>
       <div class="card2__body">
         <div class="card2__prov">${(m.province||'').toUpperCase()}</div>
@@ -646,11 +803,11 @@ function render() {
         e.stopPropagation();
         const isFav = window.MBG.favs.toggle(m.no);
         favBtn.classList.toggle('is-fav', isFav);
-        favBtn.innerHTML = isFav ? '&#9829;' : '&#9825;';
-        window.MBG.toast(
-          isFav ? `${m.name_id} disimpan ke favorit` : `${m.name_id} dihapus dari favorit`,
-          { type: isFav ? 'success' : 'default', duration: 2500 }
-        );
+        favBtn.setAttribute('aria-pressed', String(isFav));
+        const label = isFav
+          ? (window.MBG.t ? window.MBG.t(`${m.name_id} disimpan ke favorit`, `${m.name_id} saved to favorites`) : `${m.name_id} disimpan ke favorit`)
+          : (window.MBG.t ? window.MBG.t(`${m.name_id} dihapus dari favorit`, `${m.name_id} removed from favorites`) : `${m.name_id} dihapus dari favorit`);
+        window.MBG.toast(label, { type: isFav ? 'success' : 'default', duration: 2500 });
       });
     }
     grid.appendChild(c);
@@ -664,28 +821,34 @@ function render() {
   window.setLang(window.getLang());
 }
 
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+
+let modalBinding = null;
 function openModal(m) {
+  modal.setAttribute('aria-labelledby', 'modalTitle-' + m.no);
   modalInner.innerHTML = `
-    <button class="modal__close" aria-label="Close">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    <button class="modal__close" type="button" data-modal-close aria-label="Tutup" data-id-label="Tutup" data-en-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
     </button>
     <div class="modal__photo">
       <img class="modal__photo__img lazy"
-           src="${m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg'}"
-           alt="${m.name_id}"
+           src="${esc(m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg')}"
+           alt="${esc(m.name_id)}"
            loading="lazy"
            decoding="async">
       <div class="modal__photo__overlay"></div>
-      <div class="modal__photo__num">${m.no}</div>
+      <div class="modal__photo__num">${esc(m.no)}</div>
     </div>
     <div class="modal__body">
       <div>
-        <div class="modal__prov">${m.sppg} · ${m.province}</div>
-        <h2 class="modal__title"><em>${m.name_id}</em></h2>
-        <div class="modal__en" data-id="" data-en="">${m.name_en}</div>
+        <div class="modal__prov">${esc(m.sppg)} · ${esc(m.province)}</div>
+        <h2 id="modalTitle-${esc(m.no)}" class="modal__title"><em>${esc(m.name_id)}</em></h2>
+        <div class="modal__en">${esc(m.name_en)}</div>
       </div>
-      <span class="modal__tag">${tags.find(t => t.id === m.tag)?.id_label || m.tag}</span>
-      <p class="modal__desc" data-id="${m.desc_id.replace(/"/g,'&quot;')}" data-en="${m.desc_en.replace(/"/g,'&quot;')}">${m.desc_id}</p>
+      <span class="modal__tag">${esc(tags.find(t => t.id === m.tag)?.id_label || m.tag)}</span>
+      <p class="modal__desc" data-id="${esc(m.desc_id)}" data-en="${esc(m.desc_en)}">${esc(m.desc_id)}</p>
 
       <div class="ompreng">
         <div class="ompreng__label">
@@ -695,55 +858,54 @@ function openModal(m) {
         <div class="ompreng__grid">
           <div class="ompreng__cell ompreng__cell--big">
             <div class="ompreng__cell__tag" data-id="Protein" data-en="Protein">Protein</div>
-            <div class="ompreng__cell__name">${m.protein}</div>
+            <div class="ompreng__cell__name">${esc(m.protein)}</div>
           </div>
           <div class="ompreng__cell">
             <div class="ompreng__cell__tag" data-id="Karbohidrat" data-en="Carbohydrate">Karbohidrat</div>
-            <div class="ompreng__cell__name">${m.karbo}</div>
+            <div class="ompreng__cell__name">${esc(m.karbo)}</div>
           </div>
           <div class="ompreng__cell">
             <div class="ompreng__cell__tag" data-id="Sayur" data-en="Vegetable">Sayur</div>
-            <div class="ompreng__cell__name">${m.sayur}</div>
+            <div class="ompreng__cell__name">${esc(m.sayur)}</div>
           </div>
           <div class="ompreng__cell">
             <div class="ompreng__cell__tag" data-id="Pelengkap" data-en="Side">Pelengkap</div>
-            <div class="ompreng__cell__name">${m.pelengkap}</div>
+            <div class="ompreng__cell__name">${esc(m.pelengkap)}</div>
           </div>
         </div>
-        <div style="padding:10px 14px; border-top:1px solid var(--gold-hair); font-size:11px; color:var(--ink-mute); display:flex; justify-content:space-between; align-items:center">
-          <span data-id="Sambal" data-en="Sambal" style="font-size:9px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold)">Sambal</span>
-          <span style="font-family:var(--font-serif); font-style:italic; font-size:13px; color:var(--ink)">${m.sambal}</span>
+        <div class="ompreng__sambal">
+          <span class="ompreng__sambal-lbl" data-id="Sambal" data-en="Sambal">Sambal</span>
+          <span class="ompreng__sambal-val">${esc(m.sambal)}</span>
         </div>
       </div>
 
       <div class="modal__gizi">
-        <div><strong>${m.energi}</strong><small>kkal</small></div>
-        <div><strong>${m.p_protein}</strong><small data-id="Protein (g)" data-en="Protein (g)">Protein (g)</small></div>
-        <div><strong>${m.lemak}</strong><small data-id="Lemak (g)" data-en="Fat (g)">Lemak (g)</small></div>
-        <div><strong>${m.p_karbo}</strong><small data-id="Karbo (g)" data-en="Carbs (g)">Karbo (g)</small></div>
+        <div><strong>${esc(m.energi)}</strong><small>kkal</small></div>
+        <div><strong>${esc(m.p_protein)}</strong><small data-id="Protein (g)" data-en="Protein (g)">Protein (g)</small></div>
+        <div><strong>${esc(m.lemak)}</strong><small data-id="Lemak (g)" data-en="Fat (g)">Lemak (g)</small></div>
+        <div><strong>${esc(m.p_karbo)}</strong><small data-id="Karbo (g)" data-en="Carbs (g)">Karbo (g)</small></div>
       </div>
-      <div style="padding:10px 22px;background:var(--bg-alt);border-top:1px solid var(--gold-hair);display:flex;justify-content:space-between;align-items:center;font-size:.8rem">
-        <span style="color:var(--ink-mute);letter-spacing:.12em;text-transform:uppercase;font-size:.72rem" data-id="Total per porsi" data-en="Total per portion">Total per porsi</span>
-        <span style="font-family:var(--font-serif);font-style:italic;color:var(--gold);font-size:1rem">${m.energi} kkal · ${m.p_protein}g protein · ${m.lemak}g lemak · ${m.p_karbo}g karbo</span>
+      <div class="modal__gizi-total">
+        <span class="modal__gizi-total-lbl" data-id="Total per porsi" data-en="Total per portion">Total per porsi</span>
+        <span class="modal__gizi-total-val">${esc(m.energi)} kkal · ${esc(m.p_protein)}g protein · ${esc(m.lemak)}g lemak · ${esc(m.p_karbo)}g karbo</span>
       </div>
 
       <div class="modal__cta">
         <a href="catering.html" class="btn btn--gold btn--small" data-id="Pesan untuk Tim" data-en="Order for Team">Pesan untuk Tim</a>
         ${m.video_file ? `<a href="video.html" class="btn btn--ghost btn--small" data-id="Lihat Video Card" data-en="See Video Card">Lihat Video Card</a>` : ''}
-        <button class="btn btn--outline btn--small share-btn" data-title="${m.name_id}" data-no="${m.no}" aria-label="Share">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+        <button class="btn btn--outline btn--small share-btn" type="button" data-title="${esc(m.name_id)}" data-no="${esc(m.no)}" aria-label="Bagikan" data-id-label="Bagikan" data-en-label="Share">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
         </button>
       </div>
     </div>`;
-  modalInner.querySelector('.modal__close').addEventListener('click', closeModal);
-  modal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  modalBinding = window.MBG.bindModal(modal, {
+    initialFocus: '.modal__close',
+    onClose: () => { /* no-op */ }
+  });
+  modalBinding.open();
   window.setLang(window.getLang());
 }
-function closeModal() {
-  modal.classList.remove('is-open');
-  document.body.style.overflow = '';
-}
+function closeModal() { if (modalBinding) modalBinding.close(); }
 
 // Bottom sheet for mobile
 const bsBackdrop = document.getElementById('bsBackdrop');
@@ -756,32 +918,37 @@ const isMobile = () => window.innerWidth < 768;
 function openBottomSheet(m) {
   bsTitle.textContent = m.name_id;
   const imgSrc = m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg';
+  const waHref = (window.MBG_WA && window.waLink)
+    ? window.waLink(window.MBG_WA.defaultMsg || 'Halo Warung Menu MBG!')
+    : 'https://wa.me/6281234567890';
   bsBody.innerHTML = `
-    <div style="display:grid;gap:14px">
-      <img src="${imgSrc}" alt="${m.name_id}"
-           style="width:100%;height:200px;object-fit:cover;border-bottom:2px solid var(--gold)"
-           loading="lazy" decoding="async">
-      <div style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)">${m.sppg} · ${m.province}</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:var(--bg-alt);padding:14px;border-top:2px solid var(--gold)">
-        <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.energi}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">kkal</div></div>
-        <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.p_protein}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">Protein g</div></div>
-        <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.lemak}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">Lemak g</div></div>
-        <div style="text-align:center"><div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--gold);font-weight:500">${m.p_karbo}</div><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:3px">Karbo g</div></div>
+    <div class="bs-stack">
+      <img class="bs-image" src="${esc(imgSrc)}" alt="${esc(m.name_id)}" loading="lazy" decoding="async">
+      <div class="bs-sppg">${esc(m.sppg)} · ${esc(m.province)}</div>
+      <div class="bs-gizi">
+        <div><div class="bs-gizi__val">${esc(m.energi)}</div><div class="bs-gizi__lbl">kkal</div></div>
+        <div><div class="bs-gizi__val">${esc(m.p_protein)}</div><div class="bs-gizi__lbl">Protein g</div></div>
+        <div><div class="bs-gizi__val">${esc(m.lemak)}</div><div class="bs-gizi__lbl">Lemak g</div></div>
+        <div><div class="bs-gizi__val">${esc(m.p_karbo)}</div><div class="bs-gizi__lbl">Karbo g</div></div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
-        <div style="padding:10px;border:1px solid var(--rule)"><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Protein</div>${m.protein}</div>
-        <div style="padding:10px;border:1px solid var(--rule)"><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Karbohidrat</div>${m.karbo}</div>
-        <div style="padding:10px;border:1px solid var(--rule)"><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Sayur</div>${m.sayur}</div>
-        <div style="padding:10px;border:1px solid var(--rule)"><div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Sambal</div>${m.sambal}</div>
+      <div class="bs-comp">
+        <div class="bs-comp__cell"><div class="bs-comp__tag" data-id="Protein" data-en="Protein">Protein</div>${esc(m.protein)}</div>
+        <div class="bs-comp__cell"><div class="bs-comp__tag" data-id="Karbohidrat" data-en="Carbohydrate">Karbohidrat</div>${esc(m.karbo)}</div>
+        <div class="bs-comp__cell"><div class="bs-comp__tag" data-id="Sayur" data-en="Vegetable">Sayur</div>${esc(m.sayur)}</div>
+        <div class="bs-comp__cell"><div class="bs-comp__tag" data-id="Sambal" data-en="Sambal">Sambal</div>${esc(m.sambal)}</div>
       </div>
-      <div style="display:flex;gap:10px;margin-top:8px">
-        <a href="catering.html" class="btn btn--gold btn--small" style="flex:1;text-align:center">Pesan Catering</a>
-        <a href="https://wa.me/6281234567890" class="btn btn--wa btn--small" target="_blank" rel="noopener">Chat WA</a>
+      <div class="bs-cta">
+        <a href="catering.html" class="btn btn--gold btn--small" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
+        <a href="${esc(waHref)}" class="btn btn--wa btn--small" target="_blank" rel="noopener noreferrer" data-id="Chat WA" data-en="Chat WA">Chat WA</a>
       </div>
     </div>`;
   bsBackdrop.classList.add('is-open');
   bottomSheet.classList.add('is-open');
   document.body.style.overflow = 'hidden';
+  // focus first focusable in sheet
+  const first = bottomSheet.querySelector('button, a[href], [tabindex]:not([tabindex="-1"])');
+  if (first) first.focus({ preventScroll: true });
+  window.setLang(window.getLang());
 }
 function closeBottomSheet() {
   bsBackdrop.classList.remove('is-open');
@@ -790,8 +957,12 @@ function closeBottomSheet() {
 }
 if (bsClose) bsClose.addEventListener('click', closeBottomSheet);
 if (bsBackdrop) bsBackdrop.addEventListener('click', closeBottomSheet);
-modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (bottomSheet && bottomSheet.classList.contains('is-open')) closeBottomSheet();
+    else if (modal.classList.contains('is-open')) closeModal();
+  }
+});
 
 render();
 
@@ -831,13 +1002,22 @@ modalInner.addEventListener('click', e => {
   }
 });
 
-// Sticky CTA bar — visible after 300px scroll
+// Sticky CTA bar — visible once user scrolls past first grid row, hidden near footer
 const stickyCta = document.getElementById('stickyCta');
 const stickyWaBtn = document.getElementById('sticky-wa-btn');
 if (window.MBG_WA && stickyWaBtn) stickyWaBtn.href = window.waLink(window.MBG_WA.cateringMsg);
+let lastCtaState = false;
 window.addEventListener('scroll', () => {
-  if (stickyCta) stickyCta.classList.toggle('is-visible', window.scrollY > 300);
+  if (!stickyCta) return;
+  const nearBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 240);
+  const should = window.scrollY > 480 && !nearBottom;
+  if (should !== lastCtaState) {
+    stickyCta.classList.toggle('is-visible', should);
+    lastCtaState = should;
+  }
 }, { passive: true });
+// Respect user dismiss
+if (window.MBG && window.MBG.initStickyCta) window.MBG.initStickyCta();
 </script>
 <script>
   if ("serviceWorker" in navigator) {

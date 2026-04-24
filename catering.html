@@ -204,9 +204,14 @@
       </div>
     </div>
 
-    <form class="cform" id="cform">
+    <form class="cform" id="cform" novalidate aria-describedby="formErrorSummary">
+      <!-- Error summary (live region) -->
+      <div class="form-error-summary" id="formErrorSummary" role="alert" aria-live="assertive">
+        <strong data-id="Ada yang perlu dilengkapi:" data-en="Some fields need attention:">Ada yang perlu dilengkapi:</strong>
+        <ul id="formErrorList"></ul>
+      </div>
       <!-- Step progress bar -->
-      <div class="step-bar" id="stepBar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+      <div class="step-bar" id="stepBar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" aria-label="Progress formulir pesanan">
         <div class="step-bar__item is-active" id="stepItem1">
           <div class="step-bar__dot">1</div>
           <div class="step-bar__label" data-id="Detail" data-en="Details">Detail</div>
@@ -236,9 +241,9 @@
           <div class="field">
             <label data-id="Jumlah porsi" data-en="Portions">Jumlah porsi</label>
             <div class="stepper">
-              <button type="button" class="stepper__btn" id="btnMinus" aria-label="Kurang">−</button>
-              <input id="portions" class="stepper__input" type="number" min="20" max="2000" value="50" inputmode="numeric" />
-              <button type="button" class="stepper__btn" id="btnPlus" aria-label="Tambah">+</button>
+              <button type="button" class="stepper__btn" id="btnMinus" aria-label="Kurangi 10 porsi" data-id-label="Kurangi 10 porsi" data-en-label="Decrease 10 portions">−</button>
+              <input id="portions" class="stepper__input" type="number" min="20" max="2000" value="50" inputmode="numeric" aria-label="Jumlah porsi" />
+              <button type="button" class="stepper__btn" id="btnPlus" aria-label="Tambah 10 porsi" data-id-label="Tambah 10 porsi" data-en-label="Increase 10 portions">+</button>
             </div>
             <div class="field__hint" data-id="Minimum 20 porsi" data-en="Minimum 20 portions">Minimum 20 porsi</div>
             <div class="field__err" id="err-portions" data-id="Minimal 20 porsi" data-en="Minimum 20 portions">Minimal 20 porsi</div>
@@ -276,7 +281,7 @@
           <div class="field__err" id="err-address" data-id="Masukkan alamat pengiriman" data-en="Please enter delivery address">Masukkan alamat pengiriman</div>
         </div>
       </div><!-- end cform__grid step1 -->
-      <div class="step-nav" style="display:flex;justify-content:flex-end;margin-top:20px">
+      <div class="step-nav step-nav--end">
         <button type="button" class="btn btn--gold" id="toStep2" data-id="Lanjut →" data-en="Next →">Lanjut →</button>
       </div>
       </div><!-- end step1 -->
@@ -309,7 +314,7 @@
           <textarea placeholder="5 vegetarian, 2 alergi kacang, antar ke resepsionis lantai 14"></textarea>
         </div>
       </div><!-- end cform__grid step2 -->
-      <div style="display:flex;justify-content:space-between;margin-top:20px">
+      <div class="step-nav step-nav--between">
         <button type="button" class="btn btn--ghost" id="toStep1Back" data-id="← Kembali" data-en="← Back">← Kembali</button>
         <button type="button" class="btn btn--gold" id="toStep3" data-id="Lanjut →" data-en="Next →">Lanjut →</button>
       </div>
