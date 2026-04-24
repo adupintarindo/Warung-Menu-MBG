@@ -768,7 +768,7 @@ function render() {
     c.dataset.no = m.no;
     c.innerHTML = `
       <div class="menu-photo">
-        <img class="menu-photo__img lazy"
+        <img class="menu-photo__img"
              src="${m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg'}"
              alt="${m.name_id}"
              loading="lazy"
@@ -833,7 +833,7 @@ function openModal(m) {
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
     </button>
     <div class="modal__photo">
-      <img class="modal__photo__img lazy"
+      <img class="modal__photo__img"
            src="${esc(m.image_file || 'assets/images/menu-' + m.no.padStart(2,'0') + '.jpg')}"
            alt="${esc(m.name_id)}"
            loading="lazy"
