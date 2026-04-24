@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>80 Menu Nusantara · Warung Menu MBG</title>
+<meta name="description" content="80 menu Nusantara dari Buku Rasa Bhayangkara Nusantara — dari Aceh sampai Papua. Filter berdasarkan protein, provinsi, atau cari langsung." />
+<meta property="og:title" content="80 Menu Nusantara · Warung Menu MBG" />
+<meta property="og:description" content="Jelajahi 80 resep dari 34 provinsi Indonesia — ayam, daging, ikan, seafood, vegetarian. Tiap porsi sudah dihitung gizinya." />
+<meta property="og:url" content="https://warungmenumbg.id/menu.html" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/og-image.jpg" />
+<link rel="manifest" href="manifest.json" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css" />
+<style>
+/* ── Page header ───────────────────────────────────────── */
+.menu-hero {
+  padding: 140px 0 56px;
+  background:
+    linear-gradient(to bottom, var(--navy) 0%, var(--navy-deep) 100%);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.menu-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: 0.24;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23C8A227' stroke-width='0.5' opacity='0.6'><path d='M70 20 L120 70 L70 120 L20 70 Z'/><path d='M70 40 L100 70 L70 100 L40 70 Z'/><circle cx='70' cy='70' r='2'/></g></svg>");
+  background-size: 140px;
+}
+.menu-hero__inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;
+}
+@media (max-width: 800px) { .menu-hero__inner { grid-template-columns: 1fr; } }
+.menu-hero__left h1 {
+  font-family: var(--font-serif); font-weight: 500;
+  font-size: clamp(48px, 7vw, 92px); line-height: 1;
+  color: var(--cream); margin: 14px 0 20px;
+}
+.menu-hero__left h1 em { font-style: italic; color: var(--gold); }
+.menu-hero__meta {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  color: var(--cream-soft); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding-left: 0.14em;
+}
+.menu-hero__meta span strong {
+  display: block; color: var(--gold-light);
+  font-family: var(--font-serif); font-style: italic; font-size: 36px; font-weight: 500;
+  letter-spacing: 0;
+  margin-bottom: 4px; text-transform: none;
+}
+
+/* ── Filters bar ───────────────────────────────────────── */
+.filters {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  position: sticky; top: 78px; z-index: 50;
+  padding: 20px 0;
+  backdrop-filter: blur(12px);
+}
+.filters__inner {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 20px;
+  align-items: center;
+}
+@media (max-width: 900px) { .filters__inner { grid-template-columns: 1fr; } }
+
+.search {
+  position: relative;
+  max-width: 420px; width: 100%;
+}
+.search input {
+  width: 100%;
+  padding: 14px 18px 14px 46px;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s;
+}
+.search input:focus { outline: none; border-color: var(--gold); }
+.search svg {
+  position: absolute;
+  left: 16px; top: 50%; transform: translateY(-50%);
+  color: var(--gold);
+}
+.search__count {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 15px; color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip-btn {
+  padding: 9px 16px;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.chip-btn:hover { border-color: var(--gold); color: var(--gold); }
+.chip-btn.is-active { background: var(--navy); border-color: var(--navy); color: var(--gold-light); }
+
+select.prov-select {
+  padding: 12px 36px 12px 16px;
+  border: 1px solid var(--rule);
+  background: var(--bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23C8A227' stroke-width='1.5'/></svg>") no-repeat right 12px center;
+  color: var(--ink);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  appearance: none;
+  cursor: pointer;
+}
+select.prov-select:focus { outline: none; border-color: var(--gold); }
+
+/* ── Grid ─────────────────────────────────────────────── */
+.grid-wrap { padding: 56px 0 120px; }
+.grid-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 36px;
+  flex-wrap: wrap; gap: 16px;
+}
+.grid-head h2 {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(28px, 3vw, 42px); font-weight: 500;
+  color: var(--ink); margin: 0;
+}
+.grid-head span { color: var(--ink-mute); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; }
+
+.mgrid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+@media (max-width: 1100px) { .mgrid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px) { .mgrid { grid-template-columns: 1fr 1fr; gap: 16px; } }
+@media (max-width: 520px) { .mgrid { grid-template-columns: 1fr; } }
+@media (max-width: 360px) { .mgrid { grid-template-columns: 1fr !important; gap: 12px; } }
+
+/* ── Weekly badge ─────────────────────────────────────── */
+.badge--week {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--gold); color: var(--navy);
+  font-size: 8px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; padding: 3px 8px;
+  border-radius: 4px; font-family: var(--font-sans);
+}
+
+/* ── Sticky CTA bar ──────────────────────────────────── */
+.sticky-cta {
+  position: fixed;
+  bottom: 0; left: 0; right: 0; z-index: 80;
+  background: var(--navy);
+  border-top: 1px solid var(--gold);
+  padding: 12px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  transform: translateY(100%);
+  transition: transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.sticky-cta.is-visible { transform: translateY(0); }
+.sticky-cta__text {
+  color: var(--cream-soft); font-size: .85rem; line-height: 1.4;
+}
+.sticky-cta__text strong { color: var(--gold); display: block; font-family: var(--font-serif); font-style: italic; font-size: 1rem; }
+@media (max-width: 540px) { .sticky-cta__text { display: none; } }
+
+.card2 {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.card2:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 40px -20px rgba(27, 39, 83, 0.3);
+}
+.card2 .menu-photo { aspect-ratio: 1/1; }
+.card2__body { padding: 20px 20px 22px; display: grid; gap: 8px; flex: 1; }
+.card2__prov { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); padding-left: 0.32em; }
+.card2__name {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 20px; font-weight: 500; line-height: 1.15;
+  color: var(--ink); text-wrap: balance;
+}
+.card2__foot {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 10px; margin-top: auto;
+  border-top: 1px solid var(--rule);
+  font-size: 11px; color: var(--ink-mute); letter-spacing: 0.06em;
+}
+.card2__kcal {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 17px; color: var(--gold); font-weight: 600;
+  letter-spacing: 0;
+}
+
+.no-results {
+  text-align: center; padding: 80px 20px;
+  color: var(--ink-mute);
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 24px;
+}
+
+/* ── Modal ────────────────────────────────────────────── */
+.modal {
+  width: min(960px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--gold-hair);
+  max-height: 90vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  animation: modalIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  position: relative;
+}
+@keyframes modalIn { from { opacity: 0; transform: translateY(20px) scale(0.98); } }
+@media (max-width: 800px) {
+  .modal { grid-template-columns: 1fr; max-height: 92vh; overflow-y: auto; }
+}
+.modal__photo {
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 40%, var(--navy-mid) 0%, var(--navy) 55%, var(--navy-deep) 100%);
+  position: relative;
+  display: grid; place-items: center;
+  min-height: 380px;
+  overflow: hidden;
+}
+.modal__photo::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23C8A227' stroke-width='0.5' opacity='0.3'><path d='M70 20 L120 70 L70 120 L20 70 Z'/><path d='M70 40 L100 70 L70 100 L40 70 Z'/><circle cx='70' cy='70' r='2'/></g></svg>");
+  background-size: 140px;
+  opacity: 0.6;
+}
+.modal__photo__num {
+  position: absolute;
+  top: 24px; left: 28px;
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 48px; color: var(--gold-light);
+  font-weight: 500; line-height: 1;
+}
+.modal__photo__plate {
+  width: 70%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, #f4ecd8 0%, #eae3cd 60%, #c9ba94 100%);
+  position: relative;
+  box-shadow: 0 20px 60px -10px rgba(0,0,0,0.5);
+  border: 3px solid rgba(200, 162, 39, 0.6);
+}
+.modal__photo__plate::before {
+  content: '';
+  position: absolute; inset: 14%;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 162, 39, 0.4);
+}
+.modal__photo__plate::after {
+  content: '';
+  position: absolute; inset: 30%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, #8b4a1d 0%, #5a2f12 100%);
+}
+
+.modal__body {
+  padding: 40px 36px 36px;
+  overflow-y: auto;
+  display: grid; gap: 18px;
+  align-content: start;
+}
+.modal__prov {
+  font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
+  color: var(--gold); padding-left: 0.36em;
+}
+.modal__title {
+  font-family: var(--font-serif);
+  font-size: 36px; font-weight: 500; line-height: 1.05;
+  color: var(--ink); margin: 0; text-wrap: balance;
+}
+.modal__title em { font-style: italic; color: var(--gold); }
+.modal__en {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 17px; color: var(--ink-mute);
+  margin: -8px 0 8px;
+}
+.modal__desc { color: var(--ink-soft); line-height: 1.6; font-size: 15px; }
+.modal__tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px;
+  background: var(--navy); color: var(--gold-light);
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  width: fit-content;
+}
+
+.modal__gizi {
+  margin-top: 8px; padding: 20px 22px;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--gold);
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.modal__gizi > div { text-align: center; }
+.modal__gizi small {
+  display: block;
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--ink-mute); margin-top: 4px; padding-left: 0.3em;
+}
+.modal__gizi strong {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 22px; color: var(--gold); font-weight: 500;
+  display: block; font-variant-numeric: tabular-nums;
+}
+
+.modal__comp { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; margin-top: 4px; }
+.modal__comp > div {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13px;
+}
+.modal__comp span { display: block; font-size: 10px; letter-spacing: 0.24em; color: var(--ink-mute); text-transform: uppercase; margin-bottom: 3px; padding-left: 0.24em; }
+.modal__comp strong { color: var(--ink); font-weight: 500; }
+
+/* ── Ompreng 5-compartment diagram ─────────────────────── */
+.ompreng {
+  margin-top: 4px;
+  border: 1px solid var(--gold-hair);
+  background: linear-gradient(135deg, var(--bg-alt), var(--surface));
+  padding: 0;
+  position: relative;
+}
+.ompreng__label {
+  padding: 10px 14px 8px;
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); padding-left: 14px;
+  border-bottom: 1px solid var(--gold-hair);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.ompreng__label em { font-family: var(--font-serif); font-style: italic; font-size: 11px; color: var(--ink-mute); letter-spacing: 0.04em; text-transform: none; }
+.ompreng__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 2px;
+  background: var(--gold-hair);
+  aspect-ratio: 28/22;
+  padding: 2px;
+}
+.ompreng__cell {
+  background: var(--surface);
+  padding: 10px 12px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 0;
+  position: relative;
+}
+.ompreng__cell--big { grid-row: span 3; }
+.ompreng__cell__tag {
+  font-size: 8px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); padding-left: 0.28em;
+  font-weight: 600;
+}
+.ompreng__cell__name {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 14px; line-height: 1.15; color: var(--ink);
+  text-wrap: balance;
+}
+.ompreng__cell--big .ompreng__cell__name { font-size: 20px; }
+
+/* SPPG origin tag on card */
+.card2__sppg {
+  font-size: 10px; letter-spacing: 0.04em; color: var(--ink-mute);
+  line-height: 1.3;
+  font-family: var(--font-serif); font-style: italic;
+  margin-top: -4px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 14px; right: 14px;
+  z-index: 2;
+  width: 38px; height: 38px;
+  border: 1px solid var(--gold-hair);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  display: grid; place-items: center;
+  transition: all 0.2s;
+}
+.modal__close:hover { border-color: var(--gold); color: var(--gold); transform: rotate(90deg); }
+
+.modal__cta {
+  display: flex; gap: 12px; margin-top: 8px;
+}
+</style>
+</head>
+<body data-screen-label="Menu">
+
+<div id="nav-slot"></div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb" style="background:var(--navy);border-bottom:1px solid rgba(201,168,76,.15)">
+  <div class="container">
+    <nav aria-label="Breadcrumb">
+      <a href="index.html" style="color:rgba(251,248,240,.55)" data-id="Beranda" data-en="Home">Beranda</a>
+      <span class="breadcrumb__sep" style="color:rgba(201,168,76,.5)">›</span>
+      <span class="breadcrumb__current" style="color:var(--gold)" data-id="Menu" data-en="Menu">Menu</span>
+    </nav>
+  </div>
+</div>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="menu-hero" data-screen-label="MenuHeader">
+  <div class="container menu-hero__inner">
+    <div class="menu-hero__left">
+      <div class="eyebrow" style="color:var(--gold)" data-id="Katalog · Est. 2025" data-en="Catalog · Est. 2025">Katalog · Est. 2025</div>
+      <h1 data-id="Delapan puluh" data-en="Eighty"><em data-id="Delapan puluh" data-en="Eighty">Delapan puluh</em><br/><span data-id="menu Nusantara." data-en="Nusantara menus.">menu Nusantara.</span></h1>
+      <p style="color:var(--cream-soft); max-width: 52ch; font-size: 17px; line-height: 1.6" data-id="Dari Aceh sampai Papua. Cari lewat kolom di bawah, saring berdasarkan protein utama atau provinsi asal." data-en="From Aceh to Papua. Search below, filter by main protein or province of origin.">Dari Aceh sampai Papua. Cari lewat kolom di bawah, saring berdasarkan protein utama atau provinsi asal.</p>
+    </div>
+    <div class="menu-hero__meta">
+      <span><strong>80</strong><span data-id="Resep Resmi" data-en="Official Recipes">Resep Resmi</span></span>
+      <span><strong id="provCount">—</strong><span data-id="Provinsi" data-en="Provinces">Provinsi</span></span>
+      <span><strong id="sppgCount">—</strong><span data-id="SPPG Polri" data-en="SPPG Units">SPPG Polri</span></span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════ FILTERS ══════════════ -->
+<div class="filters">
+  <div class="container filters__inner">
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="searchInput" type="text" placeholder="Cari rendang, gado-gado, soto..." data-id-placeholder="Cari rendang, gado-gado, soto..." data-en-placeholder="Search rendang, gado-gado, soto..." />
+      <span class="search__count" id="searchCount">80</span>
+    </div>
+    <div class="chips" id="tagChips"></div>
+    <select class="prov-select" id="provSelect"></select>
+  </div>
+</div>
+
+<!-- ══════════════ GRID ══════════════ -->
+<section class="grid-wrap">
+  <div class="container">
+    <div class="grid-head">
+      <h2 id="gridTitle" data-id="Semua Menu" data-en="All Menus">Semua Menu</h2>
+      <span><span id="resultNumber">80</span> <span data-id="menu ditampilkan" data-en="menus shown">menu ditampilkan</span></span>
+    </div>
+    <div class="mgrid" id="mgrid"></div>
+    <div class="no-results" id="noResults" style="display:none" data-id="Tidak ada menu yang cocok. Coba kata kunci lain." data-en="No menus match. Try a different query.">Tidak ada menu yang cocok. Coba kata kunci lain.</div>
+  </div>
+</section>
+
+<!-- ══════════════ MODAL ══════════════ -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal" id="modalInner" role="dialog" aria-modal="true"></div>
+</div>
+
+<!-- Sticky Catering CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta__text">
+    <strong data-id="Suka menunya?" data-en="Like what you see?">Suka menunya?</strong>
+    <span data-id="Pesan catering mulai 20 porsi — diantar dalam omprengan baja." data-en="Order catering from 20 portions — delivered in steel trays.">Pesan catering mulai 20 porsi — diantar dalam omprengan baja.</span>
+  </div>
+  <div style="display:flex;gap:10px;flex-shrink:0">
+    <a id="sticky-wa-btn" href="https://wa.me/6281234567890" class="btn btn--wa btn--small" target="_blank" rel="noopener" data-id="Chat WA" data-en="Chat WA">Chat WA</a>
+    <a href="catering.html" class="btn btn--gold btn--small" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+
+<script src="assets/shared.js"></script>
+<script src="assets/data.js"></script>
+<script>
+window.mountLayout();
+
+const grid = document.getElementById('mgrid');
+const searchInput = document.getElementById('searchInput');
+const searchCount = document.getElementById('searchCount');
+const resultNumber = document.getElementById('resultNumber');
+const gridTitle = document.getElementById('gridTitle');
+const noResults = document.getElementById('noResults');
+const tagChips = document.getElementById('tagChips');
+const provSelect = document.getElementById('provSelect');
+const modal = document.getElementById('modal');
+const modalInner = document.getElementById('modalInner');
+
+// ── Tag chips ──
+const tags = [
+  { id: 'all',        id_label: 'Semua',     en_label: 'All' },
+  { id: 'ayam',       id_label: 'Ayam',      en_label: 'Chicken' },
+  { id: 'daging',     id_label: 'Daging',    en_label: 'Beef' },
+  { id: 'ikan',       id_label: 'Ikan',      en_label: 'Fish' },
+  { id: 'seafood',    id_label: 'Seafood',   en_label: 'Seafood' },
+  { id: 'vegetarian', id_label: 'Vegetarian',en_label: 'Vegetarian' }
+];
+tags.forEach(t => {
+  const b = document.createElement('button');
+  b.className = 'chip-btn' + (t.id === 'all' ? ' is-active' : '');
+  b.dataset.tag = t.id;
+  b.dataset.id = t.id_label;
+  b.dataset.en = t.en_label;
+  b.textContent = t.id_label;
+  b.addEventListener('click', () => {
+    tagChips.querySelectorAll('.chip-btn').forEach(x => x.classList.remove('is-active'));
+    b.classList.add('is-active');
+    render();
+  });
+  tagChips.appendChild(b);
+});
+
+// ── Province select ──
+const provinces = ['all', ...new Set(window.MBG_MENUS.map(m => m.province))].sort();
+provinces.forEach(p => {
+  const o = document.createElement('option');
+  o.value = p;
+  o.textContent = p === 'all' ? 'Semua Provinsi' : p;
+  if (p === 'all') { o.dataset.id = 'Semua Provinsi'; o.dataset.en = 'All Provinces'; }
+  provSelect.appendChild(o);
+});
+provSelect.addEventListener('change', render);
+searchInput.addEventListener('input', render);
+
+// ── Render ──
+function render() {
+  const q = searchInput.value.trim().toLowerCase();
+  const activeTag = tagChips.querySelector('.chip-btn.is-active').dataset.tag;
+  const prov = provSelect.value;
+
+  const filtered = window.MBG_MENUS.filter(m => {
+    if (activeTag !== 'all' && m.tag !== activeTag) return false;
+    if (prov !== 'all' && m.province !== prov) return false;
+    if (q) {
+      const hay = [m.name_id, m.name_en, m.province, m.region, m.sppg, m.protein, m.karbo, m.sayur, m.pelengkap, m.sambal].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  grid.innerHTML = '';
+  filtered.forEach(m => {
+    const c = document.createElement('div');
+    c.className = 'card2';
+    c.id = 'menu-' + m.no;
+    c.dataset.no = m.no;
+    c.innerHTML = `
+      <div class="menu-photo" style="position:relative">
+        <div class="menu-photo__ornament"></div>
+        <div class="menu-photo__num">${m.no}</div>
+        <div class="menu-photo__name">${m.name_id}</div>
+        ${m.weekly ? '<span class="badge--week" data-id="Minggu ini" data-en="This week">Minggu ini</span>' : ''}
+      </div>
+      <div class="card2__body">
+        <div class="card2__prov">${(m.province||'').toUpperCase()}</div>
+        <div class="card2__name" data-id="${m.name_id.replace(/"/g,'&quot;')}" data-en="${m.name_en.replace(/"/g,'&quot;')}">${m.name_id}</div>
+        <div class="card2__sppg">${m.sppg}</div>
+        <div class="card2__foot">
+          <span>${m.protein}</span>
+          <span class="card2__kcal">${m.energi} <small style="color:var(--ink-mute)">kkal</small></span>
+        </div>
+      </div>`;
+    c.addEventListener('click', () => openModal(m));
+    grid.appendChild(c);
+  });
+
+  searchCount.textContent = String(filtered.length).padStart(2, '0');
+  resultNumber.textContent = filtered.length;
+  noResults.style.display = filtered.length === 0 ? 'block' : 'none';
+
+  // Re-apply language on new nodes
+  window.setLang(window.getLang());
+}
+
+function openModal(m) {
+  modalInner.innerHTML = `
+    <button class="modal__close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    </button>
+    <div class="modal__photo">
+      <div class="modal__photo__num">${m.no}</div>
+      <div class="modal__photo__plate"></div>
+    </div>
+    <div class="modal__body">
+      <div>
+        <div class="modal__prov">${m.sppg} · ${m.province}</div>
+        <h2 class="modal__title"><em>${m.name_id}</em></h2>
+        <div class="modal__en" data-id="" data-en="">${m.name_en}</div>
+      </div>
+      <span class="modal__tag">${tags.find(t => t.id === m.tag)?.id_label || m.tag}</span>
+      <p class="modal__desc" data-id="${m.desc_id.replace(/"/g,'&quot;')}" data-en="${m.desc_en.replace(/"/g,'&quot;')}">${m.desc_id}</p>
+
+      <div class="ompreng">
+        <div class="ompreng__label">
+          <span data-id="Ompreng 5 Kompartemen" data-en="5-Compartment Tray">Ompreng 5 Kompartemen</span>
+          <em>SUS 304 · 28×22×6 cm</em>
+        </div>
+        <div class="ompreng__grid">
+          <div class="ompreng__cell ompreng__cell--big">
+            <div class="ompreng__cell__tag" data-id="Protein" data-en="Protein">Protein</div>
+            <div class="ompreng__cell__name">${m.protein}</div>
+          </div>
+          <div class="ompreng__cell">
+            <div class="ompreng__cell__tag" data-id="Karbohidrat" data-en="Carbohydrate">Karbohidrat</div>
+            <div class="ompreng__cell__name">${m.karbo}</div>
+          </div>
+          <div class="ompreng__cell">
+            <div class="ompreng__cell__tag" data-id="Sayur" data-en="Vegetable">Sayur</div>
+            <div class="ompreng__cell__name">${m.sayur}</div>
+          </div>
+          <div class="ompreng__cell">
+            <div class="ompreng__cell__tag" data-id="Pelengkap" data-en="Side">Pelengkap</div>
+            <div class="ompreng__cell__name">${m.pelengkap}</div>
+          </div>
+        </div>
+        <div style="padding:10px 14px; border-top:1px solid var(--gold-hair); font-size:11px; color:var(--ink-mute); display:flex; justify-content:space-between; align-items:center">
+          <span data-id="Sambal" data-en="Sambal" style="font-size:9px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold)">Sambal</span>
+          <span style="font-family:var(--font-serif); font-style:italic; font-size:13px; color:var(--ink)">${m.sambal}</span>
+        </div>
+      </div>
+
+      <div class="modal__gizi">
+        <div><strong>${m.energi}</strong><small>kkal</small></div>
+        <div><strong>${m.p_protein}</strong><small data-id="Protein (g)" data-en="Protein (g)">Protein (g)</small></div>
+        <div><strong>${m.lemak}</strong><small data-id="Lemak (g)" data-en="Fat (g)">Lemak (g)</small></div>
+        <div><strong>${m.p_karbo}</strong><small data-id="Karbo (g)" data-en="Carbs (g)">Karbo (g)</small></div>
+      </div>
+      <div style="padding:10px 22px;background:var(--bg-alt);border-top:1px solid var(--gold-hair);display:flex;justify-content:space-between;align-items:center;font-size:.8rem">
+        <span style="color:var(--ink-mute);letter-spacing:.12em;text-transform:uppercase;font-size:.72rem" data-id="Total per porsi" data-en="Total per portion">Total per porsi</span>
+        <span style="font-family:var(--font-serif);font-style:italic;color:var(--gold);font-size:1rem">${m.energi} kkal · ${m.p_protein}g protein · ${m.lemak}g lemak · ${m.p_karbo}g karbo</span>
+      </div>
+
+      <div class="modal__cta">
+        <a href="catering.html" class="btn btn--gold btn--small" data-id="Pesan untuk Tim" data-en="Order for Team">Pesan untuk Tim</a>
+        ${m.video_file ? `<a href="video.html" class="btn btn--ghost btn--small" data-id="Lihat Video Card" data-en="See Video Card">Lihat Video Card</a>` : ''}
+        <button class="btn btn--outline btn--small share-btn" data-title="${m.name_id}" data-no="${m.no}" aria-label="Share">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+        </button>
+      </div>
+    </div>`;
+  modalInner.querySelector('.modal__close').addEventListener('click', closeModal);
+  modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  window.setLang(window.getLang());
+}
+function closeModal() {
+  modal.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+render();
+
+// Compute hero stats from data
+document.getElementById('provCount').textContent = new Set(window.MBG_MENUS.map(m => m.province)).size;
+document.getElementById('sppgCount').textContent = new Set(window.MBG_MENUS.map(m => m.sppg)).size;
+
+// Deep-link by # number (menu-01 format)
+if (location.hash) {
+  const raw = location.hash.replace('#', '').replace('menu-', '');
+  const m = window.MBG_MENUS.find(x => x.no === raw);
+  if (m) setTimeout(() => openModal(m), 300);
+}
+
+// URL param ?region= from index.html marquee
+const urlParams = new URLSearchParams(location.search);
+const regionParam = urlParams.get('region');
+if (regionParam) {
+  const opt = provSelect.querySelector(`option[value="${regionParam}"]`);
+  if (opt) { provSelect.value = regionParam; render(); }
+}
+
+// Share button inside modal
+modalInner.addEventListener('click', e => {
+  const btn = e.target.closest('.share-btn');
+  if (!btn) return;
+  const title = btn.dataset.title;
+  const no = btn.dataset.no;
+  const shareUrl = `${location.origin}${location.pathname}?menu=${no}`;
+  if (navigator.share) {
+    navigator.share({ title: `Warung Menu MBG · ${title}`, url: shareUrl }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      btn.textContent = '✓';
+      setTimeout(() => { btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>'; }, 2000);
+    });
+  }
+});
+
+// Sticky CTA bar — visible after 300px scroll
+const stickyCta = document.getElementById('stickyCta');
+const stickyWaBtn = document.getElementById('sticky-wa-btn');
+if (window.MBG_WA && stickyWaBtn) stickyWaBtn.href = window.waLink(window.MBG_WA.cateringMsg);
+window.addEventListener('scroll', () => {
+  if (stickyCta) stickyCta.classList.toggle('is-visible', window.scrollY > 300);
+}, { passive: true });
+</script>
+</body>
+</html>

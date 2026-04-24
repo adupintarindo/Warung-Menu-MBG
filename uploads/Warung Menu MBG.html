@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Warung Menu MBG — Special Menu</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  html,body{margin:0;padding:0;width:100%;height:100%;background:#0a0a0a;overflow:hidden;font-family:"Jost",system-ui,sans-serif;color:#f4ecd8}
+  #root{position:absolute;inset:0}
+  *{box-sizing:border-box}
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="animations.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="scenes.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "brandName": "Warung Menu MBG",
+    "tagline": "Gizi Seimbang, Rasa Nusantara",
+    "introTagline": "Menu Pilihan Minggu Ini",
+    "menu1Name": "Urap Sayur & Ayam Bumbu Bali",
+    "menu1Subtitle": "Sajian Khas Nusantara",
+    "menu1Origin": "Bali",
+    "menu1Description": "Sajian lengkap bercita rasa tradisional, memadukan gurihnya urap kelapa, manis-pedas ayam bumbu bali, dan segarnya mangga sebagai penutup.",
+    "menu1KarboValue": "Nasi Putih",
+    "menu1ProteinValue": "Ayam Bumbu Bali",
+    "menu1SayurValue": "Urap Sayur",
+    "menu1BuahValue": "Mangga Segar",
+    "menu1Energi": "658,6",
+    "menu1Protein": "19,4",
+    "menu1Lemak": "20,1",
+    "menu1Karbo": "98,0",
+    "menu2Name": "Pepes Ikan & Tumis Tempe Jagung",
+    "menu2Subtitle": "Pepes Daun Pisang",
+    "menu2Origin": "Sunda · Jawa Barat",
+    "menu2Description": "Ikan pepes dibungkus daun pisang dengan aroma harum rempah, ditemani tumis tempe jagung gurih dan sambal terasi segar khas rumahan.",
+    "menu2KarboValue": "Nasi Putih",
+    "menu2ProteinValue": "Pepes Ikan",
+    "menu2SayurValue": "Tumis Tempe Jagung",
+    "menu2BuahValue": "Anggur Hijau",
+    "menu2Energi": "612,3",
+    "menu2Protein": "22,8",
+    "menu2Lemak": "18,5",
+    "menu2Karbo": "86,2",
+    "primaryGold": "#d4a24a",
+    "audioOn": false
+  }/*EDITMODE-END*/;
+
+  // ── Timing plan ─────────────────────────────────────────────────────────
+  // Intro         0.0 → 3.0     (3s)
+  // Menu 1        3.0 → 16.0    (13s)
+  // Menu 2       16.0 → 29.0    (13s)
+  // Outro        29.0 → 33.0    (4s)
+  const TOTAL = 33;
+  const INTRO_END   = 3.0;
+  const M1_START    = INTRO_END;
+  const M1_END      = 16.0;
+  const M2_START    = M1_END;
+  const M2_END      = 29.0;
+  const OUTRO_START = M2_END;
+
+  function buildMenus(t) {
+    return [
+      {
+        image: "assets/menu-1-urap-tumis.jpg",
+        name: t.menu1Name,
+        subtitle: t.menu1Subtitle,
+        origin: t.menu1Origin,
+        description: t.menu1Description,
+        komponen: [
+          { icon: 'karbo',   label: 'Karbohidrat', value: t.menu1KarboValue },
+          { icon: 'protein', label: 'Protein',     value: t.menu1ProteinValue },
+          { icon: 'sayur',   label: 'Sayur',       value: t.menu1SayurValue },
+          { icon: 'buah',    label: 'Buah',        value: t.menu1BuahValue },
+        ],
+        gizi: [
+          { icon: 'energi',       label: 'Energi',      value: t.menu1Energi,  unit: 'kkal' },
+          { icon: 'protein-gizi', label: 'Protein',     value: t.menu1Protein, unit: 'gram' },
+          { icon: 'lemak',        label: 'Lemak',       value: t.menu1Lemak,   unit: 'gram' },
+          { icon: 'karbo-gizi',   label: 'Karbohidrat', value: t.menu1Karbo,   unit: 'gram' },
+        ],
+      },
+      {
+        image: "assets/menu-2-pepes-ikan.jpg",
+        name: t.menu2Name,
+        subtitle: t.menu2Subtitle,
+        origin: t.menu2Origin,
+        description: t.menu2Description,
+        komponen: [
+          { icon: 'karbo',   label: 'Karbohidrat', value: t.menu2KarboValue },
+          { icon: 'protein', label: 'Protein',     value: t.menu2ProteinValue },
+          { icon: 'sayur',   label: 'Sayur',       value: t.menu2SayurValue },
+          { icon: 'buah',    label: 'Buah',        value: t.menu2BuahValue },
+        ],
+        gizi: [
+          { icon: 'energi',       label: 'Energi',      value: t.menu2Energi,  unit: 'kkal' },
+          { icon: 'protein-gizi', label: 'Protein',     value: t.menu2Protein, unit: 'gram' },
+          { icon: 'lemak',        label: 'Lemak',       value: t.menu2Lemak,   unit: 'gram' },
+          { icon: 'karbo-gizi',   label: 'Karbohidrat', value: t.menu2Karbo,   unit: 'gram' },
+        ],
+      },
+    ];
+  }
+
+  // ── Timestamp label (updated each second) ───────────────────────────────
+  function TimestampLabeler() {
+    const time = useTime();
+    React.useEffect(() => {
+      const root = document.getElementById('video-root');
+      if (root) {
+        const s = Math.floor(time);
+        root.setAttribute('data-screen-label', `t=${s}s`);
+      }
+    }, [Math.floor(time)]);
+    return null;
+  }
+
+  // ── Placeholder ambient audio ───────────────────────────────────────────
+  // Generated with WebAudio — soft sine chord + occasional chime — so the video
+  // has a placeholder track users can mute/remove. Tied to play state.
+  function useAmbientAudio(enabled) {
+    const { playing, time } = useTimeline();
+    const ctxRef = React.useRef(null);
+    const nodesRef = React.useRef(null);
+
+    React.useEffect(() => {
+      if (!enabled) return;
+      if (!ctxRef.current) {
+        try {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          ctxRef.current = new AC();
+        } catch (e) { return; }
+      }
+      const ctx = ctxRef.current;
+
+      if (playing) {
+        ctx.resume && ctx.resume();
+        if (!nodesRef.current) {
+          // Soft chord: A3 + E4 + C#5 (A major), low volume
+          const freqs = [220, 329.63, 554.37];
+          const gain = ctx.createGain();
+          gain.gain.value = 0.025;
+          gain.connect(ctx.destination);
+          const oscs = freqs.map((f, i) => {
+            const o = ctx.createOscillator();
+            o.type = i === 0 ? 'sine' : 'triangle';
+            o.frequency.value = f;
+            const g = ctx.createGain();
+            g.gain.value = i === 0 ? 1 : 0.35;
+            o.connect(g); g.connect(gain);
+            o.start();
+            return o;
+          });
+          nodesRef.current = { gain, oscs };
+        }
+      } else {
+        if (nodesRef.current) {
+          try { nodesRef.current.oscs.forEach(o => o.stop()); } catch(e){}
+          try { nodesRef.current.gain.disconnect(); } catch(e){}
+          nodesRef.current = null;
+        }
+      }
+
+      return () => {};
+    }, [enabled, playing]);
+
+    React.useEffect(() => () => {
+      if (nodesRef.current) {
+        try { nodesRef.current.oscs.forEach(o => o.stop()); } catch(e){}
+        nodesRef.current = null;
+      }
+      if (ctxRef.current) { try { ctxRef.current.close(); } catch(e){} ctxRef.current = null; }
+    }, []);
+  }
+
+  function AudioLayer({ enabled }) {
+    useAmbientAudio(enabled);
+    return null;
+  }
+
+  // ── Bridge: exposes timeline controls to window for the RecordButton
+  function TimelineBridge() {
+    const tl = useTimeline();
+    React.useEffect(() => {
+      window.__timeline = tl;
+    }, [tl]);
+    return null;
+  }
+
+  // ── Recorder — uses getDisplayMedia to record this tab as WebM ──────────
+  // The user clicks "Start recording", browser prompts to share the tab,
+  // user selects THIS tab, the page auto-resets to t=0 and plays through,
+  // recorder stops at the end and triggers a download.
+  function RecordButton() {
+    const [state, setState] = React.useState('idle'); // idle | recording | done
+    const [progress, setProgress] = React.useState(0);
+
+    async function start() {
+      const tl = window.__timeline;
+      if (!tl) { alert('Timeline belum siap. Tunggu sebentar.'); return; }
+      const { setTime, setPlaying, duration } = tl;
+
+      setState('requesting');
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getDisplayMedia({
+          video: { frameRate: 30, width: 1080, height: 1920 },
+          audio: true,
+          preferCurrentTab: true,
+        });
+      } catch (e) {
+        alert('Perekaman dibatalkan atau browser tidak mendukung.\n\n' + e.message);
+        setState('idle');
+        return;
+      }
+
+      const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+        ? 'video/webm;codecs=vp9'
+        : 'video/webm;codecs=vp8';
+      const rec = new MediaRecorder(stream, {
+        mimeType: mime,
+        videoBitsPerSecond: 8_000_000,
+      });
+      const chunks = [];
+      rec.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+      rec.onstop = () => {
+        stream.getTracks().forEach(t => t.stop());
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'warung-menu-mbg.webm';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+        setState('done');
+      };
+
+      setState('recording');
+      rec.start(200);
+
+      setTime(0);
+      await new Promise(r => setTimeout(r, 400));
+      setPlaying(true);
+
+      const t0 = performance.now();
+      const tick = () => {
+        const elapsed = (performance.now() - t0) / 1000;
+        setProgress(Math.min(elapsed / duration, 1));
+        if (elapsed < duration + 0.3) {
+          requestAnimationFrame(tick);
+        } else {
+          setPlaying(false);
+          rec.stop();
+        }
+      };
+      requestAnimationFrame(tick);
+    }
+
+    const styleBtn = {
+      display: 'block', width: '100%',
+      padding: '10px 12px',
+      background: state === 'recording' ? '#8a1f1f' : '#1a2850',
+      color: '#f4ecd8',
+      border: '1px solid #d4a24a',
+      borderRadius: 6,
+      fontFamily: '"Jost",system-ui,sans-serif',
+      fontSize: 12,
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      cursor: state === 'recording' ? 'default' : 'pointer',
+      marginBottom: 8,
+    };
+
+    return (
+      <div>
+        <button style={styleBtn} disabled={state === 'recording'} onClick={start}>
+          {state === 'idle' && '● Mulai rekam video'}
+          {state === 'requesting' && 'Menunggu izin...'}
+          {state === 'recording' && `Merekam... ${Math.floor(progress * 100)}%`}
+          {state === 'done' && '✓ Selesai · rekam ulang'}
+        </button>
+        <div style={{
+          fontSize: 10,
+          lineHeight: 1.5,
+          color: 'rgba(244,236,216,0.65)',
+          fontFamily: '"Jost",system-ui,sans-serif',
+        }}>
+          Tekan tombol, pilih <b>tab ini</b> di dialog, lalu biarkan 33&nbsp;detik
+          sampai selesai. File .webm akan otomatis diunduh. Convert ke
+          <b> MP4 </b> pakai HandBrake, CloudConvert, atau
+          <code style={{background:'rgba(0,0,0,0.3)', padding:'0 4px', borderRadius:3}}>
+            ffmpeg -i in.webm -c:v libx264 -crf 18 out.mp4
+          </code>.
+        </div>
+      </div>
+    );
+  }
+
+  // ── App ─────────────────────────────────────────────────────────────────
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    const menus = React.useMemo(() => buildMenus(t), [t]);
+
+    // Inject gold color override dynamically
+    React.useEffect(() => {
+      // Nothing here yet — we keep gold fixed via scenes.jsx PALETTE for simplicity;
+      // exposing it would require piping through. Left as future extension.
+    }, [t.primaryGold]);
+
+    return (
+      <div id="video-root" data-screen-label="t=0s" style={{ position: 'absolute', inset: 0 }}>
+        <Stage width={W} height={H} duration={TOTAL} background={PALETTE.navyDeep} persistKey="warung-menu-mbg">
+          <BackgroundLayer />
+
+          <Sprite start={0} end={INTRO_END + 0.1} keepMounted>
+            <IntroScene />
+          </Sprite>
+
+          <Sprite start={M1_START} end={M1_END + 0.1}>
+            <MenuSequence menu={menus[0]} index={0} />
+          </Sprite>
+
+          <Sprite start={M2_START} end={M2_END + 0.1}>
+            <MenuSequence menu={menus[1]} index={1} />
+          </Sprite>
+
+          {/* Persistent brand logo during menu sequences */}
+          <Sprite start={M1_START - 0.3} end={M2_END + 0.3}>
+            <CornerLogo />
+          </Sprite>
+
+          <Sprite start={OUTRO_START} end={TOTAL + 0.2}>
+            <OutroScene />
+          </Sprite>
+
+          <TimestampLabeler />
+          <AudioLayer enabled={t.audioOn} />
+          <TimelineBridge />
+        </Stage>
+
+        <TweaksPanel title="Tweaks">
+          <TweakSection label="Brand" />
+          <TweakText label="Brand name"      value={t.brandName}     onChange={v => setTweak('brandName', v)} />
+          <TweakText label="Tagline outro"   value={t.tagline}       onChange={v => setTweak('tagline', v)} />
+          <TweakText label="Intro subtitle"  value={t.introTagline}  onChange={v => setTweak('introTagline', v)} />
+
+          <TweakSection label="Menu 1" />
+          <TweakText label="Nama menu"       value={t.menu1Name}        onChange={v => setTweak('menu1Name', v)} />
+          <TweakText label="Subjudul"        value={t.menu1Subtitle}    onChange={v => setTweak('menu1Subtitle', v)} />
+          <TweakText label="Deskripsi"       value={t.menu1Description} onChange={v => setTweak('menu1Description', v)} />
+          <TweakText label="Karbohidrat"     value={t.menu1KarboValue}  onChange={v => setTweak('menu1KarboValue', v)} />
+          <TweakText label="Protein"         value={t.menu1ProteinValue}onChange={v => setTweak('menu1ProteinValue', v)} />
+          <TweakText label="Sayur"           value={t.menu1SayurValue}  onChange={v => setTweak('menu1SayurValue', v)} />
+          <TweakText label="Buah"            value={t.menu1BuahValue}   onChange={v => setTweak('menu1BuahValue', v)} />
+          <TweakText label="Energi (kkal)"   value={t.menu1Energi}      onChange={v => setTweak('menu1Energi', v)} />
+          <TweakText label="Protein (gr)"    value={t.menu1Protein}     onChange={v => setTweak('menu1Protein', v)} />
+          <TweakText label="Lemak (gr)"      value={t.menu1Lemak}       onChange={v => setTweak('menu1Lemak', v)} />
+          <TweakText label="Karbo (gr)"      value={t.menu1Karbo}       onChange={v => setTweak('menu1Karbo', v)} />
+
+          <TweakSection label="Menu 2" />
+          <TweakText label="Nama menu"       value={t.menu2Name}        onChange={v => setTweak('menu2Name', v)} />
+          <TweakText label="Subjudul"        value={t.menu2Subtitle}    onChange={v => setTweak('menu2Subtitle', v)} />
+          <TweakText label="Deskripsi"       value={t.menu2Description} onChange={v => setTweak('menu2Description', v)} />
+          <TweakText label="Karbohidrat"     value={t.menu2KarboValue}  onChange={v => setTweak('menu2KarboValue', v)} />
+          <TweakText label="Protein"         value={t.menu2ProteinValue}onChange={v => setTweak('menu2ProteinValue', v)} />
+          <TweakText label="Sayur"           value={t.menu2SayurValue}  onChange={v => setTweak('menu2SayurValue', v)} />
+          <TweakText label="Buah"            value={t.menu2BuahValue}   onChange={v => setTweak('menu2BuahValue', v)} />
+          <TweakText label="Energi (kkal)"   value={t.menu2Energi}      onChange={v => setTweak('menu2Energi', v)} />
+          <TweakText label="Protein (gr)"    value={t.menu2Protein}     onChange={v => setTweak('menu2Protein', v)} />
+          <TweakText label="Lemak (gr)"      value={t.menu2Lemak}       onChange={v => setTweak('menu2Lemak', v)} />
+          <TweakText label="Karbo (gr)"      value={t.menu2Karbo}       onChange={v => setTweak('menu2Karbo', v)} />
+
+          <TweakSection label="Audio" />
+          <TweakToggle label="Ambient audio" value={t.audioOn} onChange={v => setTweak('audioOn', v)} />
+
+          <TweakSection label="Export Video" />
+          <RecordButton />
+        </TweaksPanel>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

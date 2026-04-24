@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Catering · Warung Menu MBG</title>
+<meta name="description" content="Catering harian & event dari Warung Menu MBG — 80 menu Nusantara dalam omprengan baja 5-sekat. Mulai 20 porsi, gratis antar Jakarta, gizi sudah dihitung." />
+<meta property="og:title" content="Catering · Warung Menu MBG" />
+<meta property="og:description" content="Makan siang kantor dari Rp 29.000/porsi. Diantar setiap hari dalam omprengan baja ikonik — dari dapur pusat ke meja tim Anda." />
+<meta property="og:url" content="https://warungmenumbg.id/catering.html" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/og-image.jpg" />
+<link rel="manifest" href="manifest.json" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css" />
+<style>
+.c-hero { padding: 140px 0 80px; background: radial-gradient(ellipse 80% 60% at 60% 40%, var(--navy-mid) 0%, var(--navy) 60%, var(--navy-deep) 100%); color: var(--cream); position: relative; overflow: hidden; }
+.c-hero::before { content:''; position:absolute; inset:0; opacity:0.22; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23C8A227' stroke-width='0.5' opacity='0.6'><path d='M70 20 L120 70 L70 120 L20 70 Z'/><path d='M70 40 L100 70 L70 100 L40 70 Z'/><circle cx='70' cy='70' r='2'/></g></svg>"); background-size: 140px; }
+.c-hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
+@media (max-width: 900px) { .c-hero__inner { grid-template-columns: 1fr; } }
+.c-hero h1 { font-family: var(--font-serif); font-weight: 500; font-size: clamp(48px, 7vw, 96px); line-height: 1; margin: 14px 0 20px; color: var(--cream); }
+.c-hero h1 em { font-style: italic; color: var(--gold); }
+.c-hero__side { background: rgba(248, 244, 232, 0.04); border: 1px solid var(--gold-hair); padding: 32px 28px; display: grid; gap: 18px; }
+.c-hero__side h3 { font-family: var(--font-serif); font-style: italic; font-size: 28px; color: var(--cream); margin:0; font-weight: 500; }
+.c-hero__side ul { list-style:none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.c-hero__side li { display: flex; gap: 12px; align-items: start; color: var(--cream-soft); font-size: 14px; line-height: 1.55; }
+.c-hero__side li svg { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+.tiers { background: var(--bg); padding: var(--section-py) 0; }
+.tiers__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+@media (max-width: 900px) { .tiers__grid { grid-template-columns: 1fr; } }
+.tier { background: var(--surface); border: 1px solid var(--rule); padding: 40px 32px; display: grid; gap: 18px; position: relative; transition: transform 0.3s, border-color 0.3s; }
+.tier--pop { border-color: var(--gold); background: var(--bg-alt); }
+.tier--pop::before { content: 'Paling Dipesan'; position: absolute; top: -12px; right: 24px; padding: 5px 14px; background: var(--gold); color: var(--navy); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600; padding-left: 0.3em; }
+.tier:hover { transform: translateY(-6px); border-color: var(--gold); }
+.tier__label { font-size: 11px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--gold); padding-left: 0.38em; }
+.tier h3 { font-family: var(--font-serif); font-style: italic; font-size: 36px; margin: 0; color: var(--ink); font-weight: 500; }
+.tier__price { font-family: var(--font-serif); font-style: italic; font-weight: 500; color: var(--gold); font-size: 46px; line-height: 1; }
+.tier__price small { font-family: var(--font-sans); font-style: normal; font-size: 13px; color: var(--ink-mute); letter-spacing: 0.12em; font-weight: 400; }
+.tier p { color: var(--ink-soft); font-size: 14px; line-height: 1.55; margin: 0; }
+.tier ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; border-top: 1px solid var(--rule); padding-top: 18px; }
+.tier li { display: flex; gap: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.tier li::before { content: '◆'; color: var(--gold); font-size: 8px; line-height: 1.8; flex-shrink: 0; }
+.form-sec { background: var(--bg-alt); padding: var(--section-py) 0; }
+.form-sec__grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; }
+@media (max-width: 900px) { .form-sec__grid { grid-template-columns: 1fr; } }
+.form-sec__intro h2 { font-family: var(--font-serif); font-style: italic; font-size: clamp(36px, 4.5vw, 60px); font-weight: 500; line-height: 1.05; margin: 14px 0 20px; color: var(--ink); }
+.form-sec__list { display: grid; gap: 14px; margin-top: 32px; }
+.form-sec__row { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+.form-sec__row strong { color: var(--gold); font-family: var(--font-serif); font-style: italic; font-size: 22px; font-weight: 500; }
+.cform { background: var(--surface); border: 1px solid var(--rule); padding: 40px; }
+.cform__grid { display: grid; gap: 22px; }
+.field { display: grid; gap: 8px; }
+.field--row { grid-template-columns: 1fr 1fr; }
+@media (max-width: 560px) { .field--row { grid-template-columns: 1fr; } }
+.field label { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-mute); font-weight: 500; padding-left: 0.24em; }
+.field input, .field select, .field textarea { padding: 14px 16px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); font-size: 14px; transition: border-color 0.2s; width: 100%; font-family: inherit; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); }
+.field textarea { min-height: 110px; resize: vertical; }
+.field select { appearance: none; background: var(--bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23C8A227' stroke-width='1.5'/></svg>") no-repeat right 14px center; padding-right: 40px; }
+.field__hint { font-size: 12px; color: var(--ink-mute); margin-top: 2px; }
+.cform__radios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cform__radio { padding: 14px 12px; border: 1px solid var(--rule); text-align: center; cursor: pointer; transition: all 0.2s; }
+.cform__radio input { display: none; }
+.cform__radio.is-sel { border-color: var(--gold); background: var(--bg-alt); }
+.cform__radio .r-lbl { font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--ink); font-weight: 500; }
+.cform__radio .r-sub { font-size: 11px; color: var(--ink-mute); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px; }
+.cform__summary { margin-top: 8px; padding: 22px 24px; background: var(--bg-alt); border-left: 2px solid var(--gold); display: grid; gap: 10px; }
+.cform__summary div { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-soft); }
+.cform__summary div span:last-child { color: var(--ink); font-weight: 500; }
+.cform__summary .total { border-top: 1px solid var(--rule); padding-top: 12px; margin-top: 6px; }
+.cform__summary .total span:last-child { font-family: var(--font-serif); font-style: italic; font-size: 28px; color: var(--gold); font-weight: 600; }
+.csuccess { text-align: center; padding: 64px 40px; background: var(--surface); border: 1px solid var(--gold); display: none; }
+.csuccess.is-on { display: grid; place-items: center; gap: 16px; }
+.csuccess__icon { width: 96px; height: 96px; border-radius: 50%; border: 2px solid var(--gold); display: grid; place-items: center; margin: 0 auto; color: var(--gold); }
+.csuccess h3 { font-family: var(--font-serif); font-style: italic; font-size: 42px; font-weight: 500; margin: 0; color: var(--ink); }
+.csuccess p { color: var(--ink-soft); max-width: 44ch; margin: 0 auto; line-height: 1.6; }
+.csuccess__ref { font-family: var(--font-serif); font-style: italic; color: var(--gold); font-size: 22px; padding: 10px 24px; background: var(--bg-alt); border: 1px solid var(--gold-hair); letter-spacing: 0.1em; }
+.partners { background: var(--navy); color: var(--cream); padding: 64px 0; }
+.partners__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 32px; align-items: center; margin-top: 40px; }
+@media (max-width: 900px) { .partners__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 500px) { .partners__grid { grid-template-columns: repeat(2, 1fr); } }
+.partner { aspect-ratio: 3/2; border: 1px solid var(--gold-hair); display: grid; place-items: center; color: var(--cream-soft); transition: border-color 0.2s; font-family: var(--font-serif); font-style: italic; font-size: 18px; text-align: center; padding: 10px; }
+.partner:hover { border-color: var(--gold); color: var(--gold-light); }
+
+/* ── Stepper ─────────────────────────────────────── */
+.stepper { display: flex; align-items: center; border: 1px solid var(--rule); background: var(--bg); }
+.stepper__btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.3rem; font-weight: 300; flex-shrink: 0; transition: background .15s; }
+.stepper__btn:hover { background: var(--bg-alt); }
+.stepper__input { flex: 1; border: none; background: transparent; color: var(--ink); text-align: center; font-size: 1rem; font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; padding: 0; min-width: 0; -moz-appearance: textfield; }
+.stepper__input::-webkit-outer-spin-button, .stepper__input::-webkit-inner-spin-button { appearance: none; }
+.stepper__input:focus { outline: none; }
+
+/* ── Field error ─────────────────────────────────── */
+.field__err { font-size: 11px; color: #E8441A; margin-top: 4px; display: none; }
+.field.has-err input, .field.has-err select, .field.has-err textarea { border-color: #E8441A; }
+.field.has-err .field__err { display: block; }
+</style>
+</head>
+<body data-screen-label="Catering">
+<div id="nav-slot"></div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb" style="background:var(--navy);border-bottom:1px solid rgba(201,168,76,.15)">
+  <div class="container">
+    <nav aria-label="Breadcrumb">
+      <a href="index.html" style="color:rgba(251,248,240,.55)" data-id="Beranda" data-en="Home">Beranda</a>
+      <span class="breadcrumb__sep" style="color:rgba(201,168,76,.5)">›</span>
+      <span class="breadcrumb__current" style="color:var(--gold)" data-id="Catering" data-en="Catering">Catering</span>
+    </nav>
+  </div>
+</div>
+
+<header class="c-hero" data-screen-label="CateringHeader">
+  <div class="container c-hero__inner">
+    <div>
+      <div class="eyebrow" style="color:var(--gold)" data-id="Catering · Minimal 20 porsi" data-en="Catering · From 20 portions">Catering · Minimal 20 porsi</div>
+      <h1><span data-id="Makan siang kantor," data-en="Office lunches,">Makan siang kantor,</span><br/><em data-id="diantar dalam omprengan." data-en="delivered in steel trays.">diantar dalam omprengan.</em></h1>
+      <p style="color:var(--cream-soft); max-width: 52ch; font-size: 17px; line-height: 1.6" data-id="Satu paket = lauk khas Nusantara + nasi + sayur + buah. Gizi sudah dihitung. Porsi 600–720 kkal. Kami antar di Jakarta dan sekitarnya." data-en="One package = Nusantara main + rice + vegetable + fruit. 600–720 kcal per portion. We deliver across Jakarta.">Satu paket = lauk khas Nusantara + nasi + sayur + buah. Gizi sudah dihitung. Porsi 600–720 kkal. Kami antar di Jakarta dan sekitarnya.</p>
+      <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
+        <a href="#order" class="btn btn--gold" data-id="Pesan Sekarang" data-en="Order Now">Pesan Sekarang</a>
+        <a href="#" class="btn btn--outline" data-id="Chat WhatsApp" data-en="Chat on WhatsApp">Chat WhatsApp</a>
+      </div>
+    </div>
+    <div class="c-hero__side">
+      <div class="eyebrow" style="color:var(--gold)" data-id="Yang Anda dapat" data-en="What you get">Yang Anda dapat</div>
+      <h3 data-id="Mulai Rp 29.000 / porsi" data-en="From IDR 29K per portion">Mulai Rp 29.000 / porsi</h3>
+      <ul>
+        <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l3 3 7-7"/></svg><span data-id="Nasi, lauk, sayur, buah dalam omprengan steel" data-en="Rice, main, veg, fruit in steel tray">Nasi, lauk, sayur, buah dalam omprengan steel</span></li>
+        <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l3 3 7-7"/></svg><span data-id="Pilih dari 80 menu, rotasi atau custom" data-en="Pick from 80 menus, rotation or custom">Pilih dari 80 menu, rotasi atau custom</span></li>
+        <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l3 3 7-7"/></svg><span data-id="Gizi 600–720 kkal, tervalidasi ahli gizi" data-en="600–720 kcal, nutritionist-verified">Gizi 600–720 kkal, tervalidasi ahli gizi</span></li>
+        <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l3 3 7-7"/></svg><span data-id="Diantar langsung 11.30 — tidak mampir" data-en="Direct delivery by 11:30">Diantar langsung 11.30 — tidak mampir</span></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="tiers">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow" data-id="I · Paket" data-en="I · Packages">I · Paket</div>
+      <h2 class="h-xl" style="margin:14px 0" data-id="Tiga pilihan untuk setiap tim." data-en="Three tiers for every team.">Tiga pilihan untuk setiap tim.</h2>
+      <div class="gold-divider gold-divider--center"><span class="dot"></span></div>
+    </div>
+    <div class="tiers__grid">
+      <div class="tier reveal">
+        <div class="tier__label">Paket Harian</div>
+        <h3 data-id="Omprengan Polos" data-en="Classic Tray">Omprengan Polos</h3>
+        <div class="tier__price">Rp 29k <small>/ porsi</small></div>
+        <p data-id="Satu menu Nusantara per hari, rotasi mingguan dari dapur pusat." data-en="One Nusantara menu per day, weekly rotation.">Satu menu Nusantara per hari, rotasi mingguan dari dapur pusat.</p>
+        <ul>
+          <li data-id="Minimal 20 porsi / hari" data-en="Min 20 portions / day">Minimal 20 porsi / hari</li>
+          <li data-id="Pilih dari rotasi mingguan" data-en="Weekly rotation menu">Pilih dari rotasi mingguan</li>
+          <li data-id="Gratis antar Jakarta" data-en="Free delivery Jakarta">Gratis antar Jakarta</li>
+          <li data-id="Omprengan dikembalikan sore" data-en="Trays picked up in evening">Omprengan dikembalikan sore</li>
+        </ul>
+      </div>
+      <div class="tier tier--pop reveal">
+        <div class="tier__label">Paket Kantor</div>
+        <h3 data-id="Omprengan Tanding" data-en="Signature Tray">Omprengan Tanding</h3>
+        <div class="tier__price">Rp 39k <small>/ porsi</small></div>
+        <p data-id="Pilih menu dari 80 katalog lengkap — termasuk signature & vegetarian." data-en="Full 80-menu catalog — signatures & vegetarian.">Pilih menu dari 80 katalog lengkap — termasuk signature & vegetarian.</p>
+        <ul>
+          <li data-id="Minimal 40 porsi / hari" data-en="Min 40 portions / day">Minimal 40 porsi / hari</li>
+          <li data-id="Pilih bebas dari 80 menu" data-en="Free pick from 80 menus">Pilih bebas dari 80 menu</li>
+          <li data-id="Accommodate alergi & halal" data-en="Allergy & halal aware">Accommodate alergi & halal</li>
+          <li data-id="Priority slot 11.00–11.30" data-en="Priority slot 11:00–11:30">Priority slot 11.00–11.30</li>
+          <li data-id="Account manager tetap" data-en="Dedicated account manager">Account manager tetap</li>
+        </ul>
+      </div>
+      <div class="tier reveal">
+        <div class="tier__label">Event · Prasmanan</div>
+        <h3 data-id="Omprengan Agung" data-en="Grand Tray">Omprengan Agung</h3>
+        <div class="tier__price">Rp 59k <small>/ porsi</small></div>
+        <p data-id="Prasmanan 5–8 menu bersamaan, untuk peluncuran atau gathering." data-en="Buffet-style, 5–8 menus, launches & gatherings.">Prasmanan 5–8 menu bersamaan, untuk peluncuran atau gathering.</p>
+        <ul>
+          <li data-id="Minimal 100 porsi" data-en="Min 100 portions">Minimal 100 porsi</li>
+          <li data-id="5–8 menu simultan + dessert" data-en="5–8 menus + dessert">5–8 menu simultan + dessert</li>
+          <li data-id="Live cooking opsional" data-en="Live cooking optional">Live cooking opsional</li>
+          <li data-id="Staff server (2–6 orang)" data-en="Staff server (2–6)">Staff server (2–6 orang)</li>
+          <li data-id="Dekorasi Art Deco" data-en="Art Deco decor">Dekorasi Art Deco</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="order" class="form-sec">
+  <div class="container form-sec__grid">
+    <div class="form-sec__intro reveal">
+      <div class="eyebrow" data-id="II · Pesan" data-en="II · Order">II · Pesan</div>
+      <h2 data-id="Beri kami tahu." data-en="Tell us.">Beri kami tahu.</h2>
+      <p class="lede" data-id="Isi form — tim kami kontak dalam 2 jam kerja dengan penawaran, opsi menu, dan jadwal." data-en="Fill the form — we'll reach out within 2 working hours with proposal, menu options, schedule.">Isi form — tim kami kontak dalam 2 jam kerja dengan penawaran, opsi menu, dan jadwal.</p>
+      <div class="form-sec__list">
+        <div class="form-sec__row"><strong>I</strong><span data-id="Ceritakan jumlah orang, frekuensi, tanggal mulai." data-en="Share head count, frequency, start date.">Ceritakan jumlah orang, frekuensi, tanggal mulai.</span></div>
+        <div class="form-sec__row"><strong>II</strong><span data-id="Kami kirim penawaran + 2 opsi menu dalam 2 jam." data-en="We send proposal + 2 menu options within 2 hours.">Kami kirim penawaran + 2 opsi menu dalam 2 jam.</span></div>
+        <div class="form-sec__row"><strong>III</strong><span data-id="Sample testing (50 porsi) atau langsung kontrak." data-en="Sample test (50 portions) or straight to contract.">Sample testing (50 porsi) atau langsung kontrak.</span></div>
+        <div class="form-sec__row"><strong>IV</strong><span data-id="Kirim tiap hari mulai besok pagi." data-en="Daily delivery starting tomorrow.">Kirim tiap hari mulai besok pagi.</span></div>
+      </div>
+    </div>
+
+    <form class="cform" id="cform">
+      <div class="cform__grid" id="formFields">
+        <div class="field">
+          <label data-id="Paket yang diinginkan" data-en="Package">Paket yang diinginkan</label>
+          <div class="cform__radios">
+            <label class="cform__radio"><input type="radio" name="pkg" value="polos"/><div class="r-lbl">29k</div><div class="r-sub" data-id="Polos" data-en="Classic">Polos</div></label>
+            <label class="cform__radio is-sel"><input type="radio" name="pkg" value="tanding" checked/><div class="r-lbl">39k</div><div class="r-sub" data-id="Tanding" data-en="Signature">Tanding</div></label>
+            <label class="cform__radio"><input type="radio" name="pkg" value="agung"/><div class="r-lbl">59k</div><div class="r-sub" data-id="Agung" data-en="Grand">Agung</div></label>
+          </div>
+        </div>
+        <div class="field field--row">
+          <div class="field">
+            <label data-id="Jumlah porsi" data-en="Portions">Jumlah porsi</label>
+            <div class="stepper">
+              <button type="button" class="stepper__btn" id="btnMinus" aria-label="Kurang">−</button>
+              <input id="portions" class="stepper__input" type="number" min="20" max="2000" value="50" inputmode="numeric" />
+              <button type="button" class="stepper__btn" id="btnPlus" aria-label="Tambah">+</button>
+            </div>
+            <div class="field__hint" data-id="Minimum 20 porsi" data-en="Minimum 20 portions">Minimum 20 porsi</div>
+            <div class="field__err" id="err-portions" data-id="Minimal 20 porsi" data-en="Minimum 20 portions">Minimal 20 porsi</div>
+          </div>
+          <div class="field">
+            <label data-id="Mulai tanggal" data-en="Start date">Mulai tanggal</label>
+            <input id="startDate" type="date"/>
+            <div class="field__err" id="err-date" data-id="Masukkan tanggal mulai" data-en="Please enter a start date">Masukkan tanggal mulai</div>
+          </div>
+        </div>
+        <div class="field field--row">
+          <div class="field">
+            <label data-id="Frekuensi pengiriman" data-en="Frequency">Frekuensi pengiriman</label>
+            <select id="frequency">
+              <option value="1x" data-id="Sekali — event tunggal" data-en="One-time event">Sekali — event tunggal</option>
+              <option value="5x" selected data-id="Harian — Senin sampai Jumat" data-en="Daily — Mon to Fri">Harian — Senin sampai Jumat</option>
+              <option value="3x" data-id="3x seminggu" data-en="3x per week">3x seminggu</option>
+              <option value="2x" data-id="2x seminggu" data-en="2x per week">2x seminggu</option>
+              <option value="1xw" data-id="Mingguan" data-en="Weekly">Mingguan</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-id="Waktu pengiriman" data-en="Delivery time">Waktu pengiriman</label>
+            <select id="deliveryTime">
+              <option value="1100" data-id="11.00 WIB (Priority)" data-en="11:00 WIB (Priority)">11.00 WIB (Priority)</option>
+              <option value="1130" selected data-id="11.30 WIB (Standard)" data-en="11:30 WIB (Standard)">11.30 WIB (Standard)</option>
+              <option value="1200" data-id="12.00 WIB" data-en="12:00 WIB">12.00 WIB</option>
+              <option value="1300" data-id="13.00 WIB" data-en="13:00 WIB">13.00 WIB</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label data-id="Alamat pengiriman" data-en="Delivery address">Alamat pengiriman</label>
+          <input id="address" type="text" placeholder="Menara BCA lt. 14, Jl. MH Thamrin No.1, Jakarta" />
+          <div class="field__err" id="err-address" data-id="Masukkan alamat pengiriman" data-en="Please enter delivery address">Masukkan alamat pengiriman</div>
+        </div>
+        <div class="field field--row">
+          <div class="field">
+            <label data-id="Nama Anda" data-en="Your name">Nama Anda</label>
+            <input id="contactName" type="text" placeholder="Dinda Kusuma"/>
+            <div class="field__err" id="err-name" data-id="Masukkan nama Anda" data-en="Please enter your name">Masukkan nama Anda</div>
+          </div>
+          <div class="field"><label data-id="Perusahaan" data-en="Company">Perusahaan</label><input type="text" placeholder="PT Warung Nusantara"/></div>
+        </div>
+        <div class="field field--row">
+          <div class="field">
+            <label>WhatsApp</label>
+            <input id="contactWa" type="tel" placeholder="0812 3456 7890"/>
+            <div class="field__err" id="err-wa" data-id="Masukkan nomor WhatsApp" data-en="Please enter your WhatsApp number">Masukkan nomor WhatsApp</div>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input id="contactEmail" type="email" placeholder="nama@perusahaan.id"/>
+            <div class="field__err" id="err-email" data-id="Format email tidak valid" data-en="Invalid email format">Format email tidak valid</div>
+          </div>
+        </div>
+        <div class="field">
+          <label data-id="Catatan tambahan" data-en="Notes">Catatan tambahan</label>
+          <textarea placeholder="5 vegetarian, 2 alergi kacang, antar ke resepsionis lantai 14"></textarea>
+        </div>
+        <div class="cform__summary">
+          <div><span data-id="Paket" data-en="Package">Paket</span><span id="sPkg">Tanding</span></div>
+          <div><span data-id="Jumlah porsi" data-en="Portions">Jumlah porsi</span><span id="sPort">50</span></div>
+          <div><span data-id="Per porsi" data-en="Per portion">Per porsi</span><span id="sPerP">Rp 39.000</span></div>
+          <div class="total"><span data-id="Estimasi total / hari" data-en="Est. total / day">Estimasi total / hari</span><span id="sTotal">Rp 1.950.000</span></div>
+        </div>
+        <button type="submit" class="btn btn--gold" style="width:100%;padding:18px" data-id="Kirim Permintaan" data-en="Submit Request">Kirim Permintaan</button>
+        <div class="field__hint" style="text-align:center" data-id="Tim kami kontak dalam 2 jam kerja. Tidak ada biaya hingga disetujui." data-en="We reach out within 2 hours. No fees until approved.">Tim kami kontak dalam 2 jam kerja. Tidak ada biaya hingga disetujui.</div>
+      </div>
+      <div class="csuccess" id="success">
+        <div class="csuccess__icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l7 7 13-14"/></svg></div>
+        <h3 data-id="Terima kasih." data-en="Thank you.">Terima kasih.</h3>
+        <p data-id="Permintaan Anda sudah kami terima. Tim catering menghubungi lewat WhatsApp dalam 2 jam kerja." data-en="We received your request. Our team will reach out via WhatsApp within 2 working hours.">Permintaan Anda sudah kami terima. Tim catering menghubungi lewat WhatsApp dalam 2 jam kerja.</p>
+        <div class="csuccess__ref" id="refNo">REF · WMBG-0000</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px">
+          <a href="index.html" class="btn btn--ghost btn--small" data-id="Kembali ke Beranda" data-en="Back to Home">Kembali ke Beranda</a>
+          <a href="menu.html" class="btn btn--gold btn--small" data-id="Jelajah 80 Menu" data-en="Browse 80 Menus">Jelajah 80 Menu</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<script src="assets/data.js"></script>
+
+<section class="partners">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="eyebrow" style="color:var(--gold)" data-id="III · Dipercaya oleh" data-en="III · Trusted by">III · Dipercaya oleh</div>
+      <h2 class="h-xl" style="color:var(--cream);margin:14px 0" data-id="Tim-tim di Jakarta sudah makan bersama kami." data-en="Jakarta teams already eat with us.">Tim-tim di Jakarta sudah makan bersama kami.</h2>
+    </div>
+    <div class="partners__grid">
+      <div class="partner">Wanagara<br/>Studio</div>
+      <div class="partner">Kanal<br/>Digital</div>
+      <div class="partner">Rimba<br/>Capital</div>
+      <div class="partner">Nusantara<br/>Ventures</div>
+      <div class="partner">Kopi<br/>Pagi Co.</div>
+      <div class="partner">Balai<br/>Media</div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-slot"></div>
+
+<script src="assets/shared.js"></script>
+<script>
+window.mountLayout();
+
+// Dynamic WA link
+if (window.MBG_WA) {
+  document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+    if (!a.href.includes('text=')) a.href = window.waLink(window.MBG_WA.cateringMsg);
+  });
+}
+
+// Set minimum date to tomorrow
+const startDateInput = document.getElementById('startDate');
+if (startDateInput) {
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+  startDateInput.min = tomorrow.toISOString().split('T')[0];
+}
+
+// Stepper logic
+const portionsInput = document.getElementById('portions');
+const btnMinus = document.getElementById('btnMinus');
+const btnPlus = document.getElementById('btnPlus');
+if (btnMinus && btnPlus && portionsInput) {
+  btnMinus.addEventListener('click', () => {
+    const v = Math.max(20, (parseInt(portionsInput.value) || 20) - 10);
+    portionsInput.value = v; updateSummary();
+  });
+  btnPlus.addEventListener('click', () => {
+    const v = Math.min(2000, (parseInt(portionsInput.value) || 20) + 10);
+    portionsInput.value = v; updateSummary();
+  });
+  portionsInput.addEventListener('input', updateSummary);
+}
+
+const fmt = (n) => 'Rp ' + n.toLocaleString('id-ID');
+const pkgMap = { polos: 29000, tanding: 39000, agung: 59000 };
+const pkgLabels = { polos: 'Polos', tanding: 'Tanding', agung: 'Agung' };
+function updateSummary() {
+  const picked = document.querySelector('input[name="pkg"]:checked').value;
+  const price = pkgMap[picked];
+  const port = Math.max(20, parseInt(document.getElementById('portions').value) || 20);
+  document.getElementById('sPkg').textContent = pkgLabels[picked];
+  document.getElementById('sPort').textContent = port;
+  document.getElementById('sPerP').textContent = fmt(price);
+  document.getElementById('sTotal').textContent = fmt(price * port);
+}
+document.querySelectorAll('.cform__radio').forEach(r => {
+  r.addEventListener('click', () => {
+    document.querySelectorAll('.cform__radio').forEach(x => x.classList.remove('is-sel'));
+    r.classList.add('is-sel');
+    setTimeout(updateSummary, 10);
+  });
+});
+document.getElementById('portions').addEventListener('input', updateSummary);
+updateSummary();
+// Client-side validation
+function validateField(inputId, errId, checkFn) {
+  const input = document.getElementById(inputId);
+  const err = document.getElementById(errId);
+  if (!input || !err) return true;
+  const field = input.closest('.field');
+  const ok = checkFn(input.value.trim());
+  if (field) field.classList.toggle('has-err', !ok);
+  return ok;
+}
+function validateAll() {
+  const portVal = parseInt(document.getElementById('portions')?.value) || 0;
+  const emailVal = document.getElementById('contactEmail')?.value?.trim() || '';
+  const waVal = document.getElementById('contactWa')?.value?.trim() || '';
+
+  const r1 = validateField('portions', 'err-portions', () => portVal >= 20);
+  const r2 = validateField('startDate', 'err-date', v => v.length > 0);
+  const r3 = validateField('address', 'err-address', v => v.length >= 8);
+  const r4 = validateField('contactName', 'err-name', v => v.length >= 2);
+  const r5 = validateField('contactWa', 'err-wa', v => /^[\d\s+\-]{8,}$/.test(v));
+  const r6 = validateField('contactEmail', 'err-email', v => v === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+  return r1 && r2 && r3 && r4 && r5 && r6;
+}
+
+// Remove error on input
+['portions','startDate','address','contactName','contactWa','contactEmail'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => el.closest('.field')?.classList.remove('has-err'));
+});
+
+document.getElementById('cform').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!validateAll()) {
+    const firstErr = document.querySelector('.field.has-err input, .field.has-err select');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  document.getElementById('formFields').style.display = 'none';
+  const ref = 'WMBG-' + String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+  document.getElementById('refNo').textContent = 'REF · ' + ref;
+  document.getElementById('success').classList.add('is-on');
+  window.scrollTo({ top: document.getElementById('order').offsetTop - 80, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>

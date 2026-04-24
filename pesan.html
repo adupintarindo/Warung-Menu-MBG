@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cara Pesan · Warung Menu MBG</title>
+  <meta name="description" content="Pesan menu MBG via WhatsApp, GoFood, GrabFood, atau langsung di outlet. Tersedia QRIS, GoPay, OVO, dan tunai di semua lokasi kami." />
+  <meta property="og:title" content="Cara Pesan · Warung Menu MBG" />
+  <meta property="og:description" content="Empat cara mudah memesan menu Nusantara dari Warung Menu MBG — dine-in, delivery, catering, atau beli online." />
+  <meta property="og:url" content="https://warungmenumbg.id/pesan.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Raleway:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/shared.css" />
+  <script src="assets/data.js" defer></script>
+  <script src="assets/shared.js"></script>
+
+  <style>
+    /* ── Page-specific styles ── */
+    .pesan-hero {
+      background: var(--navy);
+      color: var(--cream);
+      padding: 120px 0 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pesan-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .pesan-hero .eyebrow { color: var(--gold); letter-spacing: .2em; font-size: 11px; }
+    .pesan-hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 12px 0 20px; color: var(--cream); }
+    .pesan-hero p { font-size: 1rem; color: rgba(251,248,240,.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── Channel cards ── */
+    .channels { padding: 80px 0; background: var(--cream); }
+    .channels__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 52px;
+    }
+    .channel-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .channel-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      border-radius: 16px 16px 0 0;
+    }
+    .channel-card.ch--wa::before   { background: #25D366; }
+    .channel-card.ch--gofood::before { background: var(--red); }
+    .channel-card.ch--grab::before { background: #00B14F; }
+    .channel-card.ch--outlet::before { background: var(--gold); }
+
+    .channel-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(26,36,86,.1); border-color: var(--gold); }
+
+    .channel-card__icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+    .ch--wa   .channel-card__icon { background: #E8F9F0; }
+    .ch--gofood .channel-card__icon { background: #FEF0EE; }
+    .ch--grab .channel-card__icon { background: #E8F7EF; }
+    .ch--outlet .channel-card__icon { background: #FBF6E9; }
+
+    .channel-card__badge {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+    .ch--wa   .channel-card__badge { background: #E8F9F0; color: #1A8F4E; }
+    .ch--gofood .channel-card__badge { background: #FEF0EE; color: var(--red); }
+    .ch--grab .channel-card__badge { background: #E8F7EF; color: #007A36; }
+    .ch--outlet .channel-card__badge { background: #FBF6E9; color: #9A7B2E; }
+
+    .channel-card h3 { font-size: 1.3rem; color: var(--navy); margin: 0 0 10px; }
+    .channel-card p { font-size: .9rem; color: var(--text-muted); line-height: 1.65; flex: 1; margin: 0 0 24px; }
+
+    .channel-card__steps {
+      list-style: none;
+      padding: 0; margin: 0 0 28px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .channel-card__steps li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: .85rem; color: var(--text-muted); line-height: 1.5;
+    }
+    .step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--cream);
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .ch--wa   .step-num { background: #25D366; }
+    .ch--gofood .step-num { background: var(--red); }
+    .ch--grab .step-num { background: #00B14F; }
+    .ch--outlet .step-num { background: var(--gold); color: var(--navy); }
+
+    .channel-card__cta { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+
+    /* ── Payment section ── */
+    .payment { padding: 72px 0; background: var(--navy); color: var(--cream); }
+    .payment h2 { color: var(--cream); text-align: center; margin-bottom: 8px; }
+    .payment > .container > p { text-align: center; color: rgba(251,248,240,.65); font-size: .95rem; margin-bottom: 48px; }
+    .payment__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+    }
+    .pay-chip {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 12px;
+      padding: 24px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      text-align: center;
+    }
+    .pay-chip__icon { font-size: 28px; }
+    .pay-chip__name { font-family: var(--font-sans); font-size: .8rem; font-weight: 700; letter-spacing: .08em; color: var(--gold); }
+    .pay-chip__desc { font-size: .75rem; color: rgba(251,248,240,.55); line-height: 1.5; }
+
+    /* ── QRIS section ── */
+    .qris-section { padding: 72px 0; background: var(--cream); }
+    .qris-section .inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: center;
+    }
+    .qris-section h2 { margin-bottom: 16px; }
+    .qris-section p { color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; font-size: .95rem; }
+    .qris-placeholder {
+      background: var(--white);
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      aspect-ratio: 1;
+      max-width: 280px;
+      margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      color: var(--text-muted);
+      font-size: .85rem; text-align: center; padding: 32px;
+    }
+    .qris-placeholder svg { opacity: .35; }
+    .qris-placeholder strong { color: var(--navy); font-family: var(--font-sans); font-size: .95rem; }
+
+    /* ── FAQ strip ── */
+    .faq { padding: 72px 0; background: var(--white); }
+    .faq h2 { text-align: center; margin-bottom: 48px; }
+    .faq__list { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item summary {
+      padding: 20px 0;
+      font-family: var(--font-sans); font-weight: 600; font-size: .95rem;
+      color: var(--navy); cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.4rem; font-weight: 300; color: var(--gold);
+      flex-shrink: 0; transition: transform .2s;
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item p { padding: 0 0 20px; color: var(--text-muted); font-size: .9rem; line-height: 1.7; margin: 0; }
+
+    /* ── CTA bottom ── */
+    .pesan-cta { padding: 80px 0; background: var(--navy); text-align: center; }
+    .pesan-cta h2 { color: var(--cream); margin-bottom: 12px; font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+    .pesan-cta p { color: rgba(251,248,240,.65); margin-bottom: 36px; font-size: .95rem; }
+    .pesan-cta .btn-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+    /* ── Dark mode ── */
+    [data-theme="dark"] .channel-card { background: var(--navy-mid, #22325A); border-color: rgba(201,168,76,.2); }
+    [data-theme="dark"] .channel-card:hover { border-color: var(--gold); }
+    [data-theme="dark"] .channel-card h3 { color: var(--cream); }
+    [data-theme="dark"] .qris-section { background: var(--navy); }
+    [data-theme="dark"] .qris-placeholder { background: rgba(255,255,255,.06); border-color: rgba(201,168,76,.2); }
+    [data-theme="dark"] .faq { background: var(--navy); }
+    [data-theme="dark"] .faq-item { border-color: rgba(201,168,76,.15); }
+    [data-theme="dark"] .faq-item summary { color: var(--cream); }
+    [data-theme="dark"] .ch--wa   .channel-card__icon { background: rgba(37,211,102,.12); }
+    [data-theme="dark"] .ch--gofood .channel-card__icon { background: rgba(232,68,26,.12); }
+    [data-theme="dark"] .ch--grab .channel-card__icon { background: rgba(0,177,79,.12); }
+    [data-theme="dark"] .ch--outlet .channel-card__icon { background: rgba(201,168,76,.12); }
+    [data-theme="dark"] .channels { background: var(--navy-deep, #141C3E); }
+
+    @media (max-width: 768px) {
+      .qris-section .inner { grid-template-columns: 1fr; }
+      .qris-placeholder { max-width: 240px; }
+      .channels__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb" style="background:var(--navy);border-bottom:1px solid rgba(201,168,76,.15)">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <a href="index.html" style="color:rgba(251,248,240,.55)" data-id="Beranda" data-en="Home">Beranda</a>
+        <span class="breadcrumb__sep" style="color:rgba(201,168,76,.5)">›</span>
+        <span class="breadcrumb__current" style="color:var(--gold)" data-id="Cara Pesan" data-en="How to Order">Cara Pesan</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="pesan-hero">
+    <div class="container">
+      <span class="eyebrow" data-id="CARA MEMESAN" data-en="HOW TO ORDER">CARA MEMESAN</span>
+      <h1 data-id="Pilih Cara Pesanmu" data-en="Choose How to Order">Pilih Cara Pesanmu</h1>
+      <p data-id="Empat jalur mudah — WhatsApp langsung, GoFood, GrabFood, atau langsung di outlet. Semua menu sama, semua fresh dari dapur pusat." data-en="Four easy channels — WhatsApp direct, GoFood, GrabFood, or in-person at outlet. Same menu, all fresh from our central kitchen.">Empat jalur mudah — WhatsApp langsung, GoFood, GrabFood, atau langsung di outlet. Semua menu sama, semua fresh dari dapur pusat.</p>
+    </div>
+  </section>
+
+  <!-- Channels -->
+  <section class="channels">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow" data-id="PILIHAN SALURAN" data-en="ORDER CHANNELS">PILIHAN SALURAN</span>
+        <h2 data-id="Pesan Sesuai Kebiasaanmu" data-en="Order Your Way">Pesan Sesuai Kebiasaanmu</h2>
+      </div>
+
+      <div class="channels__grid">
+
+        <!-- WhatsApp -->
+        <div class="channel-card ch--wa reveal">
+          <div class="channel-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="1.6">
+              <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6A8.4 8.4 0 0 1 12.5 3a8.5 8.5 0 0 1 8.5 8.5z"/>
+            </svg>
+          </div>
+          <span class="channel-card__badge" data-id="Tercepat" data-en="Fastest">Tercepat</span>
+          <h3 data-id="WhatsApp Langsung" data-en="WhatsApp Direct">WhatsApp Langsung</h3>
+          <p data-id="Chat admin kami — tanya menu hari ini, konfirmasi stok, dan langsung tentukan pickup/delivery. Dibalas dalam beberapa menit." data-en="Chat our admin — ask about today's menu, confirm stock, and arrange pickup or delivery. Replied within minutes.">Chat admin kami — tanya menu hari ini, konfirmasi stok, dan langsung tentukan pickup/delivery. Dibalas dalam beberapa menit.</p>
+          <ul class="channel-card__steps">
+            <li>
+              <span class="step-num">1</span>
+              <span data-id="Klik tombol chat di bawah — pesan sudah terisi otomatis" data-en="Tap the chat button below — message is pre-filled">Klik tombol chat di bawah — pesan sudah terisi otomatis</span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span data-id="Pilih menu yang kamu mau dari daftar hari ini" data-en="Choose your menu from today's rotation">Pilih menu yang kamu mau dari daftar hari ini</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span data-id="Konfirmasi jumlah, lokasi & jam pengambilan" data-en="Confirm quantity, location & pickup time">Konfirmasi jumlah, lokasi &amp; jam pengambilan</span>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <span data-id="Bayar via QRIS di outlet atau transfer — selesai!" data-en="Pay via QRIS at outlet or transfer — done!">Bayar via QRIS di outlet atau transfer — selesai!</span>
+            </li>
+          </ul>
+          <div class="channel-card__cta">
+            <a id="wa-pesan-btn" href="https://wa.me/6281234567890?text=Halo%20Warung%20Menu%20MBG!%20Saya%20mau%20pesan%20menu%20hari%20ini.%20Bisa%20bantu%3F" class="btn btn--wa" target="_blank" rel="noopener" data-id="Chat Admin WA Sekarang" data-en="Chat WA Admin Now">Chat Admin WA Sekarang</a>
+            <a href="catering.html" class="btn btn--outline btn--small" data-id="Atau pesan catering →" data-en="Or order catering →">Atau pesan catering →</a>
+          </div>
+        </div>
+
+        <!-- GoFood -->
+        <div class="channel-card ch--gofood reveal">
+          <div class="channel-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" fill="#E8441A" opacity=".15"/>
+              <circle cx="12" cy="12" r="5" fill="#E8441A"/>
+              <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="#E8441A" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="channel-card__badge" data-id="Delivery Cepat" data-en="Fast Delivery">Delivery Cepat</span>
+          <h3 data-id="GoFood" data-en="GoFood">GoFood</h3>
+          <p data-id="Pesan lewat aplikasi Gojek dan nikmati antar kilat ke lokasi kamu. Tersedia untuk area sekitar Pasar Santa dan Lippo Mall Nusantara." data-en="Order via the Gojek app and enjoy fast delivery to your location. Available around Pasar Santa and Lippo Mall Nusantara.">Pesan lewat aplikasi Gojek dan nikmati antar kilat ke lokasi kamu. Tersedia untuk area sekitar Pasar Santa dan Lippo Mall Nusantara.</p>
+          <ul class="channel-card__steps">
+            <li>
+              <span class="step-num">1</span>
+              <span data-id="Buka aplikasi Gojek di HP kamu" data-en="Open the Gojek app on your phone">Buka aplikasi Gojek di HP kamu</span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span data-id='Cari "Warung Menu MBG" di GoFood' data-en='Search "Warung Menu MBG" on GoFood'>Cari "Warung Menu MBG" di GoFood</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span data-id="Pilih menu, tambah ke keranjang, checkout" data-en="Select menu, add to cart, checkout">Pilih menu, tambah ke keranjang, checkout</span>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <span data-id="Driver Gojek antar ke pintumu" data-en="Gojek driver delivers to your door">Driver Gojek antar ke pintumu</span>
+            </li>
+          </ul>
+          <div class="channel-card__cta">
+            <a href="https://gofood.co.id" class="btn btn--gofood" target="_blank" rel="noopener" data-id="Buka GoFood" data-en="Open GoFood">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>
+              Buka GoFood
+            </a>
+            <span style="font-size:.75rem;color:var(--text-muted);text-align:center" data-id="Segera tersedia di GoFood" data-en="Coming soon on GoFood">Segera tersedia di GoFood</span>
+          </div>
+        </div>
+
+        <!-- GrabFood -->
+        <div class="channel-card ch--grab reveal">
+          <div class="channel-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" fill="#00B14F" opacity=".15"/>
+              <circle cx="12" cy="12" r="5" fill="#00B14F"/>
+              <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="#00B14F" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="channel-card__badge" data-id="Delivery Cepat" data-en="Fast Delivery">Delivery Cepat</span>
+          <h3 data-id="GrabFood" data-en="GrabFood">GrabFood</h3>
+          <p data-id="Pesan lewat aplikasi Grab. Estimasi waktu dan tracking real-time langsung di HP kamu. Area jangkauan sama dengan GoFood." data-en="Order via the Grab app. Real-time delivery estimates and tracking right on your phone. Same coverage area as GoFood.">Pesan lewat aplikasi Grab. Estimasi waktu dan tracking real-time langsung di HP kamu. Area jangkauan sama dengan GoFood.</p>
+          <ul class="channel-card__steps">
+            <li>
+              <span class="step-num">1</span>
+              <span data-id="Buka aplikasi Grab di HP kamu" data-en="Open the Grab app on your phone">Buka aplikasi Grab di HP kamu</span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span data-id='Cari "Warung Menu MBG" di GrabFood' data-en='Search "Warung Menu MBG" on GrabFood'>Cari "Warung Menu MBG" di GrabFood</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span data-id="Pilih menu, tambah ke keranjang, checkout" data-en="Select menu, add to cart, checkout">Pilih menu, tambah ke keranjang, checkout</span>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <span data-id="Driver Grab antar ke pintumu" data-en="Grab driver delivers to your door">Driver Grab antar ke pintumu</span>
+            </li>
+          </ul>
+          <div class="channel-card__cta">
+            <a href="https://grab.com/id/food" class="btn btn--grab" target="_blank" rel="noopener" data-id="Buka GrabFood" data-en="Open GrabFood">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>
+              Buka GrabFood
+            </a>
+            <span style="font-size:.75rem;color:var(--text-muted);text-align:center" data-id="Segera tersedia di GrabFood" data-en="Coming soon on GrabFood">Segera tersedia di GrabFood</span>
+          </div>
+        </div>
+
+        <!-- Outlet / Dine-in -->
+        <div class="channel-card ch--outlet reveal">
+          <div class="channel-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <span class="channel-card__badge" data-id="Dine-in & Takeaway" data-en="Dine-in & Takeaway">Dine-in &amp; Takeaway</span>
+          <h3 data-id="Langsung ke Outlet" data-en="Visit Our Outlet">Langsung ke Outlet</h3>
+          <p data-id="Datang langsung ke Pasar Santa atau Lippo Mall Nusantara. Makan di tempat atau bawa pulang dengan omprengan ikonik baja 5-sekat kami." data-en="Visit us at Pasar Santa or Lippo Mall Nusantara. Dine in or take away in our iconic 5-compartment steel tray.">Datang langsung ke Pasar Santa atau Lippo Mall Nusantara. Makan di tempat atau bawa pulang dengan omprengan ikonik baja 5-sekat kami.</p>
+          <ul class="channel-card__steps">
+            <li>
+              <span class="step-num">1</span>
+              <span data-id="Cek jadwal dan alamat outlet di halaman Outlet" data-en="Check schedule and address at our Outlets page">Cek jadwal dan alamat outlet di halaman Outlet</span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span data-id="Datang langsung — tidak perlu reservasi untuk makan di tempat" data-en="Walk in — no reservation needed for dine-in">Datang langsung — tidak perlu reservasi untuk makan di tempat</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span data-id="Pilih menu dan bayar via QRIS, GoPay, OVO, atau tunai" data-en="Pick your menu and pay via QRIS, GoPay, OVO or cash">Pilih menu dan bayar via QRIS, GoPay, OVO, atau tunai</span>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <span data-id="Nikmati atau bawa omprenganmu pulang!" data-en="Enjoy your meal or take your steel tray home!">Nikmati atau bawa omprenganmu pulang!</span>
+            </li>
+          </ul>
+          <div class="channel-card__cta">
+            <a href="outlet.html" class="btn btn--gold" data-id="Lihat Semua Outlet" data-en="View All Outlets">Lihat Semua Outlet</a>
+            <a href="catering.html" class="btn btn--outline btn--small" data-id="Pesan Catering →" data-en="Order Catering →">Pesan Catering →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment Methods -->
+  <section class="payment">
+    <div class="container">
+      <h2 class="reveal" data-id="Metode Pembayaran" data-en="Payment Methods">Metode Pembayaran</h2>
+      <p class="reveal" data-id="Kami menerima semua metode utama — cashless maupun tunai." data-en="We accept all major payment methods — cashless and cash.">Kami menerima semua metode utama — cashless maupun tunai.</p>
+      <div class="payment__grid reveal">
+        <div class="pay-chip">
+          <div class="pay-chip__icon">📱</div>
+          <div class="pay-chip__name">QRIS</div>
+          <div class="pay-chip__desc" data-id="Scan satu kode untuk semua dompet digital" data-en="Scan one code for all e-wallets">Scan satu kode untuk semua dompet digital</div>
+        </div>
+        <div class="pay-chip">
+          <div class="pay-chip__icon">🟢</div>
+          <div class="pay-chip__name">GoPay</div>
+          <div class="pay-chip__desc" data-id="Langsung via aplikasi Gojek" data-en="Direct via Gojek app">Langsung via aplikasi Gojek</div>
+        </div>
+        <div class="pay-chip">
+          <div class="pay-chip__icon">🟣</div>
+          <div class="pay-chip__name">OVO</div>
+          <div class="pay-chip__desc" data-id="Langsung via aplikasi OVO atau Grab" data-en="Via OVO or Grab app">Langsung via aplikasi OVO atau Grab</div>
+        </div>
+        <div class="pay-chip">
+          <div class="pay-chip__icon">🔵</div>
+          <div class="pay-chip__name">Dana</div>
+          <div class="pay-chip__desc" data-id="Scan QRIS via aplikasi Dana" data-en="Scan QRIS via Dana app">Scan QRIS via aplikasi Dana</div>
+        </div>
+        <div class="pay-chip">
+          <div class="pay-chip__icon">💳</div>
+          <div class="pay-chip__name">ShopeePay</div>
+          <div class="pay-chip__desc" data-id="Scan QRIS via aplikasi Shopee" data-en="Scan QRIS via Shopee app">Scan QRIS via aplikasi Shopee</div>
+        </div>
+        <div class="pay-chip">
+          <div class="pay-chip__icon">💵</div>
+          <div class="pay-chip__name" data-id="Tunai" data-en="Cash">Tunai</div>
+          <div class="pay-chip__desc" data-id="Diterima di semua outlet" data-en="Accepted at all outlets">Diterima di semua outlet</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QRIS Section -->
+  <section class="qris-section">
+    <div class="container">
+      <div class="inner reveal">
+        <div>
+          <span class="eyebrow" data-id="BAYAR INSTAN" data-en="INSTANT PAYMENT">BAYAR INSTAN</span>
+          <h2 data-id="QRIS di Semua Outlet" data-en="QRIS at Every Outlet">QRIS di Semua Outlet</h2>
+          <p data-id="Bayar cukup scan satu kode QRIS — kompatibel dengan GoPay, OVO, Dana, ShopeePay, LinkAja, BCA, BNI, Mandiri, dan seluruh bank yang mendukung QRIS." data-en="Pay with a single QRIS scan — compatible with GoPay, OVO, Dana, ShopeePay, LinkAja, BCA, BNI, Mandiri, and all QRIS-enabled banks.">Bayar cukup scan satu kode QRIS — kompatibel dengan GoPay, OVO, Dana, ShopeePay, LinkAja, BCA, BNI, Mandiri, dan seluruh bank yang mendukung QRIS.</p>
+          <p data-id="Tidak perlu uang pas. Tidak perlu kembalian. Cukup scan dan pergi." data-en="No need for exact change. Just scan and go.">Tidak perlu uang pas. Tidak perlu kembalian. Cukup scan dan pergi.</p>
+          <a href="outlet.html" class="btn btn--gold" data-id="Lihat Lokasi Outlet" data-en="View Outlet Locations">Lihat Lokasi Outlet</a>
+        </div>
+        <div>
+          <div class="qris-placeholder">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="5" y="5" width="3" height="3" fill="currentColor"/>
+              <rect x="16" y="5" width="3" height="3" fill="currentColor"/>
+              <rect x="5" y="16" width="3" height="3" fill="currentColor"/>
+              <path d="M14 14h2v2h-2zM16 16h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z"/>
+            </svg>
+            <strong data-id="QRIS Tersedia di Outlet" data-en="QRIS Available at Outlet">QRIS Tersedia di Outlet</strong>
+            <span data-id="Scan saat di kasir" data-en="Scan at the counter">Scan saat di kasir</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <h2 class="reveal" data-id="Pertanyaan Umum" data-en="Frequently Asked Questions">Pertanyaan Umum</h2>
+      <div class="faq__list reveal">
+
+        <details class="faq-item">
+          <summary data-id="Berapa lama waktu tunggu untuk delivery?" data-en="How long does delivery take?">Berapa lama waktu tunggu untuk delivery?</summary>
+          <p data-id="Untuk delivery via GoFood dan GrabFood, estimasi waktu pengiriman mengikuti sistem platform masing-masing (biasanya 20–45 menit tergantung jarak). Untuk pesanan WhatsApp, koordinasikan jam pickup langsung dengan admin kami." data-en="For GoFood and GrabFood delivery, estimated delivery time follows each platform's system (typically 20–45 minutes depending on distance). For WhatsApp orders, coordinate pickup time directly with our admin.">Untuk delivery via GoFood dan GrabFood, estimasi waktu pengiriman mengikuti sistem platform masing-masing (biasanya 20–45 menit tergantung jarak). Untuk pesanan WhatsApp, koordinasikan jam pickup langsung dengan admin kami.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-id="Apakah saya bisa pesan untuk besok?" data-en="Can I pre-order for tomorrow?">Apakah saya bisa pesan untuk besok?</summary>
+          <p data-id="Ya! Pre-order bisa dilakukan via WhatsApp. Pesan hari ini untuk besok — admin kami akan konfirmasi ketersediaan menu rotasi minggu tersebut." data-en="Yes! Pre-orders can be placed via WhatsApp. Order today for tomorrow — our admin will confirm availability based on that week's menu rotation.">Ya! Pre-order bisa dilakukan via WhatsApp. Pesan hari ini untuk besok — admin kami akan konfirmasi ketersediaan menu rotasi minggu tersebut.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-id="Apakah tersedia layanan catering untuk acara?" data-en="Is catering available for events?">Apakah tersedia layanan catering untuk acara?</summary>
+          <p data-id="Tentu! Kami menyediakan catering harian maupun acara khusus menggunakan omprengan baja 5-sekat khas kami. Minimum order mulai 20 porsi. Lihat halaman Catering untuk detail paket dan harga." data-en="Absolutely! We offer daily and event catering using our signature 5-compartment steel trays. Minimum order from 20 portions. See our Catering page for package details and pricing.">Tentu! Kami menyediakan catering harian maupun acara khusus menggunakan omprengan baja 5-sekat khas kami. Minimum order mulai 20 porsi. Lihat halaman Catering untuk detail paket dan harga.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-id="Menu apa yang tersedia hari ini?" data-en="What menu is available today?">Menu apa yang tersedia hari ini?</summary>
+          <p data-id="Kami merotasi 80 menu dari 34 provinsi setiap minggu — sekitar 10 menu aktif per minggu. Cek halaman Menu untuk menu rotasi saat ini, atau tanya langsung via WhatsApp untuk konfirmasi stok hari ini." data-en="We rotate 80 menus from 34 provinces weekly — about 10 active menus per week. Check the Menu page for the current rotation, or ask via WhatsApp to confirm today's stock.">Kami merotasi 80 menu dari 34 provinsi setiap minggu — sekitar 10 menu aktif per minggu. Cek halaman Menu untuk menu rotasi saat ini, atau tanya langsung via WhatsApp untuk konfirmasi stok hari ini.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-id="Bisa beli omprengan/merchandise-nya juga?" data-en="Can I also buy the steel tray / merchandise?">Bisa beli omprengan/merchandise-nya juga?</summary>
+          <p data-id="Ya! Omprengan baja SUS 304 5-sekat, buku resep, dan tote bag tersedia di halaman Merch kami. Bisa dibeli langsung di outlet atau pesan via Tokopedia/Shopee." data-en="Yes! Our SUS 304 stainless steel 5-compartment trays, recipe books, and tote bags are available on our Merch page. Buy at outlet or order via Tokopedia/Shopee.">Ya! Omprengan baja SUS 304 5-sekat, buku resep, dan tote bag tersedia di halaman Merch kami. Bisa dibeli langsung di outlet atau pesan via Tokopedia/Shopee.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary data-id="Apakah menu sudah tersertifikasi halal?" data-en="Are the menus halal-certified?">Apakah menu sudah tersertifikasi halal?</summary>
+          <p data-id="Semua menu Warung Menu MBG dimasak menggunakan resep dari Buku Rasa Bhayangkara Nusantara dan mengikuti standar SPPG Polri yang memastikan kehalalan bahan dan proses produksi. Proses sertifikasi resmi MUI sedang dalam proses." data-en="All Warung Menu MBG menus are prepared using recipes from the Buku Rasa Bhayangkara Nusantara and follow SPPG Polri standards ensuring halal ingredients and production. Formal MUI certification is in progress.">Semua menu Warung Menu MBG dimasak menggunakan resep dari Buku Rasa Bhayangkara Nusantara dan mengikuti standar SPPG Polri yang memastikan kehalalan bahan dan proses produksi. Proses sertifikasi resmi MUI sedang dalam proses.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="pesan-cta">
+    <div class="container">
+      <h2 class="reveal" data-id="Siap Memesan?" data-en="Ready to Order?">Siap Memesan?</h2>
+      <p class="reveal" data-id="Hubungi admin kami atau langsung buka GoFood / GrabFood sekarang." data-en="Contact our admin or open GoFood / GrabFood right now.">Hubungi admin kami atau langsung buka GoFood / GrabFood sekarang.</p>
+      <div class="btn-row reveal">
+        <a id="wa-bottom-btn" href="https://wa.me/6281234567890?text=Halo%20Warung%20Menu%20MBG!%20Saya%20mau%20pesan%20menu%20hari%20ini." class="btn btn--wa" target="_blank" rel="noopener" data-id="Chat via WhatsApp" data-en="Chat via WhatsApp">Chat via WhatsApp</a>
+        <a href="https://gofood.co.id" class="btn btn--gofood" target="_blank" rel="noopener" data-id="Buka GoFood" data-en="Open GoFood">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>
+          Buka GoFood
+        </a>
+        <a href="https://grab.com/id/food" class="btn btn--grab" target="_blank" rel="noopener" data-id="Buka GrabFood" data-en="Open GrabFood">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>
+          Buka GrabFood
+        </a>
+        <a href="menu.html" class="btn btn--outline" style="border-color:rgba(251,248,240,.3);color:var(--cream)" data-id="Lihat Menu Lengkap" data-en="View Full Menu">Lihat Menu Lengkap</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.mountLayout();
+
+      // Dynamic WA link using MBG_WA config
+      if (window.MBG_WA) {
+        const msg = window.MBG_WA.cateringMsg || 'Halo Warung Menu MBG! Saya mau pesan menu hari ini.';
+        const link = window.waLink(msg);
+        document.querySelectorAll('#wa-pesan-btn, #wa-bottom-btn').forEach(el => el.href = link);
+      }
+    });
+  </script>
+</body>
+</html>

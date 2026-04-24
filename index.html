@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Warung Menu MBG · 80 Menu Nusantara. Satu Omprengan.</title>
+<meta name="description" content="Warung Menu MBG — 80 menu Nusantara dari Buku Rasa Bhayangkara Nusantara. Dimasak di dapur pusat, kirim setiap hari dalam omprengan baja 5-sekat. Outlet di Pasar Santa & Lippo Mall Nusantara." />
+<meta property="og:title" content="Warung Menu MBG · 80 Menu Nusantara. Satu Omprengan." />
+<meta property="og:description" content="80 menu Nusantara dari Buku Rasa Bhayangkara Nusantara. Tiap porsi sudah dihitung gizinya — outlet di Pasar Santa & Lippo Mall Nusantara Jakarta." />
+<meta property="og:url" content="https://warungmenumbg.id/" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/og-image.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="manifest" href="manifest.json" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css" />
+<style>
+/* ── Hero ───────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 35%, var(--navy-mid) 0%, var(--navy) 55%, var(--navy-deep) 100%);
+  color: var(--cream);
+  display: flex; align-items: center;
+  overflow: hidden;
+  padding: 120px 0 80px;
+}
+.hero__bg {
+  position: absolute; inset: 0;
+  opacity: 0.28;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23C8A227' stroke-width='0.6' opacity='0.6'><path d='M70 20 L120 70 L70 120 L20 70 Z'/><path d='M70 40 L100 70 L70 100 L40 70 Z'/><circle cx='70' cy='70' r='2'/></g></svg>");
+  background-size: 140px 140px;
+  mix-blend-mode: screen;
+}
+.hero__tray {
+  position: absolute;
+  right: -10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 62%;
+  max-width: 820px;
+  aspect-ratio: 1/1;
+  opacity: 0.9;
+  transition: transform 0.3s ease-out;
+}
+.hero__tray::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(200, 162, 39, 0.25) 0%, transparent 60%);
+}
+.hero__tray svg { width: 100%; height: 100%; overflow: visible; }
+
+.hero__inner {
+  position: relative; z-index: 2;
+  display: grid; gap: 32px;
+  max-width: 720px;
+}
+.hero__num {
+  display: inline-flex; align-items: center; gap: 12px;
+  color: var(--gold-light);
+  font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
+  padding-left: 0.42em;
+}
+.hero__num::before {
+  content: ''; width: 24px; height: 1px; background: var(--gold);
+}
+.hero__h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(48px, 7vw, 104px);
+  line-height: 0.98;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.hero__h1 em { color: var(--gold); font-style: italic; font-weight: 500; }
+.hero__lede {
+  font-size: clamp(16px, 1.25vw, 19px);
+  color: var(--cream-soft);
+  max-width: 52ch;
+  line-height: 1.6;
+}
+.hero__cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero__scroll {
+  position: absolute;
+  bottom: 34px; left: 50%; transform: translateX(-50%);
+  color: var(--cream-soft);
+  font-size: 10px; letter-spacing: 0.42em; text-transform: uppercase;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding-left: 0.42em;
+}
+.hero__scroll::after {
+  content: ''; width: 1px; height: 32px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2.4s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ── Strip numbers ───────────────────────────────────────────────── */
+.numstrip {
+  background: var(--navy-deep);
+  color: var(--cream);
+  padding: 56px 0;
+  border-top: 1px solid var(--gold-hair);
+  border-bottom: 1px solid var(--gold-hair);
+}
+.numstrip__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+.numstrip__cell {
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+}
+.numstrip__cell + .numstrip__cell::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: var(--gold-hair);
+}
+.numstrip__n {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(54px, 6vw, 88px); font-weight: 500;
+  color: var(--gold-light); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.numstrip__l {
+  font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--cream-soft); margin-top: 12px;
+  padding-left: 0.42em;
+}
+@media (max-width: 640px) {
+  .numstrip__grid { grid-template-columns: 1fr; }
+  .numstrip__cell + .numstrip__cell::before { display: none; }
+}
+
+/* ── Featured menu ───────────────────────────────────────────────── */
+.feat__head { text-align: center; margin-bottom: 56px; }
+.feat__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+}
+@media (max-width: 900px) { .feat__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .feat__grid { grid-template-columns: 1fr; } }
+
+.mcard {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  display: flex; flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+}
+.mcard:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 24px 48px -24px rgba(27, 39, 83, 0.35);
+}
+.mcard__body { padding: 28px 26px 32px; display: grid; gap: 14px; }
+.mcard__origin {
+  font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--gold); padding-left: 0.38em;
+}
+.mcard__name {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 26px; font-weight: 500; line-height: 1.15;
+  color: var(--ink); text-wrap: balance;
+}
+.mcard__desc { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+.mcard__foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 14px; border-top: 1px solid var(--rule);
+  font-size: 12px;
+}
+.mcard__kcal { color: var(--gold); font-family: var(--font-serif); font-style: italic; font-size: 20px; font-weight: 600; }
+.mcard__arrow {
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+.mcard:hover .mcard__arrow { transform: translateX(4px); }
+
+/* ── Marquee ─────────────────────────────────────────────────────── */
+.marquee {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 26px 0;
+  overflow: hidden;
+}
+.marquee__track {
+  display: flex; gap: 56px;
+  animation: marqueeScroll 45s linear infinite;
+  width: max-content;
+}
+.marquee__track span {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 28px;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.marquee__track span::after {
+  content: '·'; margin-left: 56px; color: var(--gold);
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── Map section ─────────────────────────────────────────────────── */
+.mapsec { background: var(--surface); }
+.mapsec__grid {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px;
+  align-items: center;
+}
+@media (max-width: 900px) { .mapsec__grid { grid-template-columns: 1fr; } }
+.mapsec__map {
+  aspect-ratio: 1.3/1;
+  background: radial-gradient(ellipse at 40% 50%, rgba(27, 39, 83, 0.08), transparent 60%);
+  position: relative;
+}
+.mapsec__map svg { width: 100%; height: 100%; }
+.mapsec__dots text {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 10px; fill: var(--navy);
+}
+.mapsec__pin { cursor: pointer; }
+.mapsec__pin circle { transition: all 0.3s ease; }
+.mapsec__pin:hover circle.outer { r: 16; opacity: 0.4; }
+
+.mapsec__list { display: grid; gap: 10px; }
+.mapsec__row {
+  padding: 18px 22px;
+  border-left: 2px solid var(--gold);
+  background: var(--bg);
+  display: grid; grid-template-columns: 1fr auto; gap: 12px 18px;
+  align-items: center;
+}
+.mapsec__row strong {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 22px; font-weight: 500; color: var(--ink);
+}
+.mapsec__row small { color: var(--ink-mute); font-size: 12px; letter-spacing: 0.08em; }
+.mapsec__row .count { color: var(--gold); font-family: var(--font-serif); font-style: italic; font-size: 28px; font-weight: 500; }
+
+/* ── Outlets ─────────────────────────────────────────────────────── */
+.outlets {
+  background: var(--navy);
+  color: var(--cream);
+  position: relative;
+}
+.outlets__grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+}
+@media (max-width: 700px) { .outlets__grid { grid-template-columns: 1fr; } }
+.outletcard {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--gold-hair);
+  padding: 36px 32px;
+  display: grid; gap: 18px;
+  transition: border-color 0.25s;
+}
+.outletcard:hover { border-color: var(--gold); }
+.outletcard__hdr { display: flex; justify-content: space-between; align-items: start; }
+.outletcard h3 {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 34px; font-weight: 500; margin: 0;
+  color: var(--cream);
+}
+.outletcard__addr { color: var(--cream-soft); font-size: 14px; line-height: 1.55; }
+.outletcard__meta {
+  display: flex; gap: 24px; padding: 14px 0;
+  border-top: 1px solid var(--gold-hair);
+  border-bottom: 1px solid var(--gold-hair);
+  font-size: 12px; letter-spacing: 0.14em;
+  color: var(--cream-soft);
+}
+.outletcard__meta div span { display: block; color: var(--gold-light); margin-bottom: 4px; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; padding-left: 0.3em; }
+.outletcard__cta { display: flex; gap: 10px; flex-wrap: wrap; }
+.delivery-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--gold-hair);
+  border-radius: 999px;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cream); transition: all 0.2s;
+}
+.delivery-chip:hover { border-color: var(--gold); color: var(--gold-light); }
+.delivery-chip__dot { width: 8px; height: 8px; border-radius: 50%; background: #00A859; }
+.delivery-chip--grab .delivery-chip__dot { background: #00B14F; }
+
+/* ── Process timeline ────────────────────────────────────────────── */
+.process { background: var(--bg-alt); }
+.process__steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  position: relative;
+  margin-top: 48px;
+}
+.process__steps::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 12%; right: 12%; height: 1px;
+  background: var(--gold-hair);
+}
+@media (max-width: 900px) { .process__steps { grid-template-columns: 1fr 1fr; }
+  .process__steps::before { display: none; }
+}
+@media (max-width: 500px) { .process__steps { grid-template-columns: 1fr; } }
+.pstep {
+  text-align: center;
+  padding: 0 16px 24px;
+  position: relative;
+}
+.pstep__num {
+  width: 80px; height: 80px;
+  margin: 0 auto 20px;
+  border: 1px solid var(--gold);
+  background: var(--bg);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 32px; color: var(--gold); font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+.pstep h4 {
+  font-family: var(--font-serif); font-size: 22px; font-style: italic;
+  font-weight: 500; margin: 0 0 10px; color: var(--ink);
+}
+.pstep p { color: var(--ink-soft); font-size: 14px; line-height: 1.55; margin: 0; }
+
+/* ── Testimony ───────────────────────────────────────────────────── */
+.testi { background: var(--surface); }
+.testi__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .testi__grid { grid-template-columns: 1fr; } }
+.tcard {
+  padding: 36px 32px;
+  background: var(--bg);
+  border-top: 2px solid var(--gold);
+  position: relative;
+}
+.tcard__mark {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 64px; color: var(--gold); line-height: 0.8;
+  margin-bottom: 8px;
+}
+.tcard__text {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 19px; line-height: 1.5; color: var(--ink);
+  margin: 0 0 24px;
+}
+.tcard__who { display: flex; align-items: center; gap: 14px; }
+.tcard__avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--navy); color: var(--gold-light);
+  display: grid; place-items: center;
+  font-family: var(--font-serif); font-style: italic; font-weight: 500;
+  font-size: 17px;
+}
+.tcard__name { display: flex; flex-direction: column; line-height: 1.2; }
+.tcard__name strong { font-weight: 600; color: var(--ink); font-size: 14px; }
+.tcard__name small { color: var(--ink-mute); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; padding-left: 0.14em; margin-top: 4px; }
+
+/* ── FAQ ─────────────────────────────────────────────────────────── */
+.faq { background: var(--bg-alt); }
+.faq__wrap { max-width: 820px; margin: 48px auto 0; }
+.faq__item {
+  border-bottom: 1px solid var(--rule);
+  padding: 22px 0;
+}
+.faq__q {
+  display: flex; justify-content: space-between; align-items: center;
+  width: 100%;
+  font-family: var(--font-serif); font-style: italic; font-size: 22px;
+  color: var(--ink); font-weight: 500;
+  padding: 0; text-align: left;
+  transition: color 0.2s;
+}
+.faq__q:hover { color: var(--gold); }
+.faq__q svg { transition: transform 0.3s; flex-shrink: 0; color: var(--gold); }
+.faq__item.is-open .faq__q svg { transform: rotate(45deg); }
+.faq__a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease, padding 0.3s ease;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  font-size: 15px;
+}
+.faq__item.is-open .faq__a { max-height: 300px; padding-top: 16px; }
+
+/* ── Instagram gallery ───────────────────────────────────────────── */
+.ig { background: var(--surface); }
+.ig__grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
+  margin-top: 40px;
+}
+@media (max-width: 900px) { .ig__grid { grid-template-columns: repeat(3, 1fr); } }
+.ig__cell {
+  aspect-ratio: 1/1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, var(--navy-mid) 0%, var(--navy) 60%, var(--navy-deep) 100%);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.ig__cell:hover { transform: scale(1.03); }
+.ig__cell::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23C8A227' stroke-width='0.5' opacity='0.45'><path d='M40 10 L70 40 L40 70 L10 40 Z'/><path d='M40 24 L56 40 L40 56 L24 40 Z'/><circle cx='40' cy='40' r='2'/></g></svg>");
+  background-size: 80px 80px;
+  opacity: 0.7;
+}
+.ig__cell span {
+  position: absolute; bottom: 12px; left: 14px;
+  font-family: var(--font-serif); font-style: italic;
+  color: var(--gold-light); font-size: 18px; font-weight: 500;
+  z-index: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.ig__cell svg.ig-icon { position: absolute; top: 14px; right: 14px; color: var(--gold); opacity: 0.7; z-index: 1; }
+
+/* ── CTA catering ────────────────────────────────────────────────── */
+.ctabig {
+  padding: var(--section-py) 0;
+  background:
+    linear-gradient(135deg, var(--gold) 0%, #b58b1d 100%);
+  color: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+.ctabig::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='%231B2753' stroke-width='0.5' opacity='0.3'><path d='M90 10 L170 90 L90 170 L10 90 Z'/><path d='M90 40 L140 90 L90 140 L40 90 Z'/><circle cx='90' cy='90' r='3'/></g></svg>");
+  background-size: 180px 180px;
+  opacity: 0.6;
+}
+.ctabig__inner {
+  display: grid; grid-template-columns: 1.6fr auto; gap: 40px;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+@media (max-width: 800px) { .ctabig__inner { grid-template-columns: 1fr; text-align: center; } }
+.ctabig h2 {
+  font-family: var(--font-serif); font-weight: 500;
+  font-size: clamp(34px, 4.5vw, 64px); line-height: 1.05;
+  margin: 8px 0; color: var(--navy);
+  text-wrap: balance;
+}
+.ctabig h2 em { font-style: italic; }
+.ctabig__cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+</style>
+</head>
+<body data-screen-label="Home">
+
+<div id="nav-slot"></div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" data-screen-label="Hero">
+  <div class="hero__bg"></div>
+  <div class="hero__tray" id="heroTray">
+    <svg viewBox="0 0 600 600" aria-hidden="true">
+      <!-- Outer tray rim -->
+      <defs>
+        <radialGradient id="trayG" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="#1a2960" />
+          <stop offset="70%" stop-color="#0d1b3d" />
+          <stop offset="100%" stop-color="#081430" />
+        </radialGradient>
+        <radialGradient id="rimG">
+          <stop offset="0%" stop-color="#e0bf55" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#C8A227" stop-opacity="0.4"/>
+        </radialGradient>
+      </defs>
+      <circle cx="300" cy="300" r="280" fill="url(#trayG)" stroke="url(#rimG)" stroke-width="3"/>
+      <circle cx="300" cy="300" r="260" fill="none" stroke="#C8A227" stroke-width="0.5" opacity="0.4"/>
+      <circle cx="300" cy="300" r="245" fill="none" stroke="#C8A227" stroke-width="0.3" opacity="0.3" stroke-dasharray="2 4"/>
+      <!-- Compartments of omprengan -->
+      <g stroke="#C8A227" stroke-width="1" fill="none" opacity="0.55">
+        <circle cx="300" cy="180" r="72"/>
+        <circle cx="200" cy="340" r="68"/>
+        <circle cx="400" cy="340" r="68"/>
+        <circle cx="300" cy="440" r="56"/>
+      </g>
+      <!-- Food hints -->
+      <g opacity="0.85">
+        <!-- rice mound -->
+        <circle cx="300" cy="180" r="60" fill="#f4ecd8" opacity="0.92"/>
+        <circle cx="300" cy="180" r="52" fill="#eae3cd" opacity="0.6"/>
+        <!-- chicken rendang -->
+        <ellipse cx="200" cy="340" rx="58" ry="40" fill="#8b4a1d" opacity="0.92"/>
+        <ellipse cx="200" cy="335" rx="42" ry="26" fill="#a85a24" opacity="0.75"/>
+        <!-- sayur -->
+        <circle cx="400" cy="340" r="58" fill="#3d5b2b" opacity="0.9"/>
+        <circle cx="395" cy="335" r="10" fill="#6b8e4a"/>
+        <circle cx="410" cy="348" r="8" fill="#6b8e4a"/>
+        <circle cx="388" cy="352" r="7" fill="#f4ecd8" opacity="0.6"/>
+        <!-- fruit -->
+        <circle cx="300" cy="440" r="48" fill="#d89a4a" opacity="0.92"/>
+        <ellipse cx="295" cy="438" rx="32" ry="20" fill="#e8b068" opacity="0.7"/>
+      </g>
+      <!-- Diamond center mark -->
+      <g transform="translate(300 300)" opacity="0.45">
+        <path d="M 0 -18 L 18 0 L 0 18 L -18 0 Z" fill="none" stroke="#C8A227" stroke-width="1.2"/>
+        <circle r="2" fill="#C8A227"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__num reveal">Est. 2025 · Jakarta</div>
+    <h1 class="hero__h1 reveal" data-id-h1="true">
+      <em>80 Menu</em> Nusantara.<br/>Satu Omprengan.
+    </h1>
+    <p class="hero__lede reveal" data-id="Tiap porsi sudah dihitung gizinya. Masak di dapur pusat, kirim setiap hari — resep asli dari Buku Rasa Bhayangkara Nusantara." data-en="Every portion nutritionally balanced. Cooked in our central kitchen, delivered daily — authentic recipes from Buku Rasa Bhayangkara Nusantara.">
+      Tiap porsi sudah dihitung gizinya. Masak di dapur pusat, kirim setiap hari — resep asli dari Buku Rasa Bhayangkara Nusantara.
+    </p>
+    <div class="hero__cta reveal">
+      <a href="menu.html" class="btn btn--gold" data-id="Lihat Menu" data-en="Browse Menu">Lihat Menu</a>
+      <a href="catering.html" class="btn btn--outline" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" data-id="Gulir" data-en="Scroll">Gulir</div>
+</section>
+
+<!-- ══════════════ NUMBER STRIP ══════════════ -->
+<section class="numstrip" data-screen-label="Numbers">
+  <div class="container">
+    <div class="numstrip__grid">
+      <div class="numstrip__cell"><div class="numstrip__n">80</div><div class="numstrip__l" data-id="Menu Nusantara" data-en="Nusantara Menus">Menu Nusantara</div></div>
+      <div class="numstrip__cell"><div class="numstrip__n">2</div><div class="numstrip__l" data-id="Outlet di Jakarta" data-en="Jakarta Outlets">Outlet di Jakarta</div></div>
+      <div class="numstrip__cell"><div class="numstrip__n">200+</div><div class="numstrip__l" data-id="Porsi per Hari" data-en="Portions Per Day">Porsi per Hari</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FEATURED MENU ══════════════ -->
+<section class="section" data-screen-label="Featured">
+  <div class="container">
+    <div class="feat__head reveal">
+      <div class="eyebrow" data-id="I · Menu Pilihan" data-en="I · Featured Menu">I · Menu Pilihan</div>
+      <h2 class="h-xl" style="margin:16px 0 14px" data-id="Menu Minggu Ini" data-en="This Week's Menu">Menu Minggu Ini</h2>
+      <div class="gold-divider gold-divider--center"><span class="dot"></span></div>
+      <p class="lede" style="margin: 22px auto 0" data-id="Enam dari delapan puluh resep dirotasi tiap minggu — disiapkan di dapur pusat, dikirim segar ke outlet pagi hari." data-en="Six of eighty recipes rotate weekly — prepared in our central kitchen, delivered fresh to outlets each morning.">
+        Enam dari delapan puluh resep dirotasi tiap minggu — disiapkan di dapur pusat, dikirim segar ke outlet pagi hari.
+      </p>
+    </div>
+
+    <div class="feat__grid" id="featGrid"></div>
+
+    <div style="text-align:center; margin-top: 56px" class="reveal">
+      <a href="menu.html" class="btn btn--ghost" data-id="Lihat 80 Menu Lengkap →" data-en="Browse All 80 Menus →">Lihat 80 Menu Lengkap →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ MARQUEE REGIONS ══════════════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track" id="marqueeTrack"></div>
+</div>
+
+<!-- ══════════════ MAP ══════════════ -->
+<section class="section mapsec" data-screen-label="Map">
+  <div class="container">
+    <div class="mapsec__grid">
+      <div class="mapsec__map reveal">
+        <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
+          <!-- Stylized Indonesia archipelago (schematic) -->
+          <defs>
+            <pattern id="dots" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="0.6" fill="#1B2753" opacity="0.25"/>
+            </pattern>
+          </defs>
+          <!-- Sumatera -->
+          <path d="M40 90 Q 90 70 140 90 L 180 150 Q 170 190 140 210 Q 100 240 70 220 Q 40 190 45 140 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
+          <!-- Java -->
+          <path d="M200 220 Q 260 205 340 215 L 380 220 Q 370 245 340 250 Q 280 255 220 245 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
+          <!-- Bali-NTT -->
+          <ellipse cx="410" cy="240" rx="10" ry="5" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
+          <ellipse cx="440" cy="245" rx="16" ry="6" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
+          <ellipse cx="480" cy="250" rx="24" ry="7" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
+          <!-- Kalimantan -->
+          <path d="M290 100 Q 360 90 400 110 Q 420 150 400 190 Q 360 210 310 200 Q 270 170 280 130 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
+          <!-- Sulawesi -->
+          <path d="M460 120 Q 500 110 510 140 L 500 170 Q 520 180 530 210 Q 525 230 510 225 Q 490 210 485 185 Q 470 175 465 150 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
+          <!-- Maluku -->
+          <circle cx="590" cy="170" r="10" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
+          <circle cx="610" cy="200" r="8" fill="url(#dots)" stroke="#1B2753" stroke-width="0.6"/>
+          <!-- Papua -->
+          <path d="M640 140 Q 720 130 760 160 Q 770 200 740 230 Q 690 240 650 220 Q 630 190 640 160 Z" fill="url(#dots)" stroke="#1B2753" stroke-width="0.8" opacity="0.6"/>
+
+          <!-- Pins for region origins -->
+          <g class="mapsec__dots" id="mapDots"></g>
+
+          <!-- Legend -->
+          <text x="40" y="340" font-family="Raleway" font-size="10" fill="#6a7190" letter-spacing="4">80 MENU · 22 PROVINSI</text>
+        </svg>
+      </div>
+      <div class="reveal">
+        <div class="eyebrow" data-id="II · Sebaran Asal" data-en="II · Origin Spread">II · Sebaran Asal</div>
+        <h2 class="h-xl" style="margin: 16px 0 22px" data-id="Dari Aceh sampai Papua." data-en="From Aceh to Papua.">Dari Aceh sampai Papua.</h2>
+        <p class="lede" style="margin-bottom: 32px" data-id="Delapan puluh resep dari dua puluh dua provinsi — dikurasi dari Buku Rasa Bhayangkara Nusantara, dimasak ulang dengan standar gizi warung modern." data-en="Eighty recipes from twenty-two provinces — curated from Buku Rasa Bhayangkara Nusantara, recooked to modern nutritional standards.">
+          Delapan puluh resep dari dua puluh dua provinsi — dikurasi dari Buku Rasa Bhayangkara Nusantara, dimasak ulang dengan standar gizi warung modern.
+        </p>
+        <div class="mapsec__list" id="mapList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PROCESS ══════════════ -->
+<section class="section process" data-screen-label="Process">
+  <div class="container">
+    <div style="text-align:center;" class="reveal">
+      <div class="eyebrow" data-id="III · Dari Dapur ke Meja" data-en="III · From Kitchen to Table">III · Dari Dapur ke Meja</div>
+      <h2 class="h-xl" style="margin: 16px 0 14px" data-id="Satu dapur. Lima outlet." data-en="One kitchen. Five outlets.">Satu dapur. Lima outlet.</h2>
+      <div class="gold-divider gold-divider--center"><span class="dot"></span></div>
+    </div>
+
+    <div class="process__steps">
+      <div class="pstep reveal">
+        <div class="pstep__num">I</div>
+        <h4 data-id="Resep Terkurasi" data-en="Curated Recipes">Resep Terkurasi</h4>
+        <p data-id="80 resep dari Buku Rasa Bhayangkara Nusantara dipilih & distandardisasi." data-en="80 recipes from Buku Rasa Bhayangkara Nusantara selected and standardized.">80 resep dari Buku Rasa Bhayangkara Nusantara dipilih & distandardisasi.</p>
+      </div>
+      <div class="pstep reveal">
+        <div class="pstep__num">II</div>
+        <h4 data-id="Dapur Pusat" data-en="Central Kitchen">Dapur Pusat</h4>
+        <p data-id="Dimasak dini hari di central kitchen — bumbu, porsi, dan gizi tervalidasi." data-en="Cooked at dawn in our central kitchen — spice, portion, and nutrition validated.">Dimasak dini hari di central kitchen — bumbu, porsi, dan gizi tervalidasi.</p>
+      </div>
+      <div class="pstep reveal">
+        <div class="pstep__num">III</div>
+        <h4 data-id="Antar ke Outlet" data-en="Dispatch to Outlets">Antar ke Outlet</h4>
+        <p data-id="Dikirim dalam omprengan insulated ke Pasar Santa & Lippo Mall pagi hari." data-en="Dispatched in insulated steel trays to Pasar Santa & Lippo Mall each morning.">Dikirim dalam omprengan insulated ke Pasar Santa & Lippo Mall pagi hari.</p>
+      </div>
+      <div class="pstep reveal">
+        <div class="pstep__num">IV</div>
+        <h4 data-id="Sampai di Meja" data-en="On The Table">Sampai di Meja</h4>
+        <p data-id="Siang hari siap disantap — GoFood, GrabFood, atau datang langsung." data-en="Ready by noon — via GoFood, GrabFood, or dine in.">Siang hari siap disantap — GoFood, GrabFood, atau datang langsung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ OUTLETS ══════════════ -->
+<section class="section outlets" data-screen-label="Outlets">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px" class="reveal">
+      <div class="eyebrow" data-id="IV · Lokasi" data-en="IV · Locations">IV · Lokasi</div>
+      <h2 class="h-xl" style="color:var(--cream);margin: 16px 0 14px" data-id="Kami buka di dua tempat." data-en="Two places to find us.">Kami buka di dua tempat.</h2>
+      <div class="gold-divider gold-divider--center" style="color:var(--gold)"><span class="dot"></span></div>
+    </div>
+    <div class="outlets__grid" id="outletsGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════ TESTIMONY ══════════════ -->
+<section class="section testi" data-screen-label="Testimony">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow" data-id="V · Kata Pelanggan" data-en="V · Customer Words">V · Kata Pelanggan</div>
+      <h2 class="h-xl" style="margin: 16px 0 14px" data-id="Makan siang yang tidak bikin ngantuk." data-en="Lunch that won't make you sleepy.">Makan siang yang tidak bikin ngantuk.</h2>
+    </div>
+    <div class="testi__grid">
+      <div class="tcard reveal">
+        <div class="tcard__mark">"</div>
+        <p class="tcard__text" data-id="Porsi pas, lauknya jelas dari mana asalnya, harga masuk akal. Tim saya pesan rutin tiap Rabu." data-en="Right-sized portions, clear regional labels, sensible prices. My team orders every Wednesday.">Porsi pas, lauknya jelas dari mana asalnya, harga masuk akal. Tim saya pesan rutin tiap Rabu.</p>
+        <div class="tcard__who">
+          <div class="tcard__avatar">D</div>
+          <div class="tcard__name"><strong>Dinda Kusuma</strong><small data-id="HR, Kantor Kebayoran" data-en="HR, Kebayoran Office">HR, Kantor Kebayoran</small></div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tcard__mark">"</div>
+        <p class="tcard__text" data-id="Akhirnya ada catering yang gak asal-asalan. Menu Aceh-nya bikin kangen rumah, bumbunya jujur." data-en="Finally, catering that's not cutting corners. The Acehnese menu tastes like home — honest spices.">Akhirnya ada catering yang gak asal-asalan. Menu Aceh-nya bikin kangen rumah, bumbunya jujur.</p>
+        <div class="tcard__who">
+          <div class="tcard__avatar">R</div>
+          <div class="tcard__name"><strong>Rizky Maulana</strong><small data-id="Founder, Startup" data-en="Founder, Startup">Founder, Startup</small></div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tcard__mark">"</div>
+        <p class="tcard__text" data-id="Saya suka lihat info gizi di setiap porsi. Jelas berapa kalori, berapa protein. Bantu saya atur pola makan." data-en="Love seeing nutrition info on every portion. Calories and protein spelled out. Helps me plan meals.">Saya suka lihat info gizi di setiap porsi. Jelas berapa kalori, berapa protein. Bantu saya atur pola makan.</p>
+        <div class="tcard__who">
+          <div class="tcard__avatar">A</div>
+          <div class="tcard__name"><strong>Anindita P.</strong><small data-id="Pelanggan Pasar Santa" data-en="Pasar Santa regular">Pelanggan Pasar Santa</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ INSTAGRAM ══════════════ -->
+<section class="section ig" data-screen-label="Instagram">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow">VI · @warungmenumbg</div>
+      <h2 class="h-xl" style="margin: 16px 0 14px" data-id="Cerita dari dapur." data-en="Stories from the kitchen.">Cerita dari dapur.</h2>
+      <p class="lede" style="margin: 0 auto" data-id="Video card menu, behind the scene central kitchen, dan foto pelanggan — setiap hari." data-en="Menu video cards, central-kitchen behind-the-scenes, customer shots — daily.">Video card menu, behind the scene central kitchen, dan foto pelanggan — setiap hari.</p>
+    </div>
+    <div class="ig__grid" id="igGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════ FAQ ══════════════ -->
+<section class="section faq" data-screen-label="FAQ">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow" data-id="VII · Pertanyaan Umum" data-en="VII · FAQ">VII · Pertanyaan Umum</div>
+      <h2 class="h-xl" style="margin: 16px 0 14px" data-id="Yang sering ditanyakan." data-en="Frequently Asked.">Yang sering ditanyakan.</h2>
+    </div>
+    <div class="faq__wrap" id="faqWrap"></div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA CATERING ══════════════ -->
+<section class="ctabig" data-screen-label="CTA">
+  <div class="container ctabig__inner">
+    <div>
+      <div class="eyebrow" style="color:var(--navy)" data-id="Catering" data-en="Catering">Catering</div>
+      <h2 data-id="Butuh makan siang buat tim?" data-en="Team lunch incoming?">Butuh makan siang buat tim?</h2>
+      <h2 style="opacity:0.78"><em data-id="Kami antar dalam omprengan." data-en="We deliver in steel trays.">Kami antar dalam omprengan.</em></h2>
+    </div>
+    <div class="ctabig__cta">
+      <a href="catering.html" class="btn btn--navy" data-id="Pesan Sekarang" data-en="Order Now">Pesan Sekarang</a>
+      <a id="cta-wa-btn" href="https://wa.me/6281234567890?text=Halo%20Warung%20Menu%20MBG!%20Saya%20ingin%20tanya%20tentang%20layanan%20catering%20harian." class="btn btn--wa" style="border:1px solid var(--navy)" target="_blank" rel="noopener" data-id="Hubungi WhatsApp" data-en="Chat on WhatsApp">Hubungi WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-slot"></div>
+
+<script src="assets/shared.js"></script>
+<script src="assets/data.js"></script>
+<script>
+  window.mountLayout();
+
+  // ── Featured / weekly menu cards (up to 6) ──
+  const featGrid = document.getElementById('featGrid');
+  const weekly = window.MBG_MENUS.filter(m => m.weekly || m.featured).slice(0, 6);
+  const lang = window.getLang ? window.getLang() : 'id';
+  weekly.forEach(m => {
+    const el = document.createElement('a');
+    el.href = 'menu.html#menu-' + m.no;
+    el.className = 'mcard reveal';
+    el.innerHTML = `
+      <div class="menu-photo">
+        <div class="menu-photo__ornament"></div>
+        <div class="menu-photo__num">${m.no}</div>
+        <div class="menu-photo__name">${m.name_id}</div>
+      </div>
+      <div class="mcard__body">
+        <div class="mcard__origin">${(m.province||'').toUpperCase()}</div>
+        <div class="mcard__name" data-id="${m.name_id}" data-en="${m.name_en}">${m.name_id}</div>
+        <div class="mcard__desc" data-id="${m.desc_id}" data-en="${m.desc_en}">${m.desc_id}</div>
+        <div class="mcard__foot">
+          <div><span class="mcard__kcal">${m.energi}</span> <small style="color:var(--ink-mute);letter-spacing:0.1em">kkal</small></div>
+          <div class="mcard__arrow">→</div>
+        </div>
+      </div>`;
+    featGrid.appendChild(el);
+  });
+
+  // Observer for reveals after dynamic mount
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && (e.target.classList.add('is-visible'), io.unobserve(e.target))), { threshold: 0.12 });
+  document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => io.observe(el));
+
+  // ── Marquee regions — linked to menu.html with province filter ──
+  const regions = ['Aceh','Sumatera Barat','Bengkulu','Riau','Jambi','Lampung','DKI Jakarta','Jawa Barat','Yogyakarta','Jawa Tengah','Jawa Timur','Bali','Nusa Tenggara','Kalimantan','Sulawesi Selatan','Sulawesi Utara','Gorontalo','Maluku','Papua','Banten'];
+  const mt = document.getElementById('marqueeTrack');
+  const seq = [...regions, ...regions];
+  seq.forEach(r => {
+    const a = document.createElement('a');
+    a.href = 'menu.html?region=' + encodeURIComponent(r);
+    a.style.cssText = 'font-family:var(--font-serif);font-style:italic;font-size:28px;color:var(--gold);white-space:nowrap;text-decoration:none;transition:opacity .2s';
+    a.textContent = r;
+    a.addEventListener('mouseenter', () => a.style.opacity = '0.6');
+    a.addEventListener('mouseleave', () => a.style.opacity = '1');
+    mt.appendChild(a);
+    const sep = document.createElement('span');
+    sep.textContent = '·';
+    sep.style.cssText = 'color:var(--gold);font-size:28px;font-family:var(--font-serif)';
+    mt.appendChild(sep);
+  });
+
+  // ── Map dots + list ──
+  const pins = [
+    { x: 110, y: 130, label: 'Sumatera', count: 12 },
+    { x: 270, y: 235, label: 'Jawa', count: 28 },
+    { x: 410, y: 240, label: 'Bali', count: 5 },
+    { x: 360, y: 150, label: 'Kalimantan', count: 8 },
+    { x: 490, y: 170, label: 'Sulawesi', count: 11 },
+    { x: 600, y: 180, label: 'Maluku', count: 6 },
+    { x: 720, y: 185, label: 'Papua', count: 6 },
+    { x: 480, y: 260, label: 'NTT', count: 4 }
+  ];
+  const mapDots = document.getElementById('mapDots');
+  pins.forEach(p => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'mapsec__pin');
+    g.setAttribute('transform', `translate(${p.x} ${p.y})`);
+    g.innerHTML = `
+      <circle class="outer" r="10" fill="#C8A227" opacity="0.18"/>
+      <circle r="4" fill="#C8A227"/>
+      <circle r="2" fill="#1B2753"/>
+      <text x="8" y="-6" font-family="Raleway" font-size="11" fill="#1B2753" font-weight="600">${p.label}</text>
+      <text x="8" y="6" font-family="Cormorant Garamond" font-style="italic" font-size="12" fill="#C8A227">${p.count} menu</text>`;
+    mapDots.appendChild(g);
+  });
+  const mapList = document.getElementById('mapList');
+  pins.slice(0, 4).forEach(p => {
+    const row = document.createElement('div');
+    row.className = 'mapsec__row';
+    row.innerHTML = `<div><strong>${p.label}</strong><br/><small>${p.count} menu tercatat</small></div><div class="count">${String(p.count).padStart(2, '0')}</div>`;
+    mapList.appendChild(row);
+  });
+
+  // ── Outlets ──
+  const og = document.getElementById('outletsGrid');
+  window.MBG_OUTLETS.filter(o => o.status === 'active').forEach(o => {
+    const c = document.createElement('div');
+    c.className = 'outletcard reveal';
+    c.innerHTML = `
+      <div class="outletcard__hdr">
+        <div>
+          <div class="eyebrow eyebrow--small" style="color:var(--gold-light)">${o.area}</div>
+          <h3>${o.name}</h3>
+        </div>
+        <div style="font-family:var(--font-serif);font-style:italic;font-size:28px;color:var(--gold)">${o.units.split(' ')[0]}</div>
+      </div>
+      <div class="outletcard__addr">${o.address}</div>
+      <div class="outletcard__meta">
+        <div><span data-id="Jam Buka" data-en="Open Hours">Jam Buka</span>${o.hours}</div>
+        <div><span data-id="Konter" data-en="Counter">Konter</span>${o.units}</div>
+      </div>
+      <div class="outletcard__cta">
+        <a href="#" class="delivery-chip"><span class="delivery-chip__dot"></span>GoFood</a>
+        <a href="#" class="delivery-chip delivery-chip--grab"><span class="delivery-chip__dot"></span>GrabFood</a>
+        <a href="#" class="delivery-chip" data-id="Buka Maps →" data-en="Open Maps →">Buka Maps →</a>
+      </div>`;
+    og.appendChild(c);
+  });
+
+  // ── IG gallery (placeholders) ──
+  const igGrid = document.getElementById('igGrid');
+  const igItems = window.MBG_MENUS.slice(0, 12);
+  igItems.forEach(m => {
+    const cell = document.createElement('div');
+    cell.className = 'ig__cell';
+    cell.innerHTML = `
+      <svg class="ig-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/>
+      </svg>
+      <span>${m.no}</span>`;
+    igGrid.appendChild(cell);
+  });
+
+  // ── FAQ ──
+  const faqs = [
+    { q_id: "Berapa lama menu bertahan setelah disiapkan?", q_en: "How long does the menu stay fresh after prep?",
+      a_id: "Menu disiapkan 04.00–06.00 WIB dan dikirim ke outlet pukul 10.00. Idealnya dinikmati hari itu juga. Jika disimpan di kulkas, bisa dipanaskan ulang dalam 24 jam.",
+      a_en: "Prepared 4–6am and dispatched at 10am. Best eaten same day. Fridge-safe up to 24 hours when reheated." },
+    { q_id: "Bisa pesan untuk 100 porsi acara kantor?", q_en: "Can I order 100 portions for a corporate event?",
+      a_id: "Bisa, minimal pesan 1x24 jam sebelumnya. Harga mulai Rp 29.000 / porsi untuk pesanan di atas 200. Cek halaman Catering.",
+      a_en: "Yes, minimum 24h notice. From IDR 29,000 per portion above 200 portions. See Catering page." },
+    { q_id: "Apakah ada menu vegetarian?", q_en: "Are there vegetarian options?",
+      a_id: "Ada — Gado-gado, Karedok Sunda, Plecing Kangkung, Tinutuan Manado, dan beberapa lainnya. Filter 'vegetarian' di halaman menu.",
+      a_en: "Yes — gado-gado, karedok, plecing, tinutuan and more. Use the 'vegetarian' filter on the menu page." },
+    { q_id: "Bagaimana standar gizi dihitung?", q_en: "How is nutrition calculated?",
+      a_id: "Data gizi berasal dari Buku Rasa Bhayangkara Nusantara dan divalidasi ulang oleh ahli gizi internal. Setiap porsi 600–800 kkal.",
+      a_en: "Sourced from Buku Rasa Bhayangkara Nusantara and cross-checked by our in-house nutritionist. 600–800 kcal per portion." },
+    { q_id: "Apakah ada outlet di kota lain?", q_en: "Outlets outside Jakarta?",
+      a_id: "Saat ini Jakarta (Pasar Santa & Lippo Mall Nusantara). Kemang dan Blok M menyusul di 2026.",
+      a_en: "Jakarta only for now (Pasar Santa & Lippo Mall Nusantara). Kemang and Blok M coming 2026." }
+  ];
+  const faqWrap = document.getElementById('faqWrap');
+  faqs.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.className = 'faq__item';
+    item.innerHTML = `
+      <button class="faq__q">
+        <span data-id="${f.q_id}" data-en="${f.q_en}">${f.q_id}</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v12M2 8h12"/></svg>
+      </button>
+      <div class="faq__a"><span data-id="${f.a_id}" data-en="${f.a_en}">${f.a_id}</span></div>`;
+    item.querySelector('.faq__q').addEventListener('click', () => item.classList.toggle('is-open'));
+    faqWrap.appendChild(item);
+  });
+
+  // ── Hero parallax — disabled on touch devices ──
+  const tray = document.getElementById('heroTray');
+  const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (!isTouchDevice) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width/2) / r.width;
+      const y = (e.clientY - r.top - r.height/2) / r.height;
+      tray.style.transform = `translateY(calc(-50% + ${y * 18}px)) translateX(${x * 18}px) rotate(${x * 2}deg)`;
+    });
+  }
+  // Ken burns subtle scale
+  let t0 = performance.now();
+  const ken = () => {
+    const dt = (performance.now() - t0) / 1000;
+    tray.style.transition = 'none';
+    const s = 1 + Math.sin(dt * 0.3) * 0.015;
+    tray.style.scale = s;
+    requestAnimationFrame(ken);
+  };
+  requestAnimationFrame(ken);
+
+  // Dynamic WA link
+  if (window.MBG_WA) {
+    const btn = document.getElementById('cta-wa-btn');
+    if (btn) btn.href = window.waLink(window.MBG_WA.cateringMsg);
+  }
+
+  // Re-apply language after all dynamic content is added
+  window.setLang(localStorage.getItem('mbg-lang') || 'id');
+</script>
+</body>
+</html>

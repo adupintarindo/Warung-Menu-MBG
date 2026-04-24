@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tentang Kami · Warung Menu MBG</title>
+<meta name="description" content="Warung Menu MBG — bisnis kuliner komersial berbasis 80 resep Buku Rasa Bhayangkara Nusantara. Didirikan oleh Pinka Titan bersama IFSR & Arkana Konsultan. Pilot outlet di Pasar Santa & Lippo Mall Nusantara." />
+<meta property="og:title" content="Tentang Kami · Warung Menu MBG" />
+<meta property="og:description" content="Dari buku resep Bhayangkara ke meja makan Jakarta. 80 menu otentik Nusantara, satu omprengan baja." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://warungmenumbg.id/tentang.html" />
+<meta property="og:image" content="https://warungmenumbg.id/assets/og-tentang.jpg" />
+<link rel="manifest" href="manifest.json" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css" />
+<style>
+.a-hero { padding: 160px 0 100px; background: var(--bg-alt); position: relative; overflow: hidden; }
+.a-hero::after { content:''; position: absolute; right: -12%; top: 20%; width: 480px; height: 480px; border: 1px solid var(--gold-hair); border-radius: 50%; pointer-events:none; }
+.a-hero::before { content:''; position: absolute; right: -6%; top: 28%; width: 360px; height: 360px; border: 1px solid var(--gold-hair); border-radius: 50%; pointer-events:none; }
+.a-hero__inner { position: relative; z-index: 1; max-width: 820px; }
+.a-hero h1 { font-family: var(--font-serif); font-weight: 500; font-size: clamp(56px, 8vw, 120px); line-height: 0.98; margin: 20px 0; color: var(--ink); letter-spacing: -0.01em; }
+.a-hero h1 em { font-style: italic; color: var(--gold); }
+.a-hero p.lede { font-size: clamp(18px, 2vw, 22px); }
+.story { background: var(--bg); padding: var(--section-py) 0; }
+.story__grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+@media (max-width: 900px) { .story__grid { grid-template-columns: 1fr; gap: 48px; } }
+.story__side { position: sticky; top: 100px; }
+.story__side h2 { font-family: var(--font-serif); font-style: italic; font-size: clamp(40px, 5vw, 68px); font-weight: 500; margin: 14px 0 0; line-height: 1.05; color: var(--ink); }
+.story__text { display: grid; gap: 28px; color: var(--ink-soft); line-height: 1.75; font-size: 16px; }
+.story__text p:first-of-type::first-letter { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 88px; line-height: 0.8; float: left; margin: 6px 14px -6px 0; color: var(--gold); }
+.story__pull { font-family: var(--font-serif); font-style: italic; font-size: 32px; line-height: 1.3; color: var(--ink); border-left: 2px solid var(--gold); padding: 4px 0 4px 24px; margin: 8px 0; }
+.values { background: var(--navy); color: var(--cream); padding: var(--section-py) 0; position: relative; overflow: hidden; }
+.values::before { content:''; position:absolute; inset:0; opacity:0.15; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%23C8A227' stroke-width='0.5'><path d='M60 10 L110 60 L60 110 L10 60 Z'/><path d='M60 30 L90 60 L60 90 L30 60 Z'/></g></svg>"); background-size: 120px; }
+.values > .container { position: relative; z-index: 1; }
+.values__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 56px; background: var(--gold-hair); border: 1px solid var(--gold-hair); }
+@media (max-width: 900px) { .values__grid { grid-template-columns: 1fr; } }
+.val { background: var(--navy); padding: 48px 36px; display: grid; gap: 18px; min-height: 340px; align-content: start; }
+.val__num { font-family: var(--font-serif); font-style: italic; font-size: 72px; color: var(--gold); line-height: 1; font-weight: 500; }
+.val h3 { font-family: var(--font-serif); font-style: italic; font-size: 30px; font-weight: 500; margin: 0; color: var(--cream); }
+.val p { color: var(--cream-soft); font-size: 14px; line-height: 1.65; margin: 0; }
+.timeline { background: var(--bg-alt); padding: var(--section-py) 0; }
+.tl { position: relative; max-width: 820px; margin: 56px auto 0; padding-left: 80px; }
+@media (max-width: 640px) { .tl { padding-left: 60px; } }
+.tl::before { content:''; position:absolute; left: 30px; top: 20px; bottom: 20px; width: 1px; background: var(--gold-hair); }
+.tl__item { position: relative; padding-bottom: 44px; }
+.tl__item:last-child { padding-bottom: 0; }
+.tl__year { position: absolute; left: -80px; top: 0; width: 60px; text-align: right; font-family: var(--font-serif); font-style: italic; font-size: 28px; color: var(--gold); font-weight: 500; }
+@media (max-width: 640px) { .tl__year { left: -60px; font-size: 22px; } }
+.tl__dot { position: absolute; left: -50px; top: 12px; width: 11px; height: 11px; background: var(--gold); border-radius: 50%; transform: rotate(45deg); }
+@media (max-width: 640px) { .tl__dot { left: -34px; } }
+.tl__title { font-family: var(--font-serif); font-style: italic; font-size: 26px; color: var(--ink); font-weight: 500; margin: 0 0 10px; }
+.tl__body { color: var(--ink-soft); line-height: 1.65; font-size: 15px; }
+.kitchen { background: var(--bg); padding: var(--section-py) 0; }
+.kitchen__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--rule); margin-top: 56px; }
+@media (max-width: 900px) { .kitchen__grid { grid-template-columns: repeat(2, 1fr); } }
+.kit { background: var(--surface); padding: 36px 28px; min-height: 240px; position: relative; display: grid; gap: 14px; align-content: space-between; }
+.kit__num { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--gold); letter-spacing: 0.2em; }
+.kit h4 { font-family: var(--font-serif); font-style: italic; font-size: 26px; font-weight: 500; margin: 0; color: var(--ink); line-height: 1.1; }
+.kit p { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+.team { background: var(--surface); padding: var(--section-py) 0; }
+.team__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; max-width: 760px; margin-left: auto; margin-right: auto; }
+@media (max-width: 700px) { .team__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 440px) { .team__grid { grid-template-columns: 1fr 1fr; gap: 14px; } }
+.mbr { display: grid; gap: 12px; }
+.mbr__photo { aspect-ratio: 3/4; background: var(--bg-alt); border: 1px solid var(--rule); display: grid; place-items: center; color: var(--gold); font-family: var(--font-serif); font-style: italic; font-size: 60px; position: relative; overflow: hidden; transition: border-color 0.3s; }
+.mbr__photo::before { content:''; position: absolute; inset: 14px; border: 1px solid var(--gold-hair); }
+.mbr:hover .mbr__photo { border-color: var(--gold); }
+.mbr__name { font-family: var(--font-serif); font-style: italic; font-size: 22px; font-weight: 500; color: var(--ink); margin: 0; line-height: 1.1; }
+.mbr__role { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); padding-left: 0.24em; margin-top: 4px; }
+.partner-strip { background: var(--bg-alt); padding: var(--section-py) 0; }
+.partner-strip__inner { display: flex; gap: 48px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 40px; }
+.partner-logo { font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--ink-soft); letter-spacing: 0.04em; opacity: 0.7; transition: opacity 0.25s; }
+.partner-logo:hover { opacity: 1; }
+.numbers { background: var(--navy-deep); color: var(--cream); padding: var(--section-py) 0; }
+.numbers__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 48px; background: var(--gold-hair); border: 1px solid var(--gold-hair); }
+@media (max-width: 900px) { .numbers__grid { grid-template-columns: repeat(2, 1fr); } }
+.num { background: var(--navy-deep); padding: 40px 28px; text-align: center; }
+.num__big { font-family: var(--font-serif); font-style: italic; font-size: clamp(52px, 6vw, 80px); color: var(--gold); font-weight: 500; line-height: 1; }
+.num__lbl { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream-soft); margin-top: 14px; padding-left: 0.3em; }
+.cta-row { background: var(--bg-alt); padding: var(--section-py) 0; text-align:center; }
+.cta-row h2 { font-family: var(--font-serif); font-style: italic; font-size: clamp(44px, 6vw, 80px); font-weight: 500; color: var(--ink); margin: 14px 0 20px; line-height: 1.05; }
+</style>
+</head>
+<body data-screen-label="Tentang">
+<div id="nav-slot"></div>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="index.html" data-id="Beranda" data-en="Home">Beranda</a>
+  <span class="breadcrumb__sep" aria-hidden="true">›</span>
+  <span class="breadcrumb__current" data-id="Tentang" data-en="About">Tentang</span>
+</nav>
+
+<header class="a-hero" data-screen-label="AboutHero">
+  <div class="container a-hero__inner">
+    <div class="eyebrow" data-id="Tentang kami" data-en="About us">Tentang kami</div>
+    <h1><span data-id="Satu dapur," data-en="One kitchen,">Satu dapur,</span><br/><em data-id="delapan puluh rasa." data-en="eighty flavors.">delapan puluh rasa.</em></h1>
+    <p class="lede" data-id="Warung Menu MBG hadir untuk membuktikan bahwa makan bergizi, enak, dan terjangkau bukanlah hal yang tidak mungkin — dengan resep asli dari 34 provinsi Nusantara, disajikan dalam omprengan baja khas MBG." data-en="Warung Menu MBG exists to prove that nutritious, delicious, and affordable food is not a contradiction — with authentic recipes from 34 provinces across the archipelago, served in our signature steel omprengan.">Warung Menu MBG hadir untuk membuktikan bahwa makan bergizi, enak, dan terjangkau bukanlah hal yang tidak mungkin — dengan resep asli dari 34 provinsi Nusantara, disajikan dalam omprengan baja khas MBG.</p>
+    <div class="gold-divider" style="margin-top:40px"><span class="dot"></span></div>
+  </div>
+</header>
+
+<section class="story">
+  <div class="container story__grid">
+    <div class="story__side reveal">
+      <div class="eyebrow" data-id="I · Cerita" data-en="I · Story">I · Cerita</div>
+      <h2 data-id="Dari buku resep Bhayangkara." data-en="From the Bhayangkara cookbook.">Dari buku resep Bhayangkara.</h2>
+    </div>
+    <div class="story__text reveal">
+      <p data-id="Program Makan Bergizi Gratis (MBG) lahir dari satu cita-cita besar: setiap anak Indonesia berhak mendapat asupan gizi yang layak. Di balik program ini tersimpan 80 resep otentik dari Buku Rasa Bhayangkara Nusantara — kumpulan masakan terbaik lintas provinsi yang dikurasi oleh Satuan Pelayanan Pemenuhan Gizi (SPPG) Polri. Inilah fondasi Warung Menu MBG." data-en="The Makan Bergizi Gratis (MBG) program was born from a single great vision: every Indonesian child deserves proper nutrition. Behind this program lies 80 authentic recipes from the Buku Rasa Bhayangkara Nusantara — a curated collection of the finest regional dishes, compiled by the Satuan Pelayanan Pemenuhan Gizi (SPPG) Polri. This is the foundation of Warung Menu MBG.">Program Makan Bergizi Gratis (MBG) lahir dari satu cita-cita besar: setiap anak Indonesia berhak mendapat asupan gizi yang layak. Di balik program ini tersimpan 80 resep otentik dari Buku Rasa Bhayangkara Nusantara — kumpulan masakan terbaik lintas provinsi yang dikurasi oleh Satuan Pelayanan Pemenuhan Gizi (SPPG) Polri. Inilah fondasi Warung Menu MBG.</p>
+      <div class="story__pull" data-id="&ldquo;80 resep. 34 provinsi. Satu omprengan.&rdquo;" data-en="&ldquo;80 recipes. 34 provinces. One steel tray.&rdquo;">&ldquo;80 resep. 34 provinsi. Satu omprengan.&rdquo;</div>
+      <p data-id="Warung Menu MBG adalah wujud komersial dari nilai-nilai MBG — sebuah warung modern yang menjual menu bergizi harian berbasis resep Bhayangkara Nusantara, tersaji dalam omprengan baja stainless khas 5 sekat. Bukan sekadar konsep. Ini adalah bisnis nyata yang ingin mewujudkan satu misi: makan sehat bukan lagi kemewahan." data-en="Warung Menu MBG is the commercial expression of MBG values — a modern warung serving nutritious daily meals based on Bhayangkara Nusantara recipes, presented in signature 5-compartment stainless steel omprengan trays. Not just a concept. This is a real business with one mission: making healthy eating accessible to everyone.">Warung Menu MBG adalah wujud komersial dari nilai-nilai MBG — sebuah warung modern yang menjual menu bergizi harian berbasis resep Bhayangkara Nusantara, tersaji dalam omprengan baja stainless khas 5 sekat. Bukan sekadar konsep. Ini adalah bisnis nyata yang ingin mewujudkan satu misi: makan sehat bukan lagi kemewahan.</p>
+      <p data-id="Dibangun bersama IFSR dan Arkana Konsultan, Warung Menu MBG memulai langkahnya dari dua pilot outlet — Pasar Santa dan Lippo Mall Nusantara. Seluruh makanan dimasak di dapur pusat (central kitchen) dan didistribusikan ke outlet setiap hari. Model ini memastikan konsistensi rasa, kualitas gizi, dan efisiensi skala — dari hari pertama hingga ratusan outlet ke depan." data-en="Built together with IFSR and Arkana Konsultan, Warung Menu MBG begins with two pilot outlets — Pasar Santa and Lippo Mall Nusantara. All food is cooked at the central kitchen and distributed to outlets daily. This model ensures consistency of flavor, nutritional quality, and operational efficiency — from day one to hundreds of future outlets.">Dibangun bersama IFSR dan Arkana Konsultan, Warung Menu MBG memulai langkahnya dari dua pilot outlet — Pasar Santa dan Lippo Mall Nusantara. Seluruh makanan dimasak di dapur pusat (central kitchen) dan didistribusikan ke outlet setiap hari. Model ini memastikan konsistensi rasa, kualitas gizi, dan efisiensi skala — dari hari pertama hingga ratusan outlet ke depan.</p>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="eyebrow" style="color:var(--gold)" data-id="II · Prinsip" data-en="II · Principles">II · Prinsip</div>
+      <h2 class="h-xl" style="color:var(--cream);margin:14px 0" data-id="Tiga hal yang kami jaga." data-en="Three things we guard.">Tiga hal yang kami jaga.</h2>
+    </div>
+    <div class="values__grid">
+      <div class="val">
+        <div class="val__num">I</div>
+        <h3 data-id="Rasa otentik." data-en="Authentic flavor.">Rasa otentik.</h3>
+        <p data-id="Setiap menu bersumber dari resep Buku Rasa Bhayangkara Nusantara — resep yang sudah teruji dan dikurasi dari seluruh penjuru Indonesia. Kami tidak mengurangi bumbu, tidak menyederhanakan proses. Kalau resep berkata 9 bumbu, kami pakai 9." data-en="Every dish comes from the Buku Rasa Bhayangkara Nusantara — recipes tested and curated from across Indonesia. We don't cut corners on spices or simplify the process. If the recipe calls for 9 spices, we use 9.">Setiap menu bersumber dari resep Buku Rasa Bhayangkara Nusantara — resep yang sudah teruji dan dikurasi dari seluruh penjuru Indonesia. Kami tidak mengurangi bumbu, tidak menyederhanakan proses. Kalau resep berkata 9 bumbu, kami pakai 9.</p>
+      </div>
+      <div class="val">
+        <div class="val__num">II</div>
+        <h3 data-id="Gizi terukur." data-en="Measured nutrition.">Gizi terukur.</h3>
+        <p data-id="Setiap omprengan sudah diperhitungkan: nasi, lauk protein, sayur, pelengkap, buah. Informasi nilai gizi tersedia untuk setiap menu — dari kalori, protein, hingga kandungan karbohidrat. Sehat itu bisa diukur, dan kami mengukurnya." data-en="Every omprengan is calculated: rice, protein main, vegetables, accompaniment, fruit. Nutritional information is available for every menu — from calories and protein to carbohydrates. Health is measurable, and we measure it.">Setiap omprengan sudah diperhitungkan: nasi, lauk protein, sayur, pelengkap, buah. Informasi nilai gizi tersedia untuk setiap menu — dari kalori, protein, hingga kandungan karbohidrat. Sehat itu bisa diukur, dan kami mengukurnya.</p>
+      </div>
+      <div class="val">
+        <div class="val__num">III</div>
+        <h3 data-id="Harga wajar." data-en="Fair prices.">Harga wajar.</h3>
+        <p data-id="Model central kitchen memungkinkan kami menekan biaya produksi tanpa mengorbankan kualitas. Hasilnya: menu lengkap — nasi, lauk, sayur, buah — dengan harga yang bisa dijangkau kalangan pekerja, mahasiswa, hingga keluarga." data-en="The central kitchen model lets us reduce production costs without sacrificing quality. The result: a complete meal — rice, protein, vegetables, fruit — at a price accessible to workers, students, and families alike.">Model central kitchen memungkinkan kami menekan biaya produksi tanpa mengorbankan kualitas. Hasilnya: menu lengkap — nasi, lauk, sayur, buah — dengan harga yang bisa dijangkau kalangan pekerja, mahasiswa, hingga keluarga.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow" data-id="III · Perjalanan" data-en="III · Journey">III · Perjalanan</div>
+      <h2 class="h-xl" style="margin:14px 0" data-id="Dari buku ke warung." data-en="From cookbook to warung.">Dari buku ke warung.</h2>
+    </div>
+    <div class="tl">
+      <div class="tl__item reveal">
+        <div class="tl__year">2023</div>
+        <div class="tl__dot"></div>
+        <h4 class="tl__title" data-id="Program MBG & Buku Rasa Bhayangkara lahir." data-en="MBG program & Buku Rasa Bhayangkara launched.">Program MBG &amp; Buku Rasa Bhayangkara lahir.</h4>
+        <p class="tl__body" data-id="Pemerintah meluncurkan program Makan Bergizi Gratis (MBG). SPPG Polri mengkompilasi 80 resep otentik dari seluruh provinsi Indonesia menjadi Buku Rasa Bhayangkara Nusantara — standar gizi dan cita rasa untuk program nasional." data-en="The government launched the Makan Bergizi Gratis (MBG) program. The SPPG Polri compiled 80 authentic recipes from across Indonesia's provinces into the Buku Rasa Bhayangkara Nusantara — a nutritional and flavor standard for the national program.">Pemerintah meluncurkan program Makan Bergizi Gratis (MBG). SPPG Polri mengkompilasi 80 resep otentik dari seluruh provinsi Indonesia menjadi Buku Rasa Bhayangkara Nusantara — standar gizi dan cita rasa untuk program nasional.</p>
+      </div>
+      <div class="tl__item reveal">
+        <div class="tl__year">2025</div>
+        <div class="tl__dot"></div>
+        <h4 class="tl__title" data-id="Konsep Warung Menu MBG digagas." data-en="Warung Menu MBG concept conceived.">Konsep Warung Menu MBG digagas.</h4>
+        <p class="tl__body" data-id="Pinka Titan, bersama tim IFSR dan Arkana Konsultan, melihat peluang: bagaimana jika resep-resep Bhayangkara ini dibawa ke meja makan umum, secara komersial dan berkelanjutan? Lahirlah konsep Warung Menu MBG — warteg modern dengan omprengan baja sebagai identitas." data-en="Pinka Titan, together with the IFSR and Arkana Konsultan teams, saw an opportunity: what if these Bhayangkara recipes could reach public dining tables, commercially and sustainably? The concept of Warung Menu MBG was born — a modern warteg with the steel omprengan as its identity.">Pinka Titan, bersama tim IFSR dan Arkana Konsultan, melihat peluang: bagaimana jika resep-resep Bhayangkara ini dibawa ke meja makan umum, secara komersial dan berkelanjutan? Lahirlah konsep Warung Menu MBG — warteg modern dengan omprengan baja sebagai identitas.</p>
+      </div>
+      <div class="tl__item reveal">
+        <div class="tl__year">2026</div>
+        <div class="tl__dot"></div>
+        <h4 class="tl__title" data-id="Central kitchen & dua pilot outlet buka." data-en="Central kitchen & two pilot outlets open.">Central kitchen &amp; dua pilot outlet buka.</h4>
+        <p class="tl__body" data-id="Dapur pusat mulai beroperasi. Dua pilot outlet pertama dibuka: Pasar Santa (Jakarta Selatan) dan Lippo Mall Nusantara. 80 menu tersedia, dirotasi mingguan. Target awal: 200 porsi per outlet per hari." data-en="The central kitchen began operations. Two first pilot outlets opened: Pasar Santa (South Jakarta) and Lippo Mall Nusantara. 80 menus available, rotated weekly. Initial target: 200 portions per outlet per day.">Dapur pusat mulai beroperasi. Dua pilot outlet pertama dibuka: Pasar Santa (Jakarta Selatan) dan Lippo Mall Nusantara. 80 menu tersedia, dirotasi mingguan. Target awal: 200 porsi per outlet per hari.</p>
+      </div>
+      <div class="tl__item reveal">
+        <div class="tl__year" data-id="Segera" data-en="Soon">Segera</div>
+        <div class="tl__dot"></div>
+        <h4 class="tl__title" data-id="Ekspansi & catering harian." data-en="Expansion & daily catering.">Ekspansi &amp; catering harian.</h4>
+        <p class="tl__body" data-id="Rencana ekspansi ke outlet ketiga dan keempat (Kemang Food Hall, Blok M Square). Layanan catering harian dengan pengiriman omprengan untuk kantor, kampus, dan acara — menjangkau lebih banyak orang dengan misi yang sama." data-en="Planned expansion to third and fourth outlets (Kemang Food Hall, Blok M Square). Daily catering service with omprengan delivery for offices, campuses, and events — reaching more people with the same mission.">Rencana ekspansi ke outlet ketiga dan keempat (Kemang Food Hall, Blok M Square). Layanan catering harian dengan pengiriman omprengan untuk kantor, kampus, dan acara — menjangkau lebih banyak orang dengan misi yang sama.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kitchen">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow" data-id="IV · Dapur Pusat" data-en="IV · Central Kitchen">IV · Dapur Pusat</div>
+      <h2 class="h-xl" style="margin:14px 0" data-id="Dimasak di satu dapur. Dikirim ke semua outlet." data-en="Cooked in one kitchen. Delivered to all outlets.">Dimasak di satu dapur. Dikirim ke semua outlet.</h2>
+      <p class="lede" data-id="Model central kitchen memastikan setiap omprengan yang sampai di tangan pelanggan — di mana pun outletnya — memiliki rasa dan gizi yang sama." data-en="The central kitchen model ensures every omprengan that reaches a customer — whichever outlet — carries the same flavor and nutritional value.">Model central kitchen memastikan setiap omprengan yang sampai di tangan pelanggan — di mana pun outletnya — memiliki rasa dan gizi yang sama.</p>
+    </div>
+    <div class="kitchen__grid">
+      <div class="kit">
+        <div class="kit__num">I</div>
+        <h4 data-id="Preparasi bumbu, pagi hari" data-en="Spice prep, early morning">Preparasi bumbu, pagi hari</h4>
+        <p data-id="Bumbu disiapkan segar setiap pagi dari bahan-bahan pilihan. Tidak ada bumbu semalam. Proses ini menjaga cita rasa tetap otentik sesuai resep Bhayangkara Nusantara." data-en="Spices are prepared fresh each morning from select ingredients. No overnight paste. This process keeps flavor authentic to the Bhayangkara Nusantara recipes.">Bumbu disiapkan segar setiap pagi dari bahan-bahan pilihan. Tidak ada bumbu semalam. Proses ini menjaga cita rasa tetap otentik sesuai resep Bhayangkara Nusantara.</p>
+      </div>
+      <div class="kit">
+        <div class="kit__num">II</div>
+        <h4 data-id="Proses memasak, standar SPPG" data-en="Cooking process, SPPG standard">Proses memasak, standar SPPG</h4>
+        <p data-id="Setiap menu dimasak sesuai standar resep SPPG Polri. Waktu masak, urutan bumbu, dan teknik pengolahan mengikuti panduan buku resep — memastikan konsistensi di setiap batch produksi." data-en="Every dish is cooked to the SPPG Polri recipe standard. Cooking time, spice sequence, and processing technique follow the cookbook guidelines — ensuring consistency in every production batch.">Setiap menu dimasak sesuai standar resep SPPG Polri. Waktu masak, urutan bumbu, dan teknik pengolahan mengikuti panduan buku resep — memastikan konsistensi di setiap batch produksi.</p>
+      </div>
+      <div class="kit">
+        <div class="kit__num">III</div>
+        <h4 data-id="Plating omprengan baja, terukur" data-en="Steel omprengan plating, measured">Plating omprengan baja, terukur</h4>
+        <p data-id="Omprengan stainless 5 sekat diisi sesuai takaran: nasi, lauk protein, sayur, pelengkap, buah. Setiap porsi ditimbang untuk memastikan konsistensi gizi yang sudah dikalkulasi." data-en="Five-compartment stainless omprengan filled to exact portions: rice, protein, vegetables, accompaniment, fruit. Each portion is weighed to ensure the calculated nutritional consistency.">Omprengan stainless 5 sekat diisi sesuai takaran: nasi, lauk protein, sayur, pelengkap, buah. Setiap porsi ditimbang untuk memastikan konsistensi gizi yang sudah dikalkulasi.</p>
+      </div>
+      <div class="kit">
+        <div class="kit__num">IV</div>
+        <h4 data-id="Distribusi ke outlet" data-en="Distribution to outlets">Distribusi ke outlet</h4>
+        <p data-id="Omprengan yang sudah siap didistribusikan ke setiap outlet. Dari dapur pusat ke meja pelanggan — menjaga suhu, rasa, dan presentasi tetap prima saat tiba." data-en="Prepared omprengan are distributed to each outlet. From central kitchen to customer table — maintaining temperature, flavor, and presentation at their best upon arrival.">Omprengan yang sudah siap didistribusikan ke setiap outlet. Dari dapur pusat ke meja pelanggan — menjaga suhu, rasa, dan presentasi tetap prima saat tiba.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow" data-id="V · Tim inti" data-en="V · Core team">V · Tim inti</div>
+      <h2 class="h-xl" style="margin:14px 0" data-id="Orang-orang di balik omprengan." data-en="The people behind the omprengan.">Orang-orang di balik omprengan.</h2>
+    </div>
+    <div class="team__grid">
+      <div class="mbr reveal">
+        <div class="mbr__photo">PT</div>
+        <div>
+          <h4 class="mbr__name">Pinka Titan</h4>
+          <div class="mbr__role" data-id="Founder · Warung Menu MBG" data-en="Founder · Warung Menu MBG">Founder · Warung Menu MBG</div>
+        </div>
+      </div>
+      <div class="mbr reveal">
+        <div class="mbr__photo">IF</div>
+        <div>
+          <h4 class="mbr__name">IFSR</h4>
+          <div class="mbr__role" data-id="Mitra Strategis" data-en="Strategic Partner">Mitra Strategis</div>
+        </div>
+      </div>
+      <div class="mbr reveal">
+        <div class="mbr__photo">AK</div>
+        <div>
+          <h4 class="mbr__name">Arkana Konsultan</h4>
+          <div class="mbr__role" data-id="Konsultan Bisnis" data-en="Business Consultant">Konsultan Bisnis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="partner-strip">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow" data-id="VI · Diakui oleh" data-en="VI · Recognized by">VI · Diakui oleh</div>
+      <h2 class="h-xl" style="margin:14px 0 0" data-id="Resep dari SPPG Polri." data-en="Recipes from SPPG Polri.">Resep dari SPPG Polri.</h2>
+      <p class="lede" style="max-width:54ch;margin:16px auto 0" data-id="Seluruh 80 menu Warung MBG bersumber langsung dari Buku Rasa Bhayangkara Nusantara — kurikulum gizi resmi program MBG nasional." data-en="All 80 Warung MBG menus are sourced directly from the Buku Rasa Bhayangkara Nusantara — the official nutritional curriculum of the national MBG program.">Seluruh 80 menu Warung MBG bersumber langsung dari Buku Rasa Bhayangkara Nusantara — kurikulum gizi resmi program MBG nasional.</p>
+    </div>
+    <div class="partner-strip__inner">
+      <span class="partner-logo">SPPG · Polri</span>
+      <span class="partner-logo" aria-hidden="true">·</span>
+      <span class="partner-logo">Buku Rasa Bhayangkara Nusantara</span>
+      <span class="partner-logo" aria-hidden="true">·</span>
+      <span class="partner-logo">IFSR</span>
+      <span class="partner-logo" aria-hidden="true">·</span>
+      <span class="partner-logo">Arkana Konsultan</span>
+    </div>
+  </div>
+</section>
+
+<section class="numbers">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="eyebrow" style="color:var(--gold)" data-id="VII · Dalam angka" data-en="VII · By numbers">VII · Dalam angka</div>
+      <h2 class="h-xl" style="color:var(--cream);margin:14px 0" data-id="Apa yang kami kerjakan, dalam angka." data-en="What we do, in numbers.">Apa yang kami kerjakan, dalam angka.</h2>
+    </div>
+    <div class="numbers__grid">
+      <div class="num"><div class="num__big">80</div><div class="num__lbl" data-id="Menu Nusantara" data-en="Nusantara menus">Menu Nusantara</div></div>
+      <div class="num"><div class="num__big">34</div><div class="num__lbl" data-id="Provinsi asal resep" data-en="Provinces of origin">Provinsi asal resep</div></div>
+      <div class="num"><div class="num__big">200+</div><div class="num__lbl" data-id="Porsi / outlet / hari" data-en="Portions / outlet / day">Porsi / outlet / hari</div></div>
+      <div class="num"><div class="num__big">2</div><div class="num__lbl" data-id="Pilot outlet (2026)" data-en="Pilot outlets (2026)">Pilot outlet (2026)</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-row">
+  <div class="container">
+    <div class="eyebrow" data-id="VIII · Hubungi" data-en="VIII · Say hi">VIII · Hubungi</div>
+    <h2 data-id="Mari makan bareng." data-en="Let's eat together.">Mari makan bareng.</h2>
+    <p class="lede" style="max-width:56ch;margin:0 auto 32px" data-id="Mau berkolaborasi, pesan catering, atau sekadar ingin tahu lebih? Hubungi kami via WhatsApp — kami senang mendengar dari Anda." data-en="Want to collaborate, order catering, or simply learn more? Reach us via WhatsApp — we'd love to hear from you.">Mau berkolaborasi, pesan catering, atau sekadar ingin tahu lebih? Hubungi kami via WhatsApp — kami senang mendengar dari Anda.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="catering.html" class="btn btn--gold" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
+      <a href="menu.html" class="btn btn--outline" data-id="Jelajah 80 Menu" data-en="Browse 80 Menus">Jelajah 80 Menu</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-slot"></div>
+
+<script src="assets/shared.js"></script>
+<script>window.mountLayout();</script>
+</body>
+</html>

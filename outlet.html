@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Outlet · Warung Menu MBG</title>
+<meta name="description" content="Temukan outlet Warung Menu MBG terdekat — Pasar Santa (Jakarta Selatan) dan Lippo Mall Nusantara. Lihat jam buka, alamat, dan cara pembayaran." />
+<meta property="og:title" content="Outlet · Warung Menu MBG" />
+<meta property="og:description" content="2 pilot outlet aktif di Jakarta — Pasar Santa & Lippo Mall Nusantara. Segera hadir: Kemang Food Hall & Blok M Square." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://warungmenumbg.id/outlet.html" />
+<link rel="manifest" href="manifest.json" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css" />
+<style>
+.o-hero { padding: 140px 0 80px; background: var(--navy); color: var(--cream); position: relative; overflow: hidden; }
+.o-hero::before { content:''; position:absolute; inset:0; opacity:0.12; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%23C9A84C' stroke-width='0.5'><path d='M60 10 L110 60 L60 110 L10 60 Z'/><path d='M60 30 L90 60 L60 90 L30 60 Z'/></g></svg>"); background-size:120px; pointer-events:none; }
+.o-hero__inner { position:relative; z-index:1; max-width:720px; }
+.o-hero h1 { font-family:var(--font-serif); font-weight:500; font-size:clamp(52px,8vw,100px); line-height:0.97; margin:16px 0 24px; color:var(--cream); letter-spacing:-0.01em; }
+.o-hero h1 em { color:var(--gold); font-style:italic; }
+
+/* Outlet grid */
+.o-section { padding:var(--section-py) 0; background:var(--bg); }
+.o-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; margin-top:56px; background:var(--rule); }
+@media (max-width:820px) { .o-grid { grid-template-columns:1fr; } }
+
+.outlet-card { background:var(--surface); padding:48px 40px; position:relative; display:grid; gap:20px; align-content:start; }
+.outlet-card--soon { opacity:0.72; }
+.outlet-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gold); }
+.outlet-card--soon::before { background:var(--silver); }
+
+.oc__status { display:inline-flex; align-items:center; gap:8px; }
+.oc__dot { width:9px; height:9px; border-radius:50%; background:var(--gold); animation:pulse-dot 1.8s infinite; }
+.outlet-card--soon .oc__dot { background:var(--silver); animation:none; }
+@keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(0.85); } }
+.oc__status-label { font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); font-weight:600; }
+.outlet-card--soon .oc__status-label { color:var(--silver); }
+
+.oc__name { font-family:var(--font-serif); font-style:italic; font-size:clamp(28px,4vw,42px); font-weight:500; color:var(--ink); margin:0; line-height:1.1; }
+.oc__address { color:var(--ink-soft); font-size:15px; line-height:1.65; }
+
+.oc__meta { display:grid; gap:12px; }
+.oc__row { display:flex; gap:12px; align-items:flex-start; font-size:14px; }
+.oc__icon { color:var(--gold); flex-shrink:0; margin-top:1px; }
+.oc__text { color:var(--ink-soft); line-height:1.5; }
+.oc__text strong { color:var(--ink); display:block; margin-bottom:2px; }
+
+.oc__pay { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+.oc__pay-chip { font-size:10px; letter-spacing:0.16em; text-transform:uppercase; padding:5px 10px; border:1px solid var(--rule); color:var(--ink-soft); }
+
+.oc__actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+
+/* QRIS box */
+.qris-box { background:var(--bg-alt); border:1px solid var(--rule); padding:20px; display:grid; place-items:center; gap:12px; }
+.qris-box__placeholder { width:120px; height:120px; background:var(--surface); border:1px solid var(--rule); display:grid; place-items:center; position:relative; }
+.qris-box__placeholder::before, .qris-box__placeholder::after { content:''; position:absolute; background:var(--navy); }
+.qris-box__placeholder::before { inset:8px; border:3px solid var(--navy); }
+.qris-inner { width:40px; height:40px; background:var(--gold); position:absolute; border-radius:2px; }
+.qris-box__label { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-mute); text-align:center; }
+
+/* Map embed placeholder */
+.o-map { background:var(--navy-deep); padding:var(--section-py) 0; }
+.map-placeholder { height:380px; background:linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%); display:grid; place-items:center; border:1px solid var(--gold-hair); position:relative; overflow:hidden; }
+.map-placeholder__inner { text-align:center; z-index:1; position:relative; }
+.map-placeholder svg { opacity:0.5; }
+.map-pin { position:absolute; }
+.map-pin svg { color:var(--gold); filter:drop-shadow(0 2px 8px rgba(201,168,76,0.5)); }
+
+/* CTA */
+.o-cta { background:var(--bg-alt); padding:var(--section-py) 0; text-align:center; }
+.o-cta h2 { font-family:var(--font-serif); font-style:italic; font-size:clamp(40px,6vw,72px); font-weight:500; color:var(--ink); margin:14px 0 20px; }
+</style>
+</head>
+<body data-screen-label="Outlet">
+<div id="nav-slot"></div>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="index.html" data-id="Beranda" data-en="Home">Beranda</a>
+  <span class="breadcrumb__sep">›</span>
+  <span class="breadcrumb__current" data-id="Outlet" data-en="Outlets">Outlet</span>
+</nav>
+
+<header class="o-hero">
+  <div class="container o-hero__inner">
+    <div class="eyebrow" style="color:var(--gold)" data-id="Temukan kami" data-en="Find us">Temukan kami</div>
+    <h1><em data-id="Dua outlet." data-en="Two outlets.">Dua outlet.</em><br/><span data-id="Satu misi." data-en="One mission.">Satu misi.</span></h1>
+    <p class="lede" style="color:var(--cream-soft);max-width:52ch" data-id="Warung Menu MBG hadir di Pasar Santa dan Lippo Mall Nusantara. Segera menyusul di Kemang dan Blok M." data-en="Warung Menu MBG is now at Pasar Santa and Lippo Mall Nusantara. Coming soon to Kemang and Blok M.">Warung Menu MBG hadir di Pasar Santa dan Lippo Mall Nusantara. Segera menyusul di Kemang dan Blok M.</p>
+  </div>
+</header>
+
+<section class="o-section">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="eyebrow" data-id="I · Lokasi" data-en="I · Locations">I · Lokasi</div>
+      <h2 class="h-xl" style="margin:14px 0" data-id="Outlet kami." data-en="Our outlets.">Outlet kami.</h2>
+    </div>
+    <div class="o-grid" id="outlet-grid"></div>
+  </div>
+</section>
+
+<!-- Map section -->
+<section class="o-map">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px" class="reveal">
+      <div class="eyebrow" style="color:var(--gold)" data-id="II · Peta" data-en="II · Map">II · Peta</div>
+      <h2 class="h-xl" style="color:var(--cream);margin:14px 0" data-id="Semua outlet dalam satu peta." data-en="All outlets on one map.">Semua outlet dalam satu peta.</h2>
+    </div>
+    <!-- Replace with actual Google Maps embed when API key available -->
+    <div class="map-placeholder reveal">
+      <div class="map-pin" style="top:45%;left:42%">
+        <svg width="28" height="36" viewBox="0 0 24 30" fill="currentColor"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+        <div style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);font-family:var(--font-sans)">Pasar Santa</div>
+      </div>
+      <div class="map-pin" style="top:38%;left:58%">
+        <svg width="28" height="36" viewBox="0 0 24 30" fill="currentColor"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+        <div style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);font-family:var(--font-sans)">Lippo Mall</div>
+      </div>
+      <div class="map-placeholder__inner">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <p style="margin:12px 0 0;color:var(--cream-soft);font-size:14px;letter-spacing:0.06em" data-id="Peta interaktif tersedia setelah integrasi Google Maps API" data-en="Interactive map available after Google Maps API integration">Peta interaktif tersedia setelah integrasi Google Maps API</p>
+        <a href="https://maps.google.com/?q=Pasar+Santa+Jakarta" target="_blank" rel="noopener" class="btn btn--outline btn--small" style="margin-top:20px;color:var(--cream-soft);border-color:var(--gold-hair)" data-id="Buka di Google Maps" data-en="Open in Google Maps">Buka di Google Maps</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="o-cta">
+  <div class="container">
+    <div class="eyebrow" data-id="Mau pesan?" data-en="Want to order?">Mau pesan?</div>
+    <h2 data-id="Antar ke mana saja." data-en="Deliver anywhere.">Antar ke mana saja.</h2>
+    <p class="lede" style="max-width:52ch;margin:0 auto 32px" data-id="Tidak bisa ke outlet? Pesan catering harian dan kami antarkan omprengan langsung ke pintu Anda." data-en="Can't visit? Order daily catering and we deliver your omprengan straight to your door.">Tidak bisa ke outlet? Pesan catering harian dan kami antarkan omprengan langsung ke pintu Anda.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="catering.html" class="btn btn--gold" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
+      <a href="pesan.html" class="btn btn--outline" data-id="Cara Pesan Lainnya" data-en="More Ways to Order">Cara Pesan Lainnya</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-slot"></div>
+<script src="assets/data.js"></script>
+<script src="assets/shared.js"></script>
+<script>
+window.mountLayout();
+
+const grid = document.getElementById('outlet-grid');
+
+(window.MBG_OUTLETS || []).forEach((o, i) => {
+  const isSoon = o.status === 'soon';
+  const lang = () => window.getLang ? window.getLang() : 'id';
+
+  // WhatsApp link
+  const waMsg = `Halo Warung Menu MBG ${o.name}! Saya ingin info menu dan ketersediaan hari ini.`;
+  const waHref = `https://wa.me/6281234567890?text=${encodeURIComponent(waMsg)}`;
+
+  // Google Maps
+  const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(o.address)}`;
+
+  const card = document.createElement('div');
+  card.className = `outlet-card reveal${isSoon ? ' outlet-card--soon' : ''}`;
+  card.innerHTML = `
+    <div class="oc__status">
+      <span class="oc__dot"></span>
+      <span class="oc__status-label">${isSoon ? 'Segera' : 'Buka'}</span>
+    </div>
+    <h3 class="oc__name">${o.name}</h3>
+    <p class="oc__address">${o.address}</p>
+    <div class="oc__meta">
+      <div class="oc__row">
+        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div class="oc__text"><strong data-id="Jam Operasional" data-en="Hours">Jam Operasional</strong>${o.hours}</div>
+      </div>
+      <div class="oc__row">
+        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="oc__text"><strong data-id="Area" data-en="Area">Area</strong>${o.area} · ${o.units}</div>
+      </div>
+      <div class="oc__row">
+        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <div class="oc__text">
+          <strong data-id="Pembayaran" data-en="Payment">Pembayaran</strong>
+          <div class="oc__pay">
+            <span class="oc__pay-chip">QRIS</span>
+            <span class="oc__pay-chip">GoPay</span>
+            <span class="oc__pay-chip">OVO</span>
+            <span class="oc__pay-chip" data-id="Tunai" data-en="Cash">Tunai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${!isSoon ? `
+    <div class="qris-box">
+      <div class="qris-box__placeholder">
+        <div class="qris-inner"></div>
+        <svg width="60" height="60" viewBox="0 0 60 60" style="opacity:0.2;position:absolute"><rect x="5" y="5" width="20" height="20" rx="2" fill="var(--navy)"/><rect x="35" y="5" width="20" height="20" rx="2" fill="var(--navy)"/><rect x="5" y="35" width="20" height="20" rx="2" fill="var(--navy)"/></svg>
+      </div>
+      <div class="qris-box__label" data-id="QRIS ${o.name}" data-en="QRIS ${o.name}">QRIS ${o.name}</div>
+    </div>` : ''}
+    <div class="oc__actions">
+      ${!isSoon ? `<a href="${waHref}" target="_blank" rel="noopener" class="btn btn--wa btn--small" data-id="Chat WA" data-en="Chat WA">Chat WA</a>` : ''}
+      <a href="${mapsHref}" target="_blank" rel="noopener" class="btn btn--outline btn--small" data-id="Google Maps" data-en="Google Maps">Google Maps</a>
+      <a href="catering.html" class="btn btn--gold btn--small" data-id="Pesan" data-en="Order">Pesan</a>
+    </div>`;
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>

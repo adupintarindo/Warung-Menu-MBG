@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Video Card · Warung Menu MBG</title>
+<meta name="description" content="Video card 80 menu Nusantara Warung Menu MBG — cara masak, bahan, dan penyajian setiap menu dari Buku Rasa Bhayangkara Nusantara." />
+<meta property="og:title" content="Video Card Menu · Warung Menu MBG" />
+<meta property="og:description" content="80 menu Nusantara divisualisasikan dalam video card singkat. Pelajari cara masak setiap menu Bhayangkara." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://warungmenumbg.id/video.html" />
+<link rel="manifest" href="manifest.json" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css" />
+<style>
+/* ── Hero ── */
+.v-hero {
+  padding: 160px 0 80px;
+  background: var(--navy);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.v-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%23C8A227' stroke-width='0.5'><path d='M60 10 L110 60 L60 110 L10 60 Z'/><path d='M60 30 L90 60 L60 90 L30 60 Z'/></g></svg>");
+  background-size: 120px;
+}
+.v-hero__inner { position: relative; z-index: 1; max-width: 760px; }
+.v-hero h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(52px, 8vw, 110px);
+  line-height: 0.96;
+  margin: 20px 0 24px;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+}
+.v-hero h1 em { font-style: italic; color: var(--gold); }
+.v-hero p.lede { font-size: clamp(16px, 2vw, 19px); color: var(--cream-soft); max-width: 54ch; }
+
+/* ── Toolbar ── */
+.v-toolbar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  padding: 20px 0;
+  position: sticky;
+  top: 64px;
+  z-index: 50;
+}
+.v-toolbar__inner {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.v-search {
+  flex: 1;
+  min-width: 220px;
+  max-width: 360px;
+  position: relative;
+}
+.v-search input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  border-radius: 0;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.v-search input:focus { border-color: var(--gold); }
+.v-search__icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-soft);
+  pointer-events: none;
+}
+.v-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.v-chip {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.v-chip.is-active,
+.v-chip:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: transparent;
+}
+.v-count {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* ── Grid ── */
+.v-section { padding: 64px 0 100px; background: var(--bg); }
+.v-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--rule);
+  margin-top: 48px;
+}
+@media (max-width: 1100px) { .v-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px)  { .v-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px)  { .v-grid { grid-template-columns: 1fr 1fr; gap: 1px; } }
+
+/* ── Card ── */
+.vc {
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.vc:hover { background: var(--bg-alt); }
+.vc.is-hidden { display: none; }
+
+.vc__thumb {
+  aspect-ratio: 16/9;
+  background: var(--bg-alt);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+/* Actual video thumb bg when available */
+.vc--has-video .vc__thumb { background: var(--navy); }
+
+.vc__play {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(200, 162, 39, 0.9);
+  display: grid;
+  place-items: center;
+  transition: transform 0.25s, background 0.25s;
+  position: relative;
+  z-index: 2;
+}
+.vc:hover .vc__play { transform: scale(1.12); background: var(--gold); }
+
+.vc__play svg { margin-left: 3px; }
+
+.vc__coming {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-soft);
+  opacity: 0.6;
+  position: relative;
+  z-index: 2;
+}
+
+/* Province tag overlay */
+.vc__province-tag {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(27, 39, 83, 0.85);
+  color: var(--gold);
+  padding: 3px 8px;
+  z-index: 3;
+}
+.vc--has-video .vc__province-tag { background: rgba(27, 39, 83, 0.75); }
+
+.vc__body { padding: 16px 18px 20px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.vc__num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+}
+.vc__name {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1.2;
+  margin: 0;
+}
+.vc__region {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.vc__badge {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--gold-hair);
+  color: var(--gold);
+  margin-top: 4px;
+  align-self: flex-start;
+}
+.vc--has-video .vc__badge {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+}
+
+/* ── No results ── */
+.v-empty {
+  display: none;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 24px;
+  background: var(--surface);
+}
+.v-empty p { font-family: var(--font-serif); font-style: italic; font-size: 24px; color: var(--ink-soft); }
+.v-empty.is-visible { display: block; }
+
+/* ── Video Modal ── */
+.v-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  visibility: hidden;
+  pointer-events: none;
+}
+.v-modal.is-open { visibility: visible; pointer-events: all; }
+.v-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 14, 26, 0.92);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.v-modal.is-open .v-modal__backdrop { opacity: 1; }
+.v-modal__box {
+  position: relative;
+  z-index: 1;
+  background: var(--navy);
+  width: 100%;
+  max-width: 900px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.v-modal.is-open .v-modal__box { transform: translateY(0); opacity: 1; }
+.v-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(200, 162, 39, 0.18);
+}
+.v-modal__title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--cream);
+  margin: 0 0 4px;
+}
+.v-modal__sub {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.v-modal__close {
+  background: none;
+  border: none;
+  color: var(--cream-soft);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+.v-modal__close:hover { color: var(--gold); }
+.v-modal__video-wrap { aspect-ratio: 16/9; background: #000; position: relative; }
+.v-modal__video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.v-modal__placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--cream-soft);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  text-align: center;
+  padding: 24px;
+}
+.v-modal__footer {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(200, 162, 39, 0.12);
+}
+.v-modal__province { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-soft); }
+.v-modal__cta { margin-left: auto; }
+
+/* ── CTA band ── */
+.v-cta {
+  background: var(--bg-alt);
+  padding: var(--section-py) 0;
+  text-align: center;
+}
+.v-cta h2 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 500;
+  color: var(--ink);
+  margin: 14px 0 20px;
+}
+</style>
+</head>
+<body data-screen-label="Video">
+<div id="nav-slot"></div>
+
+<!-- ───── Hero ───── -->
+<header class="v-hero">
+  <div class="container v-hero__inner">
+    <div class="eyebrow" style="color:var(--gold)" data-id="Video card menu" data-en="Menu video cards">Video card menu</div>
+    <h1><em data-id="Lihat" data-en="Watch">Lihat</em><br/><span data-id="cara masaknya." data-en="how it's made.">cara masaknya.</span></h1>
+    <p class="lede" data-id="80 menu dari 34 provinsi — setiap resep divisualisasikan dalam video card singkat. Pelajari asal-usul, bahan, dan cara penyajian tiap menu Bhayangkara Nusantara." data-en="80 menus from 34 provinces — each recipe visualised in a short video card. Learn the origin, ingredients, and plating of every Bhayangkara Nusantara menu.">80 menu dari 34 provinsi — setiap resep divisualisasikan dalam video card singkat. Pelajari asal-usul, bahan, dan cara penyajian tiap menu Bhayangkara Nusantara.</p>
+  </div>
+</header>
+
+<!-- ───── Toolbar ───── -->
+<div class="v-toolbar">
+  <div class="container v-toolbar__inner">
+    <div class="v-search">
+      <svg class="v-search__icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" id="v-search-input" data-id-placeholder="Cari menu…" data-en-placeholder="Search menus…" placeholder="Cari menu…" aria-label="Cari menu" />
+    </div>
+    <div class="v-chips" id="v-tag-chips" role="group" aria-label="Filter tag"></div>
+    <div class="v-count" id="v-count"></div>
+  </div>
+</div>
+
+<!-- ───── Grid ───── -->
+<section class="v-section">
+  <div class="container">
+    <div class="v-grid" id="v-grid" role="list" aria-label="Daftar video menu">
+      <div class="v-empty" id="v-empty"><p data-id="Tidak ada menu yang cocok." data-en="No matching menus.">Tidak ada menu yang cocok.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── CTA ───── -->
+<section class="v-cta">
+  <div class="container">
+    <div class="eyebrow" data-id="Siap pesan?" data-en="Ready to order?">Siap pesan?</div>
+    <h2 data-id="Dari layar ke omprengan." data-en="From screen to omprengan.">Dari layar ke omprengan.</h2>
+    <p class="lede" style="max-width:54ch;margin:0 auto 32px" data-id="Semua 80 menu tersedia untuk catering harian — dikirim dalam omprengan baja stainless, siap makan." data-en="All 80 menus are available for daily catering — delivered in stainless steel omprengan, ready to eat.">Semua 80 menu tersedia untuk catering harian — dikirim dalam omprengan baja stainless, siap makan.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="catering.html" class="btn btn--gold" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
+      <a href="menu.html" class="btn btn--outline" data-id="Lihat Semua Menu" data-en="Browse All Menus">Lihat Semua Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Video Modal ───── -->
+<div class="v-modal" id="v-modal" role="dialog" aria-modal="true" aria-label="Video menu">
+  <div class="v-modal__backdrop" id="v-modal-backdrop"></div>
+  <div class="v-modal__box">
+    <div class="v-modal__header">
+      <div>
+        <h2 class="v-modal__title" id="v-modal-title">—</h2>
+        <div class="v-modal__sub" id="v-modal-sub">—</div>
+      </div>
+      <button class="v-modal__close" id="v-modal-close" aria-label="Tutup">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="v-modal__video-wrap" id="v-modal-video-wrap">
+      <!-- video or placeholder injected by JS -->
+    </div>
+    <div class="v-modal__footer">
+      <span class="v-modal__province" id="v-modal-province"></span>
+      <div class="v-modal__cta">
+        <a href="catering.html" class="btn btn--gold btn--small" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+
+<script src="assets/data.js"></script>
+<script src="assets/shared.js"></script>
+<script>
+window.mountLayout();
+
+// ─── Video availability: use menu.video_file from data.js (single source of truth) ───
+const VIDEO_DIR = 'assets/videos/';
+
+// ─── Tags (distinct from menu.html tags, kept simple) ─────────────────────
+const ALL_TAG = 'Semua';
+const TAG_AVAILABLE = 'Ada Video';
+const TAGS = [ALL_TAG, TAG_AVAILABLE, 'Ayam', 'Daging', 'Ikan', 'Seafood', 'Vegetarian'];
+
+let currentTag = ALL_TAG;
+let currentSearch = '';
+
+// ─── Build chips ──────────────────────────────────────────────────────────
+const chipContainer = document.getElementById('v-tag-chips');
+TAGS.forEach(tag => {
+  const btn = document.createElement('button');
+  btn.className = 'v-chip' + (tag === ALL_TAG ? ' is-active' : '');
+  btn.textContent = tag;
+  btn.dataset.tag = tag;
+  btn.addEventListener('click', () => {
+    currentTag = tag;
+    chipContainer.querySelectorAll('.v-chip').forEach(c => c.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    applyFilters();
+  });
+  chipContainer.appendChild(btn);
+});
+
+// ─── Build cards ──────────────────────────────────────────────────────────
+const grid = document.getElementById('v-grid');
+const empty = document.getElementById('v-empty');
+const countEl = document.getElementById('v-count');
+
+const cards = [];
+
+(window.MBG_MENUS || []).forEach(menu => {
+  const noStr = String(menu.no).padStart(2, '0');
+  const hasVideo = !!menu.video_file;
+
+  const card = document.createElement('div');
+  card.className = 'vc' + (hasVideo ? ' vc--has-video' : '');
+  card.role = 'listitem';
+  card.dataset.no = noStr;
+  card.dataset.nameId = (menu.name_id || '').toLowerCase();
+  card.dataset.nameEn = (menu.name_en || '').toLowerCase();
+  card.dataset.province = (menu.province || '').toLowerCase();
+  card.dataset.region = (menu.region || '').toLowerCase();
+  card.dataset.tag = (menu.tag || '').toLowerCase();
+  card.dataset.hasVideo = hasVideo ? '1' : '0';
+
+  const thumbContent = hasVideo
+    ? `<div class="vc__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M1 1l12 7-12 7V1z"/></svg></div>`
+    : `<span class="vc__coming" data-id="Video segera" data-en="Video soon">Video segera</span>`;
+
+  card.innerHTML = `
+    <div class="vc__thumb">
+      ${thumbContent}
+      <div class="vc__province-tag">${menu.province || ''}</div>
+    </div>
+    <div class="vc__body">
+      <div class="vc__num">${noStr}</div>
+      <h3 class="vc__name">${menu.name_id || ''}</h3>
+      <div class="vc__region">${menu.region || menu.province || ''}</div>
+      <span class="vc__badge" data-id="${hasVideo ? 'Tersedia' : 'Segera'}" data-en="${hasVideo ? 'Available' : 'Soon'}">${hasVideo ? 'Tersedia' : 'Segera'}</span>
+    </div>`;
+
+  card.addEventListener('click', () => openModal(menu, noStr, hasVideo));
+
+  // Insert before the empty state element
+  grid.insertBefore(card, empty);
+  cards.push({ card, menu, noStr, hasVideo });
+});
+
+// ─── Filters ──────────────────────────────────────────────────────────────
+function applyFilters() {
+  const q = currentSearch.trim().toLowerCase();
+  let visible = 0;
+
+  cards.forEach(({ card, menu, noStr, hasVideo }) => {
+    let show = true;
+
+    // Tag filter
+    if (currentTag === TAG_AVAILABLE) {
+      show = hasVideo;
+    } else if (currentTag !== ALL_TAG) {
+      show = (menu.tag || '').toLowerCase() === currentTag.toLowerCase();
+    }
+
+    // Search filter
+    if (show && q) {
+      const haystack = [
+        menu.name_id, menu.name_en, menu.province, menu.region, noStr
+      ].join(' ').toLowerCase();
+      show = haystack.includes(q);
+    }
+
+    card.classList.toggle('is-hidden', !show);
+    if (show) visible++;
+  });
+
+  const lang = window.getLang ? window.getLang() : 'id';
+  countEl.textContent = lang === 'id'
+    ? `${visible} video`
+    : `${visible} videos`;
+
+  empty.classList.toggle('is-visible', visible === 0);
+}
+
+// Initial count
+applyFilters();
+
+// Search input
+const searchInput = document.getElementById('v-search-input');
+searchInput.addEventListener('input', () => {
+  currentSearch = searchInput.value;
+  applyFilters();
+});
+
+// Re-apply on lang change (for badge text)
+window.addEventListener('mbg:lang', () => applyFilters());
+
+// ─── Modal ────────────────────────────────────────────────────────────────
+const modal       = document.getElementById('v-modal');
+const modalTitle  = document.getElementById('v-modal-title');
+const modalSub    = document.getElementById('v-modal-sub');
+const modalProv   = document.getElementById('v-modal-province');
+const modalWrap   = document.getElementById('v-modal-video-wrap');
+const modalClose  = document.getElementById('v-modal-close');
+const modalBg     = document.getElementById('v-modal-backdrop');
+
+function openModal(menu, noStr, hasVideo) {
+  const lang = window.getLang ? window.getLang() : 'id';
+  modalTitle.textContent = lang === 'id' ? menu.name_id : (menu.name_en || menu.name_id);
+  modalSub.textContent   = (menu.region || menu.province || '');
+  modalProv.textContent  = menu.province || '';
+
+  // Clear previous video
+  modalWrap.innerHTML = '';
+
+  if (hasVideo) {
+    const videoFile = menu.video_file;
+    const video = document.createElement('video');
+    video.controls = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.display = 'block';
+
+    const source = document.createElement('source');
+    source.src  = VIDEO_DIR + videoFile;
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    video.addEventListener('error', () => {
+      video.style.display = 'none';
+      const errEl = document.createElement('div');
+      errEl.className = 'v-modal__placeholder';
+      errEl.innerHTML = `<div><p style="color:rgba(251,248,240,0.7);font-size:16px;text-align:center;padding:24px">Video tidak dapat dimuat saat ini.<br/><a href="catering.html" style="color:var(--gold)">Pesan menu ini via catering →</a></p></div>`;
+      modalWrap.appendChild(errEl);
+    });
+    modalWrap.appendChild(video);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'v-modal__placeholder';
+    const name = lang === 'id' ? menu.name_id : (menu.name_en || menu.name_id);
+    ph.innerHTML = `
+      <div>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(200,162,39,0.5)" stroke-width="1.2" style="margin-bottom:16px"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="rgba(200,162,39,0.4)"/></svg>
+        <p style="margin:0;font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--cream-soft)">
+          Video <em style="color:var(--gold)">${name}</em><br/>segera hadir.
+        </p>
+      </div>`;
+    modalWrap.appendChild(ph);
+  }
+
+  modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('is-open');
+  document.body.style.overflow = '';
+  // Pause any playing video
+  const video = modalWrap.querySelector('video');
+  if (video) { video.pause(); video.currentTime = 0; }
+  setTimeout(() => { modalWrap.innerHTML = ''; }, 300);
+}
+
+modalClose.addEventListener('click', closeModal);
+modalBg.addEventListener('click', closeModal);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+});
+</script>
+</body>
+</html>
