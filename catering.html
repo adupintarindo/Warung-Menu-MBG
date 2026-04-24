@@ -98,37 +98,68 @@
 
 /* ── Field error ─────────────────────────────────── */
 .field__err { font-size: 11px; color: #E8441A; margin-top: 4px; display: none; }
-.field.has-err input, .field.has-err select, .field.has-err textarea { border-color: #E8441A; }
+.field.has-err input, .field.has-err select, .field.has-err textarea { border-color: #E8441A; box-shadow: 0 0 0 3px rgba(232,68,26,0.14); }
 .field.has-err .field__err { display: block; }
+
+/* Step nav buttons */
+.step-nav { display: flex; margin-top: 20px; gap: 12px; }
+.step-nav--end { justify-content: flex-end; }
+.step-nav--between { justify-content: space-between; }
+.step-nav--tight { margin-top: 8px; }
+.btn--submit { padding: 16px 32px !important; }
+.field__hint--center { text-align: center; margin-top: 12px; }
+
+/* Hero CTA row */
+.c-hero__cta { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+
+/* Success CTA row */
+.csuccess__cta { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+
+/* Section center + partner heads */
+.section-center { text-align: center; }
+.partners__head .eyebrow { color: var(--gold); }
+.partners__head .h-xl { color: var(--cream); }
+.partners__h2 { margin: 14px 0; }
+
+/* Breadcrumb dark */
+.breadcrumb--dark { background: var(--navy); border-bottom: 1px solid rgba(201,168,76,0.15); padding-top: 94px; padding-bottom: 12px; }
+.breadcrumb--dark .breadcrumb__row { display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.1em; }
+.breadcrumb--dark a { color: rgba(251,248,240,0.58); transition: color 0.15s; }
+.breadcrumb--dark a:hover { color: var(--gold-light); }
+.breadcrumb--dark .breadcrumb__sep { color: rgba(201,168,76,0.5); }
+.breadcrumb--dark .breadcrumb__current { color: var(--gold); }
+.c-hero__eyebrow { color: var(--gold); }
+.c-hero__lede { color: var(--cream-soft); max-width: 52ch; font-size: 17px; line-height: 1.6; }
 </style>
 </head>
 <body data-screen-label="Catering">
+<a href="#main" class="skip-link" data-id="Lompat ke konten utama" data-en="Skip to main content">Lompat ke konten utama</a>
 <div id="nav-slot"></div>
 
 <!-- Breadcrumb -->
-<div class="breadcrumb" style="background:var(--navy);border-bottom:1px solid rgba(201,168,76,.15)">
-  <div class="container">
-    <nav aria-label="Breadcrumb">
-      <a href="index.html" style="color:rgba(251,248,240,.55)" data-id="Beranda" data-en="Home">Beranda</a>
-      <span class="breadcrumb__sep" style="color:rgba(201,168,76,.5)">›</span>
-      <span class="breadcrumb__current" style="color:var(--gold)" data-id="Catering" data-en="Catering">Catering</span>
-    </nav>
+<nav class="breadcrumb breadcrumb--dark" aria-label="Breadcrumb">
+  <div class="container breadcrumb__row">
+    <a href="index.html" data-id="Beranda" data-en="Home">Beranda</a>
+    <span class="breadcrumb__sep" aria-hidden="true">›</span>
+    <span class="breadcrumb__current" aria-current="page" data-id="Catering" data-en="Catering">Catering</span>
   </div>
-</div>
+</nav>
+
+<main id="main" tabindex="-1">
 
 <header class="c-hero" data-screen-label="CateringHeader">
   <div class="container c-hero__inner">
     <div>
-      <div class="eyebrow" style="color:var(--gold)" data-id="Catering · Minimal 20 porsi" data-en="Catering · From 20 portions">Catering · Minimal 20 porsi</div>
+      <div class="eyebrow c-hero__eyebrow" data-id="Catering · Minimal 20 porsi" data-en="Catering · From 20 portions">Catering · Minimal 20 porsi</div>
       <h1><span data-id="Makan siang kantor," data-en="Office lunches,">Makan siang kantor,</span><br/><em data-id="diantar dalam omprengan." data-en="delivered in steel trays.">diantar dalam omprengan.</em></h1>
-      <p style="color:var(--cream-soft); max-width: 52ch; font-size: 17px; line-height: 1.6" data-id="Satu paket = lauk khas Nusantara + nasi + sayur + buah. Gizi sudah dihitung. Porsi 600–720 kkal. Kami antar di Jakarta dan sekitarnya." data-en="One package = Nusantara main + rice + vegetable + fruit. 600–720 kcal per portion. We deliver across Jakarta.">Satu paket = lauk khas Nusantara + nasi + sayur + buah. Gizi sudah dihitung. Porsi 600–720 kkal. Kami antar di Jakarta dan sekitarnya.</p>
-      <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
+      <p class="c-hero__lede" data-id="Satu paket = lauk khas Nusantara + nasi + sayur + buah. Gizi sudah dihitung. Porsi 600–720 kkal. Kami antar di Jakarta dan sekitarnya." data-en="One package = Nusantara main + rice + vegetable + fruit. 600–720 kcal per portion. We deliver across Jakarta.">Satu paket = lauk khas Nusantara + nasi + sayur + buah. Gizi sudah dihitung. Porsi 600–720 kkal. Kami antar di Jakarta dan sekitarnya.</p>
+      <div class="c-hero__cta">
         <a href="#order" class="btn btn--gold" data-id="Pesan Sekarang" data-en="Order Now">Pesan Sekarang</a>
-        <a href="#" class="btn btn--outline" data-id="Chat WhatsApp" data-en="Chat on WhatsApp">Chat WhatsApp</a>
+        <a href="#" id="cHeroWa" class="btn btn--outline" data-id="Chat WhatsApp" data-en="Chat on WhatsApp">Chat WhatsApp</a>
       </div>
     </div>
     <div class="c-hero__side">
-      <div class="eyebrow" style="color:var(--gold)" data-id="Yang Anda dapat" data-en="What you get">Yang Anda dapat</div>
+      <div class="eyebrow c-hero__eyebrow" data-id="Yang Anda dapat" data-en="What you get">Yang Anda dapat</div>
       <h3 data-id="Mulai Rp 29.000 / porsi" data-en="From IDR 29K per portion">Mulai Rp 29.000 / porsi</h3>
       <ul>
         <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l3 3 7-7"/></svg><span data-id="Nasi, lauk, sayur, buah dalam omprengan steel" data-en="Rice, main, veg, fruit in steel tray">Nasi, lauk, sayur, buah dalam omprengan steel</span></li>
@@ -142,9 +173,9 @@
 
 <section class="tiers">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="I · Paket" data-en="I · Packages">I · Paket</div>
-      <h2 class="h-xl" style="margin:14px 0" data-id="Tiga pilihan untuk setiap tim." data-en="Three tiers for every team.">Tiga pilihan untuk setiap tim.</h2>
+      <h2 class="h-xl partners__h2" data-id="Tiga pilihan untuk setiap tim." data-en="Three tiers for every team.">Tiga pilihan untuk setiap tim.</h2>
       <div class="gold-divider gold-divider--center"><span class="dot"></span></div>
     </div>
     <div class="tiers__grid">
@@ -330,19 +361,18 @@
           <div class="total"><span data-id="Estimasi total / hari" data-en="Est. total / day">Estimasi total / hari</span><span id="sTotal">Rp 1.950.000</span></div>
         </div>
       </div><!-- end cform__grid step3 -->
-      <div style="display:flex;justify-content:space-between;margin-top:8px">
+      <div class="step-nav step-nav--between step-nav--tight">
         <button type="button" class="btn btn--ghost" id="toStep2Back" data-id="← Kembali" data-en="← Back">← Kembali</button>
-        <button type="submit" class="btn btn--gold" style="padding:16px 32px" data-id="Kirim Permintaan" data-en="Submit Request">Kirim Permintaan</button>
+        <button type="submit" class="btn btn--gold btn--submit" data-id="Kirim Permintaan" data-en="Submit Request">Kirim Permintaan</button>
       </div>
-        <div class="field__hint" style="text-align:center" data-id="Tim kami kontak dalam 2 jam kerja. Tidak ada biaya hingga disetujui." data-en="We reach out within 2 hours. No fees until approved.">Tim kami kontak dalam 2 jam kerja. Tidak ada biaya hingga disetujui.</div>
-      </div>
+        <div class="field__hint field__hint--center" data-id="Tim kami kontak dalam 2 jam kerja. Tidak ada biaya hingga disetujui." data-en="We reach out within 2 hours. No fees until approved.">Tim kami kontak dalam 2 jam kerja. Tidak ada biaya hingga disetujui.</div>
       </div><!-- end step3 -->
-      <div class="csuccess" id="success">
+      <div class="csuccess" id="success" role="status" aria-live="polite">
         <div class="csuccess__icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l7 7 13-14"/></svg></div>
         <h3 data-id="Terima kasih." data-en="Thank you.">Terima kasih.</h3>
         <p data-id="Permintaan Anda sudah kami terima. Tim catering menghubungi lewat WhatsApp dalam 2 jam kerja." data-en="We received your request. Our team will reach out via WhatsApp within 2 working hours.">Permintaan Anda sudah kami terima. Tim catering menghubungi lewat WhatsApp dalam 2 jam kerja.</p>
         <div class="csuccess__ref" id="refNo">REF · WMBG-0000</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px">
+        <div class="csuccess__cta">
           <a href="index.html" class="btn btn--ghost btn--small" data-id="Kembali ke Beranda" data-en="Back to Home">Kembali ke Beranda</a>
           <a href="menu.html" class="btn btn--gold btn--small" data-id="Jelajah 80 Menu" data-en="Browse 80 Menus">Jelajah 80 Menu</a>
         </div>
@@ -354,9 +384,9 @@
 
 <section class="partners">
   <div class="container">
-    <div style="text-align:center">
-      <div class="eyebrow" style="color:var(--gold)" data-id="III · Dipercaya oleh" data-en="III · Trusted by">III · Dipercaya oleh</div>
-      <h2 class="h-xl" style="color:var(--cream);margin:14px 0" data-id="Tim-tim di Jakarta sudah makan bersama kami." data-en="Jakarta teams already eat with us.">Tim-tim di Jakarta sudah makan bersama kami.</h2>
+    <div class="section-center partners__head">
+      <div class="eyebrow" data-id="III · Dipercaya oleh" data-en="III · Trusted by">III · Dipercaya oleh</div>
+      <h2 class="h-xl partners__h2" data-id="Tim-tim di Jakarta sudah makan bersama kami." data-en="Jakarta teams already eat with us.">Tim-tim di Jakarta sudah makan bersama kami.</h2>
     </div>
     <div class="partners__grid">
       <div class="partner">Wanagara<br/>Studio</div>
@@ -369,6 +399,8 @@
   </div>
 </section>
 
+</main>
+
 <div id="footer-slot"></div>
 
 <script src="assets/shared.js"></script>
@@ -377,11 +409,12 @@ window.mountLayout();
 if (window.renderNavMega) window.renderNavMega();
 if (window.MBG && window.MBG.initCountUp) window.MBG.initCountUp();
 
-// Dynamic WA link
-if (window.MBG_WA) {
-  document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-    if (!a.href.includes('text=')) a.href = window.waLink(window.MBG_WA.cateringMsg);
-  });
+// Dynamic WA link (pre-fill catering message)
+if (window.MBG_WA && window.waLink) {
+  const cateringLink = window.waLink(window.MBG_WA.cateringMsg || 'Halo, saya ingin tanya catering Warung Menu MBG.');
+  document.querySelectorAll('a[href*="wa.me"]').forEach(a => a.href = cateringLink);
+  const hero = document.getElementById('cHeroWa');
+  if (hero) hero.href = cateringLink;
 }
 
 // Set minimum date to tomorrow
@@ -429,43 +462,82 @@ document.querySelectorAll('.cform__radio').forEach(r => {
 document.getElementById('portions').addEventListener('input', updateSummary);
 updateSummary();
 // Client-side validation
-function validateField(inputId, errId, checkFn) {
-  const input = document.getElementById(inputId);
-  const err = document.getElementById(errId);
-  if (!input || !err) return true;
-  const field = input.closest('.field');
-  const ok = checkFn(input.value.trim());
-  if (field) field.classList.toggle('has-err', !ok);
+const FIELDS = [
+  { id: 'portions',     errId: 'err-portions', check: v => (parseInt(v,10) || 0) >= 20,
+    labelId: 'Jumlah porsi minimal 20', labelEn: 'At least 20 portions required' },
+  { id: 'startDate',    errId: 'err-date',     check: v => v.length > 0,
+    labelId: 'Tanggal mulai', labelEn: 'Start date' },
+  { id: 'address',      errId: 'err-address',  check: v => v.length >= 8,
+    labelId: 'Alamat pengiriman', labelEn: 'Delivery address' },
+  { id: 'contactName',  errId: 'err-name',     check: v => v.length >= 2,
+    labelId: 'Nama Anda', labelEn: 'Your name' },
+  { id: 'contactWa',    errId: 'err-wa',       check: v => /^[\d\s+\-]{8,}$/.test(v),
+    labelId: 'Nomor WhatsApp', labelEn: 'WhatsApp number' },
+  { id: 'contactEmail', errId: 'err-email',    check: v => v === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+    labelId: 'Format email', labelEn: 'Email format', optional: true },
+];
+
+function validateField(field) {
+  const input = document.getElementById(field.id);
+  if (!input) return true;
+  const fieldEl = input.closest('.field');
+  const ok = field.check((input.value || '').trim());
+  if (fieldEl) fieldEl.classList.toggle('has-err', !ok);
+  input.setAttribute('aria-invalid', String(!ok));
   return ok;
 }
-function validateAll() {
-  const portVal = parseInt(document.getElementById('portions')?.value) || 0;
-  const emailVal = document.getElementById('contactEmail')?.value?.trim() || '';
-  const waVal = document.getElementById('contactWa')?.value?.trim() || '';
 
-  const r1 = validateField('portions', 'err-portions', () => portVal >= 20);
-  const r2 = validateField('startDate', 'err-date', v => v.length > 0);
-  const r3 = validateField('address', 'err-address', v => v.length >= 8);
-  const r4 = validateField('contactName', 'err-name', v => v.length >= 2);
-  const r5 = validateField('contactWa', 'err-wa', v => /^[\d\s+\-]{8,}$/.test(v));
-  const r6 = validateField('contactEmail', 'err-email', v => v === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
-  return r1 && r2 && r3 && r4 && r5 && r6;
+function renderErrorSummary(invalidFields) {
+  const summary = document.getElementById('formErrorSummary');
+  const list = document.getElementById('formErrorList');
+  if (!summary || !list) return;
+  if (!invalidFields.length) { summary.classList.remove('is-visible'); list.innerHTML = ''; return; }
+  const lang = (document.documentElement.lang === 'en' ? 'en' : 'id');
+  list.innerHTML = invalidFields.map(f => {
+    const label = lang === 'en' ? f.labelEn : f.labelId;
+    return `<li><a href="#${f.id}">${label}</a></li>`;
+  }).join('');
+  summary.classList.add('is-visible');
+  summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // Wire up jump-to-field
+  list.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) { el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    });
+  });
+}
+
+function validateStep(ids) {
+  const subset = FIELDS.filter(f => ids.includes(f.id));
+  const invalid = subset.filter(f => !validateField(f));
+  return invalid;
 }
 
 // Remove error on input
-['portions','startDate','address','contactName','contactWa','contactEmail'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('input', () => el.closest('.field')?.classList.remove('has-err'));
+FIELDS.forEach(f => {
+  const el = document.getElementById(f.id);
+  if (el) el.addEventListener('input', () => {
+    el.closest('.field')?.classList.remove('has-err');
+    el.setAttribute('aria-invalid', 'false');
+  });
 });
 
 document.getElementById('cform').addEventListener('submit', (e) => {
   e.preventDefault();
-  if (!validateAll()) {
+  const invalid = FIELDS.filter(f => !validateField(f));
+  if (invalid.length) {
+    renderErrorSummary(invalid);
     const firstErr = document.querySelector('.field.has-err input, .field.has-err select');
-    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (firstErr) firstErr.focus();
     return;
   }
-  document.getElementById('formFields').style.display = 'none';
+  renderErrorSummary([]);
+  // Hide all step panels + step bar, show success
+  document.querySelectorAll('.step-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('stepBar').style.display = 'none';
   const ref = 'WMBG-' + String(Math.floor(Math.random() * 10000)).padStart(4, '0');
   document.getElementById('refNo').textContent = 'REF · ' + ref;
   document.getElementById('success').classList.add('is-on');
@@ -513,22 +585,14 @@ const toStep1BackBtn = document.getElementById('toStep1Back');
 const toStep2BackBtn = document.getElementById('toStep2Back');
 
 if (toStep2Btn) toStep2Btn.addEventListener('click', () => {
-  // Validate step 1 fields
-  const p1 = validateField('portions', 'err-portions', v => portVal >= 20);
-  const p2 = validateField('startDate', 'err-date', v => v.length > 0);
-  const p3 = validateField('address', 'err-address', v => v.trim().length >= 8);
-  if (p1 && p2 && p3) goToStep(1);
-  else { document.querySelector('.field.has-err input, .field.has-err select')?.focus(); }
+  const invalid = validateStep(['portions','startDate','address']);
+  if (!invalid.length) { renderErrorSummary([]); goToStep(1); }
+  else { renderErrorSummary(invalid); }
 });
 if (toStep3Btn) toStep3Btn.addEventListener('click', () => {
-  const p4 = validateField('contactName', 'err-name', v => v.length >= 2);
-  const p5 = validateField('contactWa', 'err-wa', v => /^[\d\s+\-]{8,}$/.test(v));
-  const p6 = validateField('contactEmail', 'err-email', v => v === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
-  if (p4 && p5 && p6) {
-    // Populate confirmation summary extras
-    updateSummary();
-    goToStep(2);
-  }
+  const invalid = validateStep(['contactName','contactWa','contactEmail']);
+  if (!invalid.length) { renderErrorSummary([]); updateSummary(); goToStep(2); }
+  else { renderErrorSummary(invalid); }
 });
 if (toStep1BackBtn) toStep1BackBtn.addEventListener('click', () => goToStep(0));
 if (toStep2BackBtn) toStep2BackBtn.addEventListener('click', () => goToStep(1));

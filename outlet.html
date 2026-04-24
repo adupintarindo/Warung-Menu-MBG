@@ -54,6 +54,7 @@
 
 /* QRIS box */
 .qris-box { background:var(--bg-alt); border:1px solid var(--rule); padding:20px; display:grid; place-items:center; gap:12px; }
+.qris-box__bg { position:absolute; opacity:0.2; }
 .qris-box__placeholder { width:120px; height:120px; background:var(--surface); border:1px solid var(--rule); display:grid; place-items:center; position:relative; }
 .qris-box__placeholder::before, .qris-box__placeholder::after { content:''; position:absolute; background:var(--navy); }
 .qris-box__placeholder::before { inset:8px; border:3px solid var(--navy); }
@@ -71,29 +72,63 @@
 /* CTA */
 .o-cta { background:var(--bg-alt); padding:var(--section-py) 0; text-align:center; }
 .o-cta h2 { font-family:var(--font-serif); font-style:italic; font-size:clamp(40px,6vw,72px); font-weight:500; color:var(--ink); margin:14px 0 20px; }
+.o-cta__lede { max-width: 52ch; margin: 0 auto 32px; }
+.o-cta__buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* Hero eyebrow + lede */
+.o-hero__eyebrow { color: var(--gold); }
+.o-hero__lede { color: var(--cream-soft); max-width: 52ch; }
+
+/* Map section */
+.o-map__head { text-align: center; margin-bottom: 40px; }
+.o-map__head .eyebrow { color: var(--gold); }
+.o-map__head h2 { color: var(--cream); margin: 14px 0; }
+.o-map__label {
+  position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+  white-space: nowrap; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); font-family: var(--font-sans);
+  padding: 3px 8px; background: rgba(10,15,36,0.85); border: 1px solid var(--gold-hair); border-radius: 2px;
+}
+.o-map__caption { margin: 12px 0 0; color: var(--cream-soft); font-size: 14px; letter-spacing: 0.06em; }
+.o-map__link { margin-top: 20px; color: var(--cream-soft); border-color: var(--gold-hair); }
+.o-map__link:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.map-pin--s1 { top: 45%; left: 42%; }
+.map-pin--s2 { top: 38%; left: 58%; }
+
+/* Outlet status dot — stronger contrast (gold ring) */
+.oc__dot { box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.22); }
+.outlet-card--soon .oc__dot { box-shadow: 0 0 0 3px rgba(143, 160, 174, 0.22); }
+.oc__row time { font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+
+/* Section centre */
+.section-center { text-align: center; }
+.section-heading { margin: 14px 0; }
 </style>
 </head>
 <body data-screen-label="Outlet">
+<a href="#main" class="skip-link" data-id="Lompat ke konten utama" data-en="Skip to main content">Lompat ke konten utama</a>
 <div id="nav-slot"></div>
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <a href="index.html" data-id="Beranda" data-en="Home">Beranda</a>
-  <span class="breadcrumb__sep">›</span>
-  <span class="breadcrumb__current" data-id="Outlet" data-en="Outlets">Outlet</span>
+  <span class="breadcrumb__sep" aria-hidden="true">›</span>
+  <span class="breadcrumb__current" aria-current="page" data-id="Outlet" data-en="Outlets">Outlet</span>
 </nav>
+
+<main id="main" tabindex="-1">
 
 <header class="o-hero">
   <div class="container o-hero__inner">
-    <div class="eyebrow" style="color:var(--gold)" data-id="Temukan kami" data-en="Find us">Temukan kami</div>
+    <div class="eyebrow o-hero__eyebrow" data-id="Temukan kami" data-en="Find us">Temukan kami</div>
     <h1><em data-id="Dua outlet." data-en="Two outlets.">Dua outlet.</em><br/><span data-id="Satu misi." data-en="One mission.">Satu misi.</span></h1>
-    <p class="lede" style="color:var(--cream-soft);max-width:52ch" data-id="Warung Menu MBG hadir di Pasar Santa dan Lippo Mall Nusantara. Segera menyusul di Kemang dan Blok M." data-en="Warung Menu MBG is now at Pasar Santa and Lippo Mall Nusantara. Coming soon to Kemang and Blok M.">Warung Menu MBG hadir di Pasar Santa dan Lippo Mall Nusantara. Segera menyusul di Kemang dan Blok M.</p>
+    <p class="lede o-hero__lede" data-id="Warung Menu MBG hadir di Pasar Santa dan Lippo Mall Nusantara. Segera menyusul di Kemang dan Blok M." data-en="Warung Menu MBG is now at Pasar Santa and Lippo Mall Nusantara. Coming soon to Kemang and Blok M.">Warung Menu MBG hadir di Pasar Santa dan Lippo Mall Nusantara. Segera menyusul di Kemang dan Blok M.</p>
   </div>
 </header>
 
 <section class="o-section">
   <div class="container">
-    <div style="text-align:center" class="reveal">
+    <div class="section-center reveal">
       <div class="eyebrow" data-id="I · Lokasi" data-en="I · Locations">I · Lokasi</div>
-      <h2 class="h-xl" style="margin:14px 0" data-id="Outlet kami." data-en="Our outlets.">Outlet kami.</h2>
+      <h2 class="h-xl section-heading" data-id="Outlet kami." data-en="Our outlets.">Outlet kami.</h2>
     </div>
     <div class="o-grid" id="outlet-grid"></div>
   </div>
@@ -102,24 +137,24 @@
 <!-- Map section -->
 <section class="o-map">
   <div class="container">
-    <div style="text-align:center;margin-bottom:40px" class="reveal">
-      <div class="eyebrow" style="color:var(--gold)" data-id="II · Peta" data-en="II · Map">II · Peta</div>
-      <h2 class="h-xl" style="color:var(--cream);margin:14px 0" data-id="Semua outlet dalam satu peta." data-en="All outlets on one map.">Semua outlet dalam satu peta.</h2>
+    <div class="o-map__head reveal">
+      <div class="eyebrow" data-id="II · Peta" data-en="II · Map">II · Peta</div>
+      <h2 class="h-xl" data-id="Semua outlet dalam satu peta." data-en="All outlets on one map.">Semua outlet dalam satu peta.</h2>
     </div>
-    <!-- Replace with actual Google Maps embed when API key available -->
-    <div class="map-placeholder reveal">
-      <div class="map-pin" style="top:45%;left:42%">
-        <svg width="28" height="36" viewBox="0 0 24 30" fill="currentColor"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-        <div style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);font-family:var(--font-sans)">Pasar Santa</div>
+    <!-- TODO: Replace with live Google Maps embed when API key tersedia -->
+    <div class="map-placeholder reveal" role="img" aria-label="Ilustrasi posisi outlet Pasar Santa dan Lippo Mall Nusantara" data-id-label="Ilustrasi posisi outlet Pasar Santa dan Lippo Mall Nusantara" data-en-label="Illustration of outlet pins at Pasar Santa and Lippo Mall Nusantara">
+      <div class="map-pin map-pin--s1">
+        <svg width="28" height="36" viewBox="0 0 24 30" fill="currentColor" aria-hidden="true"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+        <div class="o-map__label">Pasar Santa</div>
       </div>
-      <div class="map-pin" style="top:38%;left:58%">
-        <svg width="28" height="36" viewBox="0 0 24 30" fill="currentColor"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-        <div style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);font-family:var(--font-sans)">Lippo Mall</div>
+      <div class="map-pin map-pin--s2">
+        <svg width="28" height="36" viewBox="0 0 24 30" fill="currentColor" aria-hidden="true"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+        <div class="o-map__label">Lippo Mall</div>
       </div>
       <div class="map-placeholder__inner">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        <p style="margin:12px 0 0;color:var(--cream-soft);font-size:14px;letter-spacing:0.06em" data-id="Peta interaktif tersedia setelah integrasi Google Maps API" data-en="Interactive map available after Google Maps API integration">Peta interaktif tersedia setelah integrasi Google Maps API</p>
-        <a href="https://maps.google.com/?q=Pasar+Santa+Jakarta" target="_blank" rel="noopener" class="btn btn--outline btn--small" style="margin-top:20px;color:var(--cream-soft);border-color:var(--gold-hair)" data-id="Buka di Google Maps" data-en="Open in Google Maps">Buka di Google Maps</a>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <p class="o-map__caption" data-id="Peta interaktif hadir setelah integrasi Google Maps API." data-en="Interactive map lands once the Google Maps API is wired in.">Peta interaktif hadir setelah integrasi Google Maps API.</p>
+        <a href="https://maps.google.com/?q=Pasar+Santa+Jakarta" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--small o-map__link" data-id="Buka di Google Maps" data-en="Open in Google Maps">Buka di Google Maps</a>
       </div>
     </div>
   </div>
@@ -129,13 +164,15 @@
   <div class="container">
     <div class="eyebrow" data-id="Mau pesan?" data-en="Want to order?">Mau pesan?</div>
     <h2 data-id="Antar ke mana saja." data-en="Deliver anywhere.">Antar ke mana saja.</h2>
-    <p class="lede" style="max-width:52ch;margin:0 auto 32px" data-id="Tidak bisa ke outlet? Pesan catering harian dan kami antarkan omprengan langsung ke pintu Anda." data-en="Can't visit? Order daily catering and we deliver your omprengan straight to your door.">Tidak bisa ke outlet? Pesan catering harian dan kami antarkan omprengan langsung ke pintu Anda.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <p class="lede o-cta__lede" data-id="Tidak bisa ke outlet? Pesan catering harian dan kami antarkan omprengan langsung ke pintu Anda." data-en="Can't visit? Order daily catering and we deliver your omprengan straight to your door.">Tidak bisa ke outlet? Pesan catering harian dan kami antarkan omprengan langsung ke pintu Anda.</p>
+    <div class="o-cta__buttons">
       <a href="catering.html" class="btn btn--gold" data-id="Pesan Catering" data-en="Order Catering">Pesan Catering</a>
       <a href="pesan.html" class="btn btn--outline" data-id="Cara Pesan Lainnya" data-en="More Ways to Order">Cara Pesan Lainnya</a>
     </div>
   </div>
 </section>
+
+</main>
 
 <div id="footer-slot"></div>
 <script src="assets/data.js"></script>
@@ -147,37 +184,39 @@ if (window.MBG && window.MBG.initCountUp) window.MBG.initCountUp();
 
 const grid = document.getElementById('outlet-grid');
 
-(window.MBG_OUTLETS || []).forEach((o, i) => {
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+
+(window.MBG_OUTLETS || []).forEach((o) => {
   const isSoon = o.status === 'soon';
-  const lang = () => window.getLang ? window.getLang() : 'id';
 
-  // WhatsApp link
-  const waMsg = `Halo Warung Menu MBG ${o.name}! Saya ingin info menu dan ketersediaan hari ini.`;
-  const waHref = `https://wa.me/6281234567890?text=${encodeURIComponent(waMsg)}`;
-
-  // Google Maps
+  // WhatsApp link — pre-fill per-outlet question, uses MBG_WA if available
+  const waBase = (window.MBG_WA && window.waLink)
+    ? window.waLink(`Halo Warung Menu MBG ${o.name}! Saya ingin info menu dan ketersediaan hari ini.`)
+    : `https://wa.me/6281234567890?text=${encodeURIComponent(`Halo Warung Menu MBG ${o.name}! Saya ingin info menu dan ketersediaan hari ini.`)}`;
   const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(o.address)}`;
 
-  const card = document.createElement('div');
+  const card = document.createElement('article');
   card.className = `outlet-card reveal${isSoon ? ' outlet-card--soon' : ''}`;
   card.innerHTML = `
     <div class="oc__status">
-      <span class="oc__dot"></span>
-      <span class="oc__status-label">${isSoon ? 'Segera' : 'Buka'}</span>
+      <span class="oc__dot" aria-hidden="true"></span>
+      <span class="oc__status-label" data-id="${isSoon ? 'Segera Buka' : 'Buka Hari Ini'}" data-en="${isSoon ? 'Coming Soon' : 'Open Today'}">${isSoon ? 'Segera Buka' : 'Buka Hari Ini'}</span>
     </div>
-    <h3 class="oc__name">${o.name}</h3>
-    <p class="oc__address">${o.address}</p>
+    <h3 class="oc__name">${esc(o.name)}</h3>
+    <p class="oc__address">${esc(o.address)}</p>
     <div class="oc__meta">
       <div class="oc__row">
-        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        <div class="oc__text"><strong data-id="Jam Operasional" data-en="Hours">Jam Operasional</strong>${o.hours}</div>
+        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div class="oc__text"><strong data-id="Jam Operasional" data-en="Hours">Jam Operasional</strong><time>${esc(o.hours)}</time></div>
       </div>
       <div class="oc__row">
-        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <div class="oc__text"><strong data-id="Area" data-en="Area">Area</strong>${o.area} · ${o.units}</div>
+        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="oc__text"><strong data-id="Area" data-en="Area">Area</strong>${esc(o.area)} · ${esc(o.units)}</div>
       </div>
       <div class="oc__row">
-        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <svg class="oc__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
         <div class="oc__text">
           <strong data-id="Pembayaran" data-en="Payment">Pembayaran</strong>
           <div class="oc__pay">
@@ -191,19 +230,22 @@ const grid = document.getElementById('outlet-grid');
     </div>
     ${!isSoon ? `
     <div class="qris-box">
-      <div class="qris-box__placeholder">
+      <div class="qris-box__placeholder" role="img" aria-label="Ilustrasi kode QRIS di kasir ${esc(o.name)}">
         <div class="qris-inner"></div>
-        <svg width="60" height="60" viewBox="0 0 60 60" style="opacity:0.2;position:absolute"><rect x="5" y="5" width="20" height="20" rx="2" fill="var(--navy)"/><rect x="35" y="5" width="20" height="20" rx="2" fill="var(--navy)"/><rect x="5" y="35" width="20" height="20" rx="2" fill="var(--navy)"/></svg>
+        <svg width="60" height="60" viewBox="0 0 60 60" class="qris-box__bg" aria-hidden="true"><rect x="5" y="5" width="20" height="20" rx="2" fill="var(--navy)"/><rect x="35" y="5" width="20" height="20" rx="2" fill="var(--navy)"/><rect x="5" y="35" width="20" height="20" rx="2" fill="var(--navy)"/></svg>
       </div>
-      <div class="qris-box__label" data-id="QRIS ${o.name}" data-en="QRIS ${o.name}">QRIS ${o.name}</div>
+      <div class="qris-box__label" data-id="QRIS ${esc(o.name)}" data-en="QRIS ${esc(o.name)}">QRIS ${esc(o.name)}</div>
     </div>` : ''}
     <div class="oc__actions">
-      ${!isSoon ? `<a href="${waHref}" target="_blank" rel="noopener" class="btn btn--wa btn--small" data-id="Chat WA" data-en="Chat WA">Chat WA</a>` : ''}
-      <a href="${mapsHref}" target="_blank" rel="noopener" class="btn btn--outline btn--small" data-id="Google Maps" data-en="Google Maps">Google Maps</a>
-      <a href="catering.html" class="btn btn--gold btn--small" data-id="Pesan" data-en="Order">Pesan</a>
+      ${!isSoon ? `<a href="${esc(waBase)}" target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--small" data-id="Chat WA" data-en="Chat WA">Chat WA</a>` : ''}
+      <a href="${esc(mapsHref)}" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--small" data-id="Google Maps" data-en="Google Maps">Google Maps</a>
+      <a href="catering.html" class="btn btn--gold btn--small" data-id="${isSoon ? 'Catering' : 'Pesan'}" data-en="${isSoon ? 'Catering' : 'Order'}">${isSoon ? 'Catering' : 'Pesan'}</a>
     </div>`;
   grid.appendChild(card);
 });
+
+// Re-apply language for newly injected nodes
+if (window.setLang) window.setLang(window.getLang ? window.getLang() : 'id');
 </script>
 <script>
   if ("serviceWorker" in navigator) {

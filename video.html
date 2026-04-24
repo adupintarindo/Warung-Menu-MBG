@@ -179,20 +179,22 @@
   z-index: 2;
 }
 
-/* Province tag overlay */
+/* Province tag overlay — stronger contrast */
 .vc__province-tag {
   position: absolute;
   bottom: 8px;
   left: 8px;
-  font-size: 9px;
-  letter-spacing: 0.18em;
+  font-size: 10px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  background: rgba(27, 39, 83, 0.85);
-  color: var(--gold);
-  padding: 3px 8px;
+  background: rgba(10, 15, 36, 0.92);
+  color: var(--gold-light);
+  padding: 4px 9px;
   z-index: 3;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  font-weight: 600;
 }
-.vc--has-video .vc__province-tag { background: rgba(27, 39, 83, 0.75); }
+.vc--has-video .vc__province-tag { background: rgba(10, 15, 36, 0.88); }
 
 .vc__body { padding: 16px 18px 20px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
 .vc__num {
@@ -232,6 +234,50 @@
   color: var(--navy);
   border-color: var(--gold);
 }
+
+/* vc as <button> — normalize */
+.vc {
+  border: none;
+  background: var(--surface);
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  padding: 0;
+  display: flex; flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  border: 1px solid var(--rule);
+}
+.vc:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(0,0,0,0.12); border-color: var(--gold); }
+.vc:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; box-shadow: 0 0 0 4px rgba(201,168,76,0.22); }
+.vc--soon { cursor: pointer; opacity: 0.92; }
+
+.v-hero__eyebrow { color: var(--gold); }
+
+/* Modal placeholder/error */
+.v-modal__video { width: 100%; height: 100%; display: block; }
+.v-modal__placeholder-inner {
+  text-align: center;
+  padding: 48px 32px;
+}
+.v-modal__placeholder-icon { margin-bottom: 16px; }
+.v-modal__placeholder-text {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--cream-soft);
+}
+.v-modal__placeholder-text em { color: var(--gold); }
+.v-modal__error-msg {
+  color: rgba(251,248,240,0.72);
+  font-size: 16px;
+  text-align: center;
+  padding: 24px;
+  margin: 0;
+}
+.v-modal__error-link { color: var(--gold); }
 
 /* ── No results ── */
 .v-empty {
@@ -354,12 +400,14 @@
 </style>
 </head>
 <body data-screen-label="Video">
+<a href="#main" class="skip-link" data-id="Lompat ke konten utama" data-en="Skip to main content">Lompat ke konten utama</a>
 <div id="nav-slot"></div>
+<main id="main" tabindex="-1">
 
 <!-- ───── Hero ───── -->
 <header class="v-hero">
   <div class="container v-hero__inner">
-    <div class="eyebrow" style="color:var(--gold)" data-id="Video card menu" data-en="Menu video cards">Video card menu</div>
+    <div class="eyebrow v-hero__eyebrow" data-id="Video card menu" data-en="Menu video cards">Video card menu</div>
     <h1><em data-id="Lihat" data-en="Watch">Lihat</em><br/><span data-id="cara masaknya." data-en="how it's made.">cara masaknya.</span></h1>
     <p class="lede" data-id="80 menu dari 34 provinsi — setiap resep divisualisasikan dalam video card singkat. Pelajari asal-usul, bahan, dan cara penyajian tiap menu Bhayangkara Nusantara." data-en="80 menus from 34 provinces — each recipe visualised in a short video card. Learn the origin, ingredients, and plating of every Bhayangkara Nusantara menu.">80 menu dari 34 provinsi — setiap resep divisualisasikan dalam video card singkat. Pelajari asal-usul, bahan, dan cara penyajian tiap menu Bhayangkara Nusantara.</p>
   </div>
@@ -424,6 +472,7 @@
   </div>
 </div>
 
+</main>
 <div id="footer-slot"></div>
 
 <script src="assets/data.js"></script>
@@ -467,13 +516,20 @@ const countEl = document.getElementById('v-count');
 
 const cards = [];
 
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+
 (window.MBG_MENUS || []).forEach(menu => {
   const noStr = String(menu.no).padStart(2, '0');
   const hasVideo = !!menu.video_file;
 
-  const card = document.createElement('div');
-  card.className = 'vc' + (hasVideo ? ' vc--has-video' : '');
-  card.role = 'listitem';
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.className = 'vc' + (hasVideo ? ' vc--has-video' : ' vc--soon');
+  card.setAttribute('role', 'listitem');
+  card.setAttribute('aria-label',
+    `${menu.name_id} · ${menu.province || menu.region || ''} · ${hasVideo ? 'Putar video' : 'Video segera'}`);
   card.dataset.no = noStr;
   card.dataset.nameId = (menu.name_id || '').toLowerCase();
   card.dataset.nameEn = (menu.name_en || '').toLowerCase();
@@ -483,18 +539,18 @@ const cards = [];
   card.dataset.hasVideo = hasVideo ? '1' : '0';
 
   const thumbContent = hasVideo
-    ? `<div class="vc__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M1 1l12 7-12 7V1z"/></svg></div>`
+    ? `<div class="vc__play" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M1 1l12 7-12 7V1z"/></svg></div>`
     : `<span class="vc__coming" data-id="Video segera" data-en="Video soon">Video segera</span>`;
 
   card.innerHTML = `
     <div class="vc__thumb">
       ${thumbContent}
-      <div class="vc__province-tag">${menu.province || ''}</div>
+      <div class="vc__province-tag">${esc(menu.province || '')}</div>
     </div>
     <div class="vc__body">
-      <div class="vc__num">${noStr}</div>
-      <h3 class="vc__name">${menu.name_id || ''}</h3>
-      <div class="vc__region">${menu.region || menu.province || ''}</div>
+      <div class="vc__num">${esc(noStr)}</div>
+      <h3 class="vc__name">${esc(menu.name_id || '')}</h3>
+      <div class="vc__region">${esc(menu.region || menu.province || '')}</div>
       <span class="vc__badge" data-id="${hasVideo ? 'Tersedia' : 'Segera'}" data-en="${hasVideo ? 'Available' : 'Soon'}">${hasVideo ? 'Tersedia' : 'Segera'}</span>
     </div>`;
 
@@ -562,8 +618,10 @@ const modalWrap   = document.getElementById('v-modal-video-wrap');
 const modalClose  = document.getElementById('v-modal-close');
 const modalBg     = document.getElementById('v-modal-backdrop');
 
+let lastFocus = null;
 function openModal(menu, noStr, hasVideo) {
   const lang = window.getLang ? window.getLang() : 'id';
+  lastFocus = document.activeElement;
   modalTitle.textContent = lang === 'id' ? menu.name_id : (menu.name_en || menu.name_id);
   modalSub.textContent   = (menu.region || menu.province || '');
   modalProv.textContent  = menu.province || '';
@@ -577,9 +635,7 @@ function openModal(menu, noStr, hasVideo) {
     video.controls = true;
     video.autoplay = true;
     video.playsInline = true;
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.style.display = 'block';
+    video.className = 'v-modal__video';
 
     const source = document.createElement('source');
     source.src  = VIDEO_DIR + videoFile;
@@ -588,8 +644,18 @@ function openModal(menu, noStr, hasVideo) {
     video.addEventListener('error', () => {
       video.style.display = 'none';
       const errEl = document.createElement('div');
-      errEl.className = 'v-modal__placeholder';
-      errEl.innerHTML = `<div><p style="color:rgba(251,248,240,0.7);font-size:16px;text-align:center;padding:24px">Video tidak dapat dimuat saat ini.<br/><a href="catering.html" style="color:var(--gold)">Pesan menu ini via catering →</a></p></div>`;
+      errEl.className = 'v-modal__placeholder v-modal__error';
+      const p = document.createElement('p');
+      p.className = 'v-modal__error-msg';
+      p.textContent = 'Video tidak dapat dimuat saat ini.';
+      const br = document.createElement('br');
+      const a = document.createElement('a');
+      a.href = 'catering.html';
+      a.className = 'v-modal__error-link';
+      a.textContent = 'Pesan menu ini via catering →';
+      p.appendChild(br);
+      p.appendChild(a);
+      errEl.appendChild(p);
       modalWrap.appendChild(errEl);
     });
     modalWrap.appendChild(video);
@@ -597,33 +663,46 @@ function openModal(menu, noStr, hasVideo) {
     const ph = document.createElement('div');
     ph.className = 'v-modal__placeholder';
     const name = lang === 'id' ? menu.name_id : (menu.name_en || menu.name_id);
-    ph.innerHTML = `
-      <div>
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(200,162,39,0.5)" stroke-width="1.2" style="margin-bottom:16px"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="rgba(200,162,39,0.4)"/></svg>
-        <p style="margin:0;font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--cream-soft)">
-          Video <em style="color:var(--gold)">${name}</em><br/>segera hadir.
-        </p>
-      </div>`;
+    const inner = document.createElement('div');
+    inner.className = 'v-modal__placeholder-inner';
+    inner.innerHTML = `
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(200,162,39,0.5)" stroke-width="1.2" class="v-modal__placeholder-icon" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="rgba(200,162,39,0.4)"/></svg>
+        <p class="v-modal__placeholder-text">Video <em>${esc(name)}</em><br/>segera hadir.</p>`;
+    ph.appendChild(inner);
     modalWrap.appendChild(ph);
   }
 
   modal.classList.add('is-open');
   document.body.style.overflow = 'hidden';
+  setTimeout(() => modalClose.focus({ preventScroll: true }), 60);
 }
 
 function closeModal() {
+  if (!modal.classList.contains('is-open')) return;
   modal.classList.remove('is-open');
   document.body.style.overflow = '';
-  // Pause any playing video
   const video = modalWrap.querySelector('video');
   if (video) { video.pause(); video.currentTime = 0; }
   setTimeout(() => { modalWrap.innerHTML = ''; }, 300);
+  if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
 }
 
 modalClose.addEventListener('click', closeModal);
 modalBg.addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  if (e.key !== 'Escape') return;
+  if (modal.classList.contains('is-open')) { e.stopPropagation(); closeModal(); }
+});
+// Focus trap inside modal
+modal.addEventListener('keydown', (e) => {
+  if (e.key !== 'Tab' || !modal.classList.contains('is-open')) return;
+  const focusable = modal.querySelectorAll('a[href], button:not([disabled]), video, [tabindex]:not([tabindex="-1"])');
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 });
 </script>
 <script>

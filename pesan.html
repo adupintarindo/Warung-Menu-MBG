@@ -146,9 +146,36 @@
       display: flex; flex-direction: column; align-items: center; gap: 12px;
       text-align: center;
     }
-    .pay-chip__icon { font-size: 28px; }
+    .pay-chip__icon {
+      width: 40px; height: 40px;
+      display: grid; place-items: center;
+      color: var(--gold-light);
+      background: rgba(201,168,76,0.12);
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.35);
+    }
+    .pay-chip__icon svg { width: 22px; height: 22px; }
+    .pay-chip--qris .pay-chip__icon   { color: #FFFFFF; background: rgba(255,255,255,0.08); }
+    .pay-chip--gopay .pay-chip__icon  { color: #25D366; background: rgba(37,211,102,0.15); border-color: rgba(37,211,102,0.35); }
+    .pay-chip--ovo .pay-chip__icon    { color: #A855F7; background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.35); }
+    .pay-chip--dana .pay-chip__icon   { color: #3FA9F5; background: rgba(63,169,245,0.15); border-color: rgba(63,169,245,0.35); }
+    .pay-chip--shopee .pay-chip__icon { color: #F04A1E; background: rgba(240,74,30,0.15); border-color: rgba(240,74,30,0.35); }
+    .pay-chip--cash .pay-chip__icon   { color: #E8D38A; background: rgba(232,211,138,0.15); }
     .pay-chip__name { font-family: var(--font-sans); font-size: .8rem; font-weight: 700; letter-spacing: .08em; color: var(--gold); }
-    .pay-chip__desc { font-size: .75rem; color: rgba(251,248,240,.55); line-height: 1.5; }
+    .pay-chip__desc { font-size: .75rem; color: rgba(251,248,240,.7); line-height: 1.5; }
+
+    /* Coming-soon span under channel CTA */
+    .channel-card__soon {
+      font-size: .75rem;
+      color: var(--text-muted, rgba(0,0,0,0.5));
+      text-align: center;
+      letter-spacing: 0.06em;
+    }
+    [data-theme="dark"] .channel-card__soon { color: rgba(251,248,240,0.5); }
+
+    /* Bottom CTA row full-menu link */
+    .pesan-cta .btn--outline--invert { border-color: rgba(251,248,240,.3); color: var(--cream); }
+    .pesan-cta .btn--outline--invert:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 
     /* ── QRIS section ── */
     .qris-section { padding: 72px 0; background: var(--cream); }
@@ -222,18 +249,19 @@
   </style>
 </head>
 <body>
+  <a href="#main" class="skip-link" data-id="Lompat ke konten utama" data-en="Skip to main content">Lompat ke konten utama</a>
   <div id="nav-slot"></div>
 
   <!-- Breadcrumb -->
-  <div class="breadcrumb" style="background:var(--navy);border-bottom:1px solid rgba(201,168,76,.15)">
-    <div class="container">
-      <nav aria-label="Breadcrumb">
-        <a href="index.html" style="color:rgba(251,248,240,.55)" data-id="Beranda" data-en="Home">Beranda</a>
-        <span class="breadcrumb__sep" style="color:rgba(201,168,76,.5)">›</span>
-        <span class="breadcrumb__current" style="color:var(--gold)" data-id="Cara Pesan" data-en="How to Order">Cara Pesan</span>
-      </nav>
+  <nav class="breadcrumb breadcrumb--dark" aria-label="Breadcrumb">
+    <div class="container breadcrumb__row">
+      <a href="index.html" data-id="Beranda" data-en="Home">Beranda</a>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span class="breadcrumb__current" aria-current="page" data-id="Cara Pesan" data-en="How to Order">Cara Pesan</span>
     </div>
-  </div>
+  </nav>
+
+  <main id="main" tabindex="-1">
 
   <!-- Hero -->
   <section class="pesan-hero">
@@ -323,10 +351,11 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>
               Buka GoFood
             </a>
-            <span style="font-size:.75rem;color:var(--text-muted);text-align:center" data-id="Segera tersedia di GoFood" data-en="Coming soon on GoFood">Segera tersedia di GoFood</span>
+            <span class="channel-card__soon" data-id="Segera tersedia di GoFood" data-en="Coming soon on GoFood">Segera tersedia di GoFood</span>
           </div>
         </div>
 
+        <!-- GrabFood note: the span right after GrabFood CTA will also be swapped below -->
         <!-- GrabFood -->
         <div class="channel-card ch--grab reveal">
           <div class="channel-card__icon">
@@ -411,33 +440,59 @@
       <h2 class="reveal" data-id="Metode Pembayaran" data-en="Payment Methods">Metode Pembayaran</h2>
       <p class="reveal" data-id="Kami menerima semua metode utama — cashless maupun tunai." data-en="We accept all major payment methods — cashless and cash.">Kami menerima semua metode utama — cashless maupun tunai.</p>
       <div class="payment__grid reveal">
-        <div class="pay-chip">
-          <div class="pay-chip__icon">📱</div>
+        <div class="pay-chip pay-chip--qris">
+          <div class="pay-chip__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="5.5" y="5.5" width="2" height="2" fill="currentColor" stroke="none"/>
+              <rect x="16.5" y="5.5" width="2" height="2" fill="currentColor" stroke="none"/>
+              <rect x="5.5" y="16.5" width="2" height="2" fill="currentColor" stroke="none"/>
+              <path d="M14 14h2M18 14h2M14 18h2M18 18h2M16 16h2"/>
+            </svg>
+          </div>
           <div class="pay-chip__name">QRIS</div>
           <div class="pay-chip__desc" data-id="Scan satu kode untuk semua dompet digital" data-en="Scan one code for all e-wallets">Scan satu kode untuk semua dompet digital</div>
         </div>
-        <div class="pay-chip">
-          <div class="pay-chip__icon">🟢</div>
+        <div class="pay-chip pay-chip--gopay">
+          <div class="pay-chip__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>
+          </div>
           <div class="pay-chip__name">GoPay</div>
           <div class="pay-chip__desc" data-id="Langsung via aplikasi Gojek" data-en="Direct via Gojek app">Langsung via aplikasi Gojek</div>
         </div>
-        <div class="pay-chip">
-          <div class="pay-chip__icon">🟣</div>
+        <div class="pay-chip pay-chip--ovo">
+          <div class="pay-chip__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="8" ry="5"/></svg>
+          </div>
           <div class="pay-chip__name">OVO</div>
           <div class="pay-chip__desc" data-id="Langsung via aplikasi OVO atau Grab" data-en="Via OVO or Grab app">Langsung via aplikasi OVO atau Grab</div>
         </div>
-        <div class="pay-chip">
-          <div class="pay-chip__icon">🔵</div>
+        <div class="pay-chip pay-chip--dana">
+          <div class="pay-chip__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 12c0-4 4-8 8-8s8 4 8 8-4 8-8 8-8-4-8-8z" opacity=".2"/><path d="M4 12c0-4 4-8 8-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
           <div class="pay-chip__name">Dana</div>
           <div class="pay-chip__desc" data-id="Scan QRIS via aplikasi Dana" data-en="Scan QRIS via Dana app">Scan QRIS via aplikasi Dana</div>
         </div>
-        <div class="pay-chip">
-          <div class="pay-chip__icon">💳</div>
+        <div class="pay-chip pay-chip--shopee">
+          <div class="pay-chip__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+            </svg>
+          </div>
           <div class="pay-chip__name">ShopeePay</div>
           <div class="pay-chip__desc" data-id="Scan QRIS via aplikasi Shopee" data-en="Scan QRIS via Shopee app">Scan QRIS via aplikasi Shopee</div>
         </div>
-        <div class="pay-chip">
-          <div class="pay-chip__icon">💵</div>
+        <div class="pay-chip pay-chip--cash">
+          <div class="pay-chip__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="12" rx="2"/>
+              <circle cx="12" cy="13" r="2.5"/>
+              <path d="M5 10h.01M19 16h.01"/>
+            </svg>
+          </div>
           <div class="pay-chip__name" data-id="Tunai" data-en="Cash">Tunai</div>
           <div class="pay-chip__desc" data-id="Diterima di semua outlet" data-en="Accepted at all outlets">Diterima di semua outlet</div>
         </div>
@@ -457,8 +512,8 @@
           <a href="outlet.html" class="btn btn--gold" data-id="Lihat Lokasi Outlet" data-en="View Outlet Locations">Lihat Lokasi Outlet</a>
         </div>
         <div>
-          <div class="qris-placeholder">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <div class="qris-placeholder" role="img" aria-label="Ilustrasi kode QRIS akan tersedia di kasir outlet" data-id-label="Ilustrasi kode QRIS akan tersedia di kasir outlet" data-en-label="Illustration: QRIS code available at outlet cashier">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
               <rect x="3" y="3" width="7" height="7" rx="1"/>
               <rect x="14" y="3" width="7" height="7" rx="1"/>
               <rect x="3" y="14" width="7" height="7" rx="1"/>
@@ -530,10 +585,12 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>
           Buka GrabFood
         </a>
-        <a href="menu.html" class="btn btn--outline" style="border-color:rgba(251,248,240,.3);color:var(--cream)" data-id="Lihat Menu Lengkap" data-en="View Full Menu">Lihat Menu Lengkap</a>
+        <a href="menu.html" class="btn btn--outline btn--outline--invert" data-id="Lihat Menu Lengkap" data-en="View Full Menu">Lihat Menu Lengkap</a>
       </div>
     </div>
   </section>
+
+  </main>
 
   <div id="footer-slot"></div>
 
